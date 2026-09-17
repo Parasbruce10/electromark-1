@@ -121,7 +121,7 @@ const handlePasswordUpdate = async (e) => {
   
   // Backend API Call
   try {
-    const res = await fetch('http://127.0.0.1:5000/api/update-password', {
+    const res = await fetch('https://electro-mark.onrender.com/api/update-password', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ newPassword: passForm.newPass })
@@ -170,8 +170,8 @@ const handlePasswordUpdate = async (e) => {
   const handleProductSubmit = async (e) => {
     e.preventDefault();
     const url = editingId 
-      ? `http://127.0.0.1:5000/api/products/${editingId}`
-      : 'http://127.0.0.1:5000/api/products';
+      ? `https://electro-mark.onrender.com/api/products/${editingId}`
+      : 'https://electro-mark.onrender.com/api/products'
     
     const method = editingId ? 'PUT' : 'POST';
 
@@ -194,7 +194,7 @@ const handlePasswordUpdate = async (e) => {
 });
       setEditingId(null);
       // Fetch fresh products list
-      const updated = await fetch('http://127.0.0.1:5000/api/products').then(r => r.json());
+      const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
       setProducts(updated);
       // setCurrentPage('products'); // Redirect to products page beautifully
       setCurrentPage('dashboard');
@@ -205,13 +205,13 @@ setAdminTab('dashboard');
   // Fetch Products on Initial Load
   React.useEffect(() => {
   // Fetch Products
-  fetch('http://127.0.0.1:5000/api/products')
+  fetch('https://electro-mark.onrender.com/api/get-password')
     .then(res => res.json())
     .then(data => setProducts(data))
     .catch(err => console.error(err));
 
   // Fetch Latest Password from Backend
-  fetch('http://127.0.0.1:5000/api/get-password')
+  fetch('https://electro-mark.onrender.com/api/get-password')
     .then(res => res.json())
     .then(data => {
       if (data.password) setAdminPassword(data.password);
@@ -4117,10 +4117,10 @@ setAdminTab('dashboard');
         <button 
           onClick={async () => {
             if(window.confirm("Are you sure you want to delete this comment?")) {
-              const res = await fetch(`http://127.0.0.1:5000/api/products/${product._id}/reviews/${review.id}`, { method: 'DELETE' });
+              const res = await fetch(`https://electro-mark.onrender.com/api/products/${product._id}/reviews/${review.id}`, { method: 'DELETE' });
               if (res.ok) {
                 // Fetch fresh products list after deleting review
-                const updated = await fetch('http://127.0.0.1:5000/api/products').then(r => r.json());
+                const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
                 setProducts(updated);
               }
             }
