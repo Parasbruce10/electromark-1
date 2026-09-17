@@ -207,7 +207,7 @@ setAdminTab('dashboard');
   // Fetch Products
   fetch('https://electro-mark.onrender.com/api/get-password')
     .then(res => res.json())
-    .then(data => setProducts(data))
+    .then(data => setProducts(Array.isArray(data) ? data : []))
     .catch(err => console.error(err));
 
   // Fetch Latest Password from Backend
@@ -5445,7 +5445,7 @@ const productReviews = selectedProduct.reviews || [];
 
     if (res.ok) {
       // 2. Database update hone ke baad fresh products fetch karo
-      const updatedProducts = await fetch('http://127.0.0.1:5000/api/products').then(r => r.json());
+      const updatedProducts = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
       setProducts(updatedProducts);
       
       // 3. Current khule hue product ko bhi update karo
