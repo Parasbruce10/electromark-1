@@ -89,9 +89,44 @@
   <!-- React 18 Production Build -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Main Application Script -->
-  <script type="text/babel" src="app.js"></script>
+    <!-- Babel Standalone — app.js JSX syntax mein hai, isko transform karne ke liye zaroori hai -->
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js" crossorigin></script>
+  <script>
+    Babel.registerPreset('react-classic', {
+      presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]]
+    });
+  </script>
+  <script type="text/babel" data-presets="react-classic" src="app.js"></script>
+  <!-- PWA Install Button -->
+  <button id="pwa-install-btn" style="
+    display:none; position:fixed; bottom:20px; right:20px; z-index:9999;
+    background:#4F46E5; color:#fff; border:none; padding:12px 20px;
+    border-radius:30px; font-size:14px; font-weight:600; cursor:pointer;
+    box-shadow:0 4px 14px rgba(79,70,229,0.4); font-family:sans-serif;">
+    📲 Install App
+  </button>
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      installBtn.style.display = 'none';
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBtn.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
