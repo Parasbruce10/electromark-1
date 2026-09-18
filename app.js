@@ -141,9 +141,10 @@ const handlePasswordUpdate = async (e) => {
 };
 
   // Delete Product
+    // Delete Product
   const handleDeleteProduct = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
-      const res = await fetch(`http://127.0.0.1:5000/api/products/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://electro-mark.onrender.com/api/products/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setProducts(products.filter(p => p._id !== id));
       }
