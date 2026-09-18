@@ -1,6 +1,17 @@
 const App = () => {
   const [year] = React.useState(2023);
   const [currentPage, setCurrentPage] = React.useState('home');
+    const pageRoutes = {
+    'home': '/', 'products': '/products', 'product-detail': '/product',
+    'cart': '/cart', 'checkout': '/checkout', 'login': '/login',
+    'dashboard': '/admin', 'about': '/about', 'terms': '/terms',
+    'privacy': '/privacy', 'thank-you': '/thank-you'
+  };
+
+  const navigateTo = (pageKey, extraPath = '') => {
+    setCurrentPage(pageKey);
+    window.history.pushState({ page: pageKey }, '', (pageRoutes[pageKey] || '/') + extraPath);
+  };
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -15,6 +26,19 @@ const App = () => {
   const [isAdmin, setIsAdmin] = React.useState(false);
   // --- CART STATES ---
   const [cartItems, setCartItems] = React.useState([]);
+    React.useEffect(() => {
+    const path = window.location.pathname;
+    const matched = Object.keys(pageRoutes).find(k => path.startsWith(pageRoutes[k]) && pageRoutes[k] !== '/');
+    setCurrentPage(matched || (path === '/' ? 'home' : 'home'));
+
+    const handlePopState = () => {
+      const p = window.location.pathname;
+      const key = Object.keys(pageRoutes).find(k => pageRoutes[k] !== '/' && p.startsWith(pageRoutes[k]));
+      setCurrentPage(key || 'home');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
   const [selectedCartIds, setSelectedCartIds] = React.useState([]);
 
   // Add to Cart Handler
@@ -495,7 +519,7 @@ const App = () => {
 
           {/* 1. Left - Premium Logo Section */}
           <div className="brand-section">
-            <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} className="brand-logo">
+            <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} className="brand-logo">
               <svg className="brand-icon" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
               </svg>
@@ -507,7 +531,7 @@ const App = () => {
           <div className="center-nav">
             <a
               href="#home"
-              onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}
+              onClick={(e) => { e.preventDefault(); navigateTo('home'); }}
               className={`nav-link ${currentPage === 'home' ? 'active' : ''}`}
             >
               Home
@@ -3333,7 +3357,7 @@ const App = () => {
                                 {/* Image Box */}
                                 <div
                                   className="showcase-image-box"
-                                  onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                  onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); navigateTo('product-detail', '/' + product._id); }}
                                 >
                                   <img
                                     src={(product.images && product.images[0]) || 'https://via.placeholder.com/400'}
@@ -3347,7 +3371,7 @@ const App = () => {
                                   {/* Product Name */}
                                   <h3
                                     className="showcase-product-name"
-                                    onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                    onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); navigateTo('product-detail', '/' + product._id); }}
                                   >
                                     {product.name}
                                   </h3>
@@ -3399,7 +3423,7 @@ const App = () => {
                                     </button>
                                     <button
                                       className="showcase-btn-details"
-                                      onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                      onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); navigateTo('product-detail', '/' + product._id); }}
                                     >
                                       Details →
                                     </button>
@@ -8736,7 +8760,7 @@ const App = () => {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
                   Navigation
                 </h3>
-                <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Home</a>
+                <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Home</a>
                 <a href="#products" onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Products</a>
                 <a href="#contact" onClick={(e) => { e.preventDefault(); alert('Contact: support@electromark.com'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Contact Us</a>
               </div>
