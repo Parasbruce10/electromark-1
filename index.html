@@ -6,35 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Google Search Console & SEO Meta Tags -->
-  <title>Electro MARK | Premium Electronics & Tech Store</title>
-  <meta name="description" content="Discover flagship smartphones, high-performance laptops, studio audio equipment, and smart wearables at Electro MARK. 100% genuine products with official warranty and fast Cash on Delivery." />
-  <meta name="keywords" content="Electro Mark, Electronics Store, Smartphones, Laptops, Headphones, Smartwatches, Buy Tech Online Pakistan" />
-  <meta name="robots" content="index, follow" />
+  <!-- Primary SEO Meta Tags -->
+  <title>Electro MARK | Buy Smartphones, Laptops & Audio Gear Online in Pakistan</title>
+  <meta name="description" content="Shop flagship smartphones, high-performance laptops, studio audio equipment & smart wearables at Electro MARK. 100% genuine products, official warranty & fast Cash on Delivery across Pakistan." />
+  <meta name="keywords" content="Electro Mark, electromark.bookapexcode.store, electronics store Pakistan, buy smartphones online, laptops Pakistan, headphones, smartwatches, cash on delivery electronics" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="googlebot" content="index, follow" />
   <meta name="author" content="Apex Code" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="language" content="English" />
+  <meta name="geo.region" content="PK" />
+  <meta name="geo.placename" content="Pakistan" />
 
-  <!-- Canonical URL (Google indexing ke liye zaroori) -->
-  <link rel="canonical" href="https://your-vercel-domain.vercel.app/" />
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://electromark.bookapexcode.store/" />
 
   <!-- Open Graph / Facebook Meta Tags -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://your-vercel-domain.vercel.app/" />
+  <meta property="og:site_name" content="Electro MARK" />
+  <meta property="og:url" content="https://electromark.bookapexcode.store/" />
   <meta property="og:title" content="Electro MARK | Premium Electronics & Tech Store" />
-  <meta property="og:description" content="Shop 100% genuine tech gadgets, laptops, smartphones and accessories with Cash on Delivery." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" />
+  <meta property="og:description" content="Shop 100% genuine tech gadgets, laptops, smartphones and accessories with Cash on Delivery across Pakistan." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:locale" content="en_PK" />
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Electro MARK | Premium Electronics & Tech Store" />
   <meta name="twitter:description" content="Shop 100% genuine tech gadgets, laptops, smartphones and accessories with Cash on Delivery." />
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>" />
-
-  <!-- Preconnect External CDNs for Faster Load Speed -->
+<!-- Favicon (Inline SVG Shopping Cart) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>" />
+  <!-- Preconnect External CDNs -->
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link rel="preconnect" href="https://unpkg.com" />
+
+  <!-- Structured Data (JSON-LD) for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "name": "Electro MARK",
+    "url": "https://electromark.bookapexcode.store/",
+    "description": "Premium electronics store in Pakistan offering smartphones, laptops, audio equipment and smart wearables with Cash on Delivery.",
+    "areaServed": "PK",
+    "priceRange": "$$",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop"
+  }
+  </script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
@@ -43,7 +63,7 @@
   <!-- Root Container for React Application -->
   <div id="root"></div>
 
-  <!-- React 18 Production Build (Fast Loading) -->
+  <!-- React 18 Production Build -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
