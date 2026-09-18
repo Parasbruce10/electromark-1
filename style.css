@@ -5831,3 +5831,62 @@ html, body {
     flex-direction: column;
   }
 }
+/* Premium Glassmorphism Button Styles */
+.premium-install-btn {
+  display: none; /* JS ke zariye show/hide hoga */
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  background: rgba(79, 70, 229, 0.85); /* Electro Mark brand color with transparency */
+  backdrop-filter: blur(12px); /* Glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  /* Soft glow & inner highlight */
+  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* Hover Animation */
+.premium-install-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(79, 70, 229, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: rgba(79, 70, 229, 0.95);
+}
+
+/* Moving Shine Animation */
+.premium-install-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Icon Styling */
+.premium-install-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+}
