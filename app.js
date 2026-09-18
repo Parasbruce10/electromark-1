@@ -203,9 +203,10 @@ setAdminTab('dashboard');
   };
 
   // Fetch Products on Initial Load
+    // Fetch Products on Initial Load
   React.useEffect(() => {
   // Fetch Products
-  fetch('https://electro-mark.onrender.com/api/get-password')
+  fetch('https://electro-mark.onrender.com/api/products')
     .then(res => res.json())
     .then(data => setProducts(Array.isArray(data) ? data : []))
     .catch(err => console.error(err));
