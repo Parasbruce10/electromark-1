@@ -5276,3 +5276,558 @@ html, body {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
 }
+/* ===================== SHOWCASE SECTION BASE ===================== */
+.showcase-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.showcase-heading {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.showcase-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #c084fc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.showcase-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, #ffffff 30%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.showcase-description {
+  color: #94a3b8;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===================== CATEGORY BLOCK ===================== */
+.showcase-category-block {
+  margin-bottom: 3.5rem;
+}
+
+.showcase-category-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.showcase-category-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.showcase-category-tag {
+  font-size: 0.75rem;
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+/* ===================== PRODUCTS GRID ===================== */
+.showcase-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ===================== PRODUCT CARD ===================== */
+.showcase-product-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.showcase-product-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.showcase-image-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: pointer;
+  background: #0b0f19;
+}
+
+.showcase-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.showcase-product-card:hover .showcase-image-box img {
+  transform: scale(1.05);
+}
+
+.showcase-product-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.showcase-product-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+  cursor: pointer;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.showcase-ratings {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.showcase-stars {
+  color: #fbbf24;
+  letter-spacing: -0.05em;
+}
+
+.showcase-rating-number {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.showcase-reviews-count {
+  color: #64748b;
+}
+
+.showcase-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.showcase-currency {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.showcase-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #a855f7;
+}
+
+.showcase-old-price {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-decoration: line-through;
+}
+
+.showcase-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.showcase-btn-cart,
+.showcase-btn-details {
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.showcase-btn-cart {
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #fff;
+}
+
+.showcase-btn-cart:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.showcase-btn-details {
+  background: transparent;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.showcase-btn-details:hover {
+  background: rgba(168, 85, 247, 0.1);
+}
+
+/* ===================== VIEW ALL BUTTON ===================== */
+.showcase-view-all-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.showcase-view-all-btn {
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+
+.showcase-view-all-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
+}
+
+.showcase-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+/* ===================== MOBILE RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .showcase-section {
+    padding: 3rem 1rem;
+  }
+
+  .showcase-heading {
+    margin-bottom: 2rem;
+  }
+
+  .showcase-title {
+    font-size: 1.8rem;
+  }
+
+  .showcase-description {
+    font-size: 0.9rem;
+  }
+
+  .showcase-category-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .showcase-category-title {
+    font-size: 1.2rem;
+  }
+
+  .showcase-category-tag {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* 🔥 YAHAN HAI ASLI FIX — 2 PRODUCTS EK LINE ME */
+  .showcase-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .showcase-product-content {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .showcase-product-name {
+    font-size: 0.8rem;
+  }
+
+  .showcase-ratings {
+    font-size: 0.7rem;
+    gap: 0.25rem;
+  }
+
+  .showcase-price {
+    font-size: 0.95rem;
+  }
+
+  .showcase-currency {
+    font-size: 0.6rem;
+  }
+
+  .showcase-old-price {
+    font-size: 0.7rem;
+  }
+
+  .showcase-actions {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .showcase-btn-cart,
+  .showcase-btn-details {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .showcase-view-all-btn {
+    font-size: 0.85rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-title {
+    font-size: 1.5rem;
+  }
+
+  .showcase-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .showcase-product-content {
+    padding: 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .showcase-product-name {
+    font-size: 0.75rem;
+  }
+
+  .showcase-ratings {
+    font-size: 0.65rem;
+  }
+
+  .showcase-price {
+    font-size: 0.9rem;
+  }
+
+  .showcase-btn-cart,
+  .showcase-btn-details {
+    font-size: 0.65rem;
+    padding: 0.45rem 0.3rem;
+  }
+
+  .showcase-category-title {
+    font-size: 1.05rem;
+  }
+
+  .showcase-category-heading {
+    margin-bottom: 1rem;
+  }
+}
+/* ===================== FEATURES WRAPPER ===================== */
+.features-wrapper {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* ===================== FEATURE ROW BASE ===================== */
+.feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rem;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 32px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.feature-row-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+/* ===================== IMAGE BOX ===================== */
+.feature-image-box {
+  flex: 1 1 450px;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===================== TEXT BOX ===================== */
+.feature-text-box {
+  flex: 1 1 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.feature-tag {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+.feature-heading {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.feature-para {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.feature-points {
+  display: flex;
+  gap: 1.5rem;
+  font-weight: bold;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+}
+
+/* ===================== MOBILE RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .features-wrapper {
+    margin-top: 4rem;
+    gap: 2.5rem;
+  }
+
+  .feature-row,
+  .feature-row-reverse {
+    flex-wrap: wrap; /* Mobile par hamesha image upar, text neeche */
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 24px;
+  }
+
+  /* Mobile par pehle image, phir text — dono rows me same order */
+  .feature-row-reverse .feature-image-box {
+    order: -1;
+  }
+
+  .feature-image-box {
+    flex: 1 1 100%;
+    height: 220px;
+    border-radius: 16px;
+  }
+
+  .feature-text-box {
+    flex: 1 1 100%;
+    gap: 0.9rem;
+  }
+
+  .feature-tag {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  .feature-heading {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .feature-para {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .feature-points {
+    gap: 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-wrapper {
+    margin-top: 3rem;
+    gap: 2rem;
+  }
+
+  .feature-row,
+  .feature-row-reverse {
+    gap: 1.2rem;
+    padding: 1.1rem;
+    border-radius: 20px;
+  }
+
+  .feature-image-box {
+    height: 180px;
+    border-radius: 14px;
+  }
+
+  .feature-text-box {
+    gap: 0.7rem;
+  }
+
+  .feature-tag {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+
+  .feature-heading {
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  .feature-para {
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .feature-points {
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    flex-direction: column;
+  }
+}

@@ -5,7 +5,7 @@ const App = () => {
   const [password, setPassword] = React.useState('');
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('All');
-const [sortOrder, setSortOrder] = React.useState('default');
+  const [sortOrder, setSortOrder] = React.useState('default');
   const [error, setError] = React.useState('');
   const [products, setProducts] = React.useState([]);
   const [adminTab, setAdminTab] = React.useState('dashboard');
@@ -21,7 +21,7 @@ const [sortOrder, setSortOrder] = React.useState('default');
   const handleAddToCart = (product) => {
     const existing = cartItems.find(item => item._id === product._id);
     if (existing) {
-      setCartItems(cartItems.map(item => 
+      setCartItems(cartItems.map(item =>
         item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
       ));
     } else {
@@ -49,51 +49,51 @@ const [sortOrder, setSortOrder] = React.useState('default');
       return item;
     }));
   };
-const [selectedProduct, setSelectedProduct] = React.useState(null);
-// --- HOME SLIDER STATE & AUTO-SLIDE LOGIC ---
-const [currentSlide, setCurrentSlide] = React.useState(0);
-const slidesData = [
-  {
-    title: "Next-Gen Mobile Technology",
-    subtitle: "Experience lightning performance, futuristic displays, and flagship mobile devices.",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1600&auto=format&fit=crop"
-  },
-  {
-    title: "Power Packed Laptops",
-    subtitle: "Unleash ultimate productivity and high-performance gaming with ultra-slim designs.",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop"
-  },
-  {
-    title: "Pro Tablets & Accessories",
-    subtitle: "Versatile, portable, and built for creativity on the go. Discover premium gear today.",
-    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1600&auto=format&fit=crop"
-  }
-];
+  const [selectedProduct, setSelectedProduct] = React.useState(null);
+  // --- HOME SLIDER STATE & AUTO-SLIDE LOGIC ---
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const slidesData = [
+    {
+      title: "Next-Gen Mobile Technology",
+      subtitle: "Experience lightning performance, futuristic displays, and flagship mobile devices.",
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1600&auto=format&fit=crop"
+    },
+    {
+      title: "Power Packed Laptops",
+      subtitle: "Unleash ultimate productivity and high-performance gaming with ultra-slim designs.",
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop"
+    },
+    {
+      title: "Pro Tablets & Accessories",
+      subtitle: "Versatile, portable, and built for creativity on the go. Discover premium gear today.",
+      image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1600&auto=format&fit=crop"
+    }
+  ];
 
-React.useEffect(() => {
-  if (currentPage !== 'home') return;
-  const timer = setInterval(() => {
-    setCurrentSlide((prevIndex) => (prevIndex + 1) % slidesData.length);
-  }, 4000); // 4 Seconds Auto Slide
-  return () => clearInterval(timer);
-}, [currentPage]);
-// Reviews State
+  React.useEffect(() => {
+    if (currentPage !== 'home') return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prevIndex) => (prevIndex + 1) % slidesData.length);
+    }, 4000); // 4 Seconds Auto Slide
+    return () => clearInterval(timer);
+  }, [currentPage]);
+  // Reviews State
   const [reviews, setReviews] = React.useState([
     { id: 1, productId: 'all', name: "Ali Ahmed", rating: 5, comment: "Zabardast quality hai, totally premium feel!", date: "12 Sep 2026" },
     { id: 2, productId: 'all', name: "Sana", rating: 4, comment: "Delivery thori late thi lekin product genuine hai.", date: "10 Sep 2026" }
   ]);
   const [reviewForm, setReviewForm] = React.useState({ name: '', comment: '', rating: 5 });
-  
+
   // Product Form State
   const [formData, setFormData] = React.useState({
-  name: '', 
-  description: '', 
-  regularPrice: '', 
-  discountPrice: '', 
-  category: 'Mobiles', 
-  stockStatus: 'in_stock', 
-  images: []
-});
+    name: '',
+    description: '',
+    regularPrice: '',
+    discountPrice: '',
+    category: 'Mobiles',
+    stockStatus: 'in_stock',
+    images: []
+  });
 
   // Login Handler
   const handleLogin = (e) => {
@@ -106,42 +106,42 @@ React.useEffect(() => {
       setError('Invalid email or password!');
     }
   };
-const handlePasswordUpdate = async (e) => {
-  e.preventDefault();
-  
-  if (passForm.currentPass !== adminPassword) {
-    alert("Purana password galat hai!");
-    return;
-  }
-  
-  if (passForm.newPass !== passForm.confirmPass) {
-    alert("Naya password aur Confirm Password match nahi kar rahe!");
-    return;
-  }
-  
-  // Backend API Call
-  try {
-    const res = await fetch('https://electro-mark.onrender.com/api/update-password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ newPassword: passForm.newPass })
-    });
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
 
-    if (res.ok) {
-      setAdminPassword(passForm.newPass);
-      setPassForm({ currentPass: '', newPass: '', confirmPass: '' });
-      alert("Password MongoDB Database me permanently update ho gaya!");
-    } else {
-      alert("Failed to update password!");
+    if (passForm.currentPass !== adminPassword) {
+      alert("Purana password galat hai!");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    alert("Server error, backend check karein!");
-  }
-};
+
+    if (passForm.newPass !== passForm.confirmPass) {
+      alert("Naya password aur Confirm Password match nahi kar rahe!");
+      return;
+    }
+
+    // Backend API Call
+    try {
+      const res = await fetch('https://electro-mark.onrender.com/api/update-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword: passForm.newPass })
+      });
+
+      if (res.ok) {
+        setAdminPassword(passForm.newPass);
+        setPassForm({ currentPass: '', newPass: '', confirmPass: '' });
+        alert("Password MongoDB Database me permanently update ho gaya!");
+      } else {
+        alert("Failed to update password!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error, backend check karein!");
+    }
+  };
 
   // Delete Product
-    // Delete Product
+  // Delete Product
   const handleDeleteProduct = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       const res = await fetch(`https://electro-mark.onrender.com/api/products/${id}`, { method: 'DELETE' });
@@ -153,27 +153,27 @@ const handlePasswordUpdate = async (e) => {
 
   // Edit Product Click
   const handleEditClick = (product) => {
-  setFormData({
-    name: product.name,
-    description: product.description,
-    regularPrice: product.regularPrice,
-    discountPrice: product.discountPrice,
-    category: product.category || 'Mobiles',
-    stockStatus: product.stockStatus || 'in_stock',
-    images: product.images || []
-  });
-  setEditingId(product._id);
-  setCurrentPage('dashboard');
-  setAdminTab('upload-product');
-};
+    setFormData({
+      name: product.name,
+      description: product.description,
+      regularPrice: product.regularPrice,
+      discountPrice: product.discountPrice,
+      category: product.category || 'Mobiles',
+      stockStatus: product.stockStatus || 'in_stock',
+      images: product.images || []
+    });
+    setEditingId(product._id);
+    setCurrentPage('dashboard');
+    setAdminTab('upload-product');
+  };
 
   // Upload or Update Product Submit
   const handleProductSubmit = async (e) => {
     e.preventDefault();
-    const url = editingId 
+    const url = editingId
       ? `https://electro-mark.onrender.com/api/products/${editingId}`
       : 'https://electro-mark.onrender.com/api/products'
-    
+
     const method = editingId ? 'PUT' : 'POST';
 
     const res = await fetch(url, {
@@ -184,42 +184,42 @@ const handlePasswordUpdate = async (e) => {
 
     if (res.ok) {
       alert(editingId ? "Product Updated Successfully!" : "Product Uploaded Successfully!");
-      setFormData({ 
-  name: '', 
-  description: '', 
-  regularPrice: '', 
-  discountPrice: '', 
-  category: 'Mobiles', 
-  stockStatus: 'in_stock', 
-  images: [] 
-});
+      setFormData({
+        name: '',
+        description: '',
+        regularPrice: '',
+        discountPrice: '',
+        category: 'Mobiles',
+        stockStatus: 'in_stock',
+        images: []
+      });
       setEditingId(null);
       // Fetch fresh products list
       const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
       setProducts(updated);
       // setCurrentPage('products'); // Redirect to products page beautifully
       setCurrentPage('dashboard');
-setAdminTab('dashboard');
+      setAdminTab('dashboard');
     }
   };
 
   // Fetch Products on Initial Load
-    // Fetch Products on Initial Load
+  // Fetch Products on Initial Load
   React.useEffect(() => {
-  // Fetch Products
-  fetch('https://electro-mark.onrender.com/api/products')
-    .then(res => res.json())
-    .then(data => setProducts(Array.isArray(data) ? data : []))
-    .catch(err => console.error(err));
+    // Fetch Products
+    fetch('https://electro-mark.onrender.com/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(Array.isArray(data) ? data : []))
+      .catch(err => console.error(err));
 
-  // Fetch Latest Password from Backend
-  fetch('https://electro-mark.onrender.com/api/get-password')
-    .then(res => res.json())
-    .then(data => {
-      if (data.password) setAdminPassword(data.password);
-    })
-    .catch(err => console.error(err));
-}, []);
+    // Fetch Latest Password from Backend
+    fetch('https://electro-mark.onrender.com/api/get-password')
+      .then(res => res.json())
+      .then(data => {
+        if (data.password) setAdminPassword(data.password);
+      })
+      .catch(err => console.error(err));
+  }, []);
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     const promises = files.map(file => {
@@ -231,40 +231,40 @@ setAdminTab('dashboard');
       });
     });
     Promise.all(promises).then(base64Images => {
-      setFormData({...formData, images: base64Images});
+      setFormData({ ...formData, images: base64Images });
     });
   };
 
   return (
-  <div className="layout-container" style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden', background: 'transparent' }}>
-    
-    {/* CSS override to force body transparent */}
-    <style>{`
+    <div className="layout-container" style={{ position: 'relative', minHeight: '100vh', overflowX: 'hidden', background: 'transparent' }}>
+
+      {/* CSS override to force body transparent */}
+      <style>{`
       body, html, .layout-container {
         background-color: transparent !important;
       }
     `}</style>
 
-    {/* --- GLOBAL KHOOBSURAT BACKGROUND IMAGE --- */}
-    <div 
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: -1,
-        backgroundImage: `linear-gradient(to bottom, rgba(15, 23, 42, 0.55), rgba(2, 6, 23, 0.75)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        opacity: 0.5, // Brightness increase kar di hai taake image saaf nazar aaye
-        pointerEvents: 'none'
-      }}
-    />
+      {/* --- GLOBAL KHOOBSURAT BACKGROUND IMAGE --- */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: -1,
+          backgroundImage: `linear-gradient(to bottom, rgba(15, 23, 42, 0.55), rgba(2, 6, 23, 0.75)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          opacity: 0.5, // Brightness increase kar di hai taake image saaf nazar aaye
+          pointerEvents: 'none'
+        }}
+      />
       {/* Header */}
       {/* --- ULTRA CLEAN TRANSPARENT PREMIUM HEADER --- */}
-<header className="premium-header-wrapper">
-  
-  <style>{`
+      <header className="premium-header-wrapper">
+
+        <style>{`
     .premium-header-wrapper {
       position: sticky;
       top: 1.5rem;
@@ -491,93 +491,93 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  <nav className="glass-nav">
-    
-    {/* 1. Left - Premium Logo Section */}
-    <div className="brand-section">
-      <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} className="brand-logo">
-        <svg className="brand-icon" viewBox="0 0 24 24">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        </svg>
-        <span className="brand-text">Electro MARK. </span>
-      </a>
-    </div>
+        <nav className="glass-nav">
 
-    {/* 2. Center - Navigation (Properly Centered Now) */}
-    <div className="center-nav">
-      <a 
-        href="#home" 
-        onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} 
-        className={`nav-link ${currentPage === 'home' ? 'active' : ''}`}
-      >
-        Home
-      </a>
-      <a 
-        href="#products" 
-        onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }} 
-        className={`nav-link ${currentPage === 'products' ? 'active' : ''}`}
-      >
-        Products
-      </a>
+          {/* 1. Left - Premium Logo Section */}
+          <div className="brand-section">
+            <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} className="brand-logo">
+              <svg className="brand-icon" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+              <span className="brand-text">Electro MARK. </span>
+            </a>
+          </div>
 
-      {isAdmin && (
-        <a 
-          href="#dashboard" 
-          onClick={(e) => { e.preventDefault(); setCurrentPage('dashboard'); }} 
-          className={`nav-link admin-link ${currentPage === 'dashboard' ? 'active' : ''}`}
-        >
-          ⚡ Admin
-        </a>
-      )}
-    </div>
+          {/* 2. Center - Navigation (Properly Centered Now) */}
+          <div className="center-nav">
+            <a
+              href="#home"
+              onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}
+              className={`nav-link ${currentPage === 'home' ? 'active' : ''}`}
+            >
+              Home
+            </a>
+            <a
+              href="#products"
+              onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }}
+              className={`nav-link ${currentPage === 'products' ? 'active' : ''}`}
+            >
+              Products
+            </a>
 
-    {/* 3. Right - Action Buttons */}
-    <div className="nav-actions">
-      
-      {/* Sleek Icon Cart Button */}
-      <a 
-        href="#cart" 
-        onClick={(e) => { e.preventDefault(); setCurrentPage('cart'); }} 
-        className={`icon-btn ${currentPage === 'cart' ? 'active' : ''}`}
-        title="View Cart"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-        </svg>
-        
-        {cartItems.length > 0 && (
-          <span className="cart-badge">
-            {cartItems.reduce((total, i) => total + i.quantity, 0)}
-          </span>
-        )}
-      </a>
+            {isAdmin && (
+              <a
+                href="#dashboard"
+                onClick={(e) => { e.preventDefault(); setCurrentPage('dashboard'); }}
+                className={`nav-link admin-link ${currentPage === 'dashboard' ? 'active' : ''}`}
+              >
+                ⚡ Admin
+              </a>
+            )}
+          </div>
 
-      {/* Primary CTA (Gradient Button) for Checkout */}
-      <a 
-        href="#checkout" 
-        onClick={(e) => { e.preventDefault(); setCurrentPage('checkout'); }} 
-        className="cta-btn"
-      >
-        <span>Checkout</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+          {/* 3. Right - Action Buttons */}
+          <div className="nav-actions">
 
-    </div>
+            {/* Sleek Icon Cart Button */}
+            <a
+              href="#cart"
+              onClick={(e) => { e.preventDefault(); setCurrentPage('cart'); }}
+              className={`icon-btn ${currentPage === 'cart' ? 'active' : ''}`}
+              title="View Cart"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+              </svg>
 
-  </nav>
-</header>
+              {cartItems.length > 0 && (
+                <span className="cart-badge">
+                  {cartItems.reduce((total, i) => total + i.quantity, 0)}
+                </span>
+              )}
+            </a>
+
+            {/* Primary CTA (Gradient Button) for Checkout */}
+            <a
+              href="#checkout"
+              onClick={(e) => { e.preventDefault(); setCurrentPage('checkout'); }}
+              className="cta-btn"
+            >
+              <span>Checkout</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+
+          </div>
+
+        </nav>
+      </header>
 
       {/* Main Content Area */}
       <main className="main-content">
-        
+
         {/* Home Page */}
         {/* Home Page - Modern Auto-Sliding Hero Carousel */}
-{currentPage === 'home' && (
-  <div className="home-wrapper" style={{ padding: '0 1.5rem', maxWidth: '1350px', margin: '2.5rem auto 0 auto' }}> 
-    {/* Inline Styles for Glassmorphism & Animations */}
-    <style>{`
+        {currentPage === 'home' && (
+          <div className="home-wrapper" style={{ padding: '0 1.5rem', maxWidth: '1350px', margin: '2.5rem auto 0 auto' }}>
+            {/* Inline Styles for Glassmorphism & Animations */}
+            <style>{`
       @keyframes zoomIn {
         from { transform: scale(1.08); opacity: 0.8; }
         to { transform: scale(1); opacity: 1; }
@@ -601,163 +601,163 @@ setAdminTab('dashboard');
       }
     `}</style>
 
-    {/* Hero Slider Container */}
-    <div style={{
-      position: 'relative',
-      height: '650px',
-      borderRadius: '32px',
-      overflow: 'hidden',
-      border: '1px solid rgba(56, 189, 248, 0.3)',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.85)'
-    }}>
-      
-      {/* Background Image Slides */}
-      {slidesData.map((slide, index) => (
-        <div
-          key={index}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            opacity: currentSlide === index ? 1 : 0,
-            transition: 'opacity 1s ease-in-out',
-            zIndex: currentSlide === index ? 1 : 0,
-            backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.95) 10%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0.8) 100%), url(${slide.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 4rem'
-          }}
-        >
-          {/* Slide Text Content */}
-          {currentSlide === index && (
-            <div className="slide-content-anim" style={{ maxWidth: '650px', color: '#fff', zIndex: 2 }}>
-              
-              <span style={{
-                background: 'rgba(56, 189, 248, 0.15)',
-                color: '#38bdf8',
-                padding: '6px 18px',
+            {/* Hero Slider Container */}
+            <div style={{
+              position: 'relative',
+              height: '650px',
+              borderRadius: '32px',
+              overflow: 'hidden',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.85)'
+            }}>
+
+              {/* Background Image Slides */}
+              {slidesData.map((slide, index) => (
+                <div
+                  key={index}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: currentSlide === index ? 1 : 0,
+                    transition: 'opacity 1s ease-in-out',
+                    zIndex: currentSlide === index ? 1 : 0,
+                    backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.95) 10%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0.8) 100%), url(${slide.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 4rem'
+                  }}
+                >
+                  {/* Slide Text Content */}
+                  {currentSlide === index && (
+                    <div className="slide-content-anim" style={{ maxWidth: '650px', color: '#fff', zIndex: 2 }}>
+
+                      <span style={{
+                        background: 'rgba(56, 189, 248, 0.15)',
+                        color: '#38bdf8',
+                        padding: '6px 18px',
+                        borderRadius: '30px',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        letterSpacing: '2px',
+                        textTransform: 'uppercase',
+                        display: 'inline-block',
+                        marginBottom: '1rem'
+                      }}>
+                        ⚡ Electro Mark Featured
+                      </span>
+
+                      <h1 style={{
+                        fontSize: '3.8rem',
+                        fontWeight: '900',
+                        lineHeight: '1.1',
+                        margin: '0 0 1.2rem 0',
+                        background: 'linear-gradient(to right, #ffffff, #38bdf8, #818cf8)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                      }}>
+                        {slide.title}
+                      </h1>
+
+                      <p style={{
+                        fontSize: '1.2rem',
+                        color: '#cbd5e1',
+                        lineHeight: '1.7',
+                        marginBottom: '2.5rem'
+                      }}>
+                        {slide.subtitle}
+                      </p>
+
+                      {/* 2 Interactive Buttons */}
+                      <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
+
+                        {/* 1. Explore Products Button */}
+                        <button
+                          onClick={() => setCurrentPage('products')}
+                          style={{
+                            padding: '1.1rem 2.2rem',
+                            background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '16px',
+                            fontSize: '1.1rem',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            boxShadow: '0 0 25px rgba(56, 189, 248, 0.5)',
+                            transition: 'transform 0.3s ease'
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                          onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                          Explore Products 🛍️
+                        </button>
+
+                        {/* 2. Learn More Button (Scrolls Down) */}
+                        <button
+                          onClick={() => {
+                            const el = document.getElementById('about-section');
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          style={{
+                            padding: '1.1rem 2.2rem',
+                            background: 'rgba(255, 255, 255, 0.08)',
+                            backdropFilter: 'blur(10px)',
+                            color: '#fff',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            borderRadius: '16px',
+                            fontSize: '1.1rem',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                            e.currentTarget.style.transform = 'translateY(-3px)';
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                          }}
+                        >
+                          Learn More ↓
+                        </button>
+
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Dots Indicator Controls */}
+              <div style={{
+                position: 'absolute',
+                bottom: '25px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                gap: '10px',
+                zIndex: 5,
+                background: 'rgba(15, 23, 42, 0.6)',
+                backdropFilter: 'blur(10px)',
+                padding: '10px 20px',
                 borderRadius: '30px',
-                border: '1px solid rgba(56, 189, 248, 0.3)',
-                fontSize: '0.85rem',
-                fontWeight: 'bold',
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                display: 'inline-block',
-                marginBottom: '1rem'
+                border: '1px solid rgba(255,255,255,0.1)'
               }}>
-                ⚡ Electro Mark Featured
-              </span>
-
-              <h1 style={{
-                fontSize: '3.8rem',
-                fontWeight: '900',
-                lineHeight: '1.1',
-                margin: '0 0 1.2rem 0',
-                background: 'linear-gradient(to right, #ffffff, #38bdf8, #818cf8)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}>
-                {slide.title}
-              </h1>
-
-              <p style={{
-                fontSize: '1.2rem',
-                color: '#cbd5e1',
-                lineHeight: '1.7',
-                marginBottom: '2.5rem'
-              }}>
-                {slide.subtitle}
-              </p>
-
-              {/* 2 Interactive Buttons */}
-              <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
-                
-                {/* 1. Explore Products Button */}
-                <button
-                  onClick={() => setCurrentPage('products')}
-                  style={{
-                    padding: '1.1rem 2.2rem',
-                    background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '16px',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    boxShadow: '0 0 25px rgba(56, 189, 248, 0.5)',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-                  onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  Explore Products 🛍️
-                </button>
-
-                {/* 2. Learn More Button (Scrolls Down) */}
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('about-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  style={{
-                    padding: '1.1rem 2.2rem',
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    backdropFilter: 'blur(10px)',
-                    color: '#fff',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: '16px',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  Learn More ↓
-                </button>
-
+                {slidesData.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`dot-indicator ${currentSlide === idx ? 'active' : ''}`}
+                    onClick={() => setCurrentSlide(idx)}
+                  />
+                ))}
               </div>
+
             </div>
-          )}
-        </div>
-      ))}
-
-      {/* Dots Indicator Controls */}
-      <div style={{
-        position: 'absolute',
-        bottom: '25px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        gap: '10px',
-        zIndex: 5,
-        background: 'rgba(15, 23, 42, 0.6)',
-        backdropFilter: 'blur(10px)',
-        padding: '10px 20px',
-        borderRadius: '30px',
-        border: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        {slidesData.map((_, idx) => (
-          <div
-            key={idx}
-            className={`dot-indicator ${currentSlide === idx ? 'active' : ''}`}
-            onClick={() => setCurrentSlide(idx)}
-          />
-        ))}
-      </div>
-
-    </div>
-    {/* Ultra-Premium Infinite Electronic Products Circle Slider */}
-<div style={{ marginTop: '5rem', overflow: 'hidden', padding: '2.5rem 0', position: 'relative' }}>
-  <style>{`
+            {/* Ultra-Premium Infinite Electronic Products Circle Slider */}
+            <div style={{ marginTop: '5rem', overflow: 'hidden', padding: '2.5rem 0', position: 'relative' }}>
+              <style>{`
     @keyframes infiniteScroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -855,52 +855,52 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* Left & Right Glass Gradient Fade Mask */}
-  <div style={{ position: 'absolute', top: 0, left: 0, width: '140px', height: '100%', background: 'linear-gradient(to right, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
-  <div style={{ position: 'absolute', top: 0, right: 0, width: '140px', height: '100%', background: 'linear-gradient(to left, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
+              {/* Left & Right Glass Gradient Fade Mask */}
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '140px', height: '100%', background: 'linear-gradient(to right, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
+              <div style={{ position: 'absolute', top: 0, right: 0, width: '140px', height: '100%', background: 'linear-gradient(to left, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
 
-  <div className="slider-track">
-    {[
-      { name: 'Smartphones', img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Pro Laptops', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Ultra Tablets', img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Chromebooks', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Studio Audio', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Smartwatches', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Drones & Tech', img: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=500&auto=format&fit=crop' },
-      { name: 'TWS Earbuds', img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Gaming Gear', img: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=500&auto=format&fit=crop' },
+              <div className="slider-track">
+                {[
+                  { name: 'Smartphones', img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Pro Laptops', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Ultra Tablets', img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Chromebooks', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Studio Audio', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Smartwatches', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Drones & Tech', img: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'TWS Earbuds', img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Gaming Gear', img: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=500&auto=format&fit=crop' },
 
-      // Duplicate Loop Copy
-      { name: 'Smartphones', img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Pro Laptops', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Ultra Tablets', img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Chromebooks', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Studio Audio', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Smartwatches', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Drones & Tech', img: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=500&auto=format&fit=crop' },
-      { name: 'TWS Earbuds', img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=500&auto=format&fit=crop' },
-      { name: 'Gaming Gear', img: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=500&auto=format&fit=crop' }
-    ].map((item, idx) => (
-      <div key={idx} className="circle-item">
-        <div className="circle-img-box">
-          <img src={item.img} alt={item.name} />
-        </div>
-        <span className="circle-label">{item.name}</span>
-      </div>
-    ))}
-  </div>
-</div>
-{/* Glassmorphism Section - Left Text & Right Glass Art */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '2rem',
-  marginTop: '3.5rem'
-}}>
+                  // Duplicate Loop Copy
+                  { name: 'Smartphones', img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Pro Laptops', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Ultra Tablets', img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Chromebooks', img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Studio Audio', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Smartwatches', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Drones & Tech', img: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'TWS Earbuds', img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=500&auto=format&fit=crop' },
+                  { name: 'Gaming Gear', img: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=500&auto=format&fit=crop' }
+                ].map((item, idx) => (
+                  <div key={idx} className="circle-item">
+                    <div className="circle-img-box">
+                      <img src={item.img} alt={item.name} />
+                    </div>
+                    <span className="circle-label">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Glassmorphism Section - Left Text & Right Glass Art */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '2rem',
+              marginTop: '3.5rem'
+            }}>
 
-  {/* Styles & Glassmorphism Animation */}
-  <style>{`
+              {/* Styles & Glassmorphism Animation */}
+              <style>{`
     .glass-outer-card {
       position: relative;
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), rgba(15, 23, 42, 0.4);
@@ -1051,70 +1051,70 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* Card 1 */}
-  <div className="glass-outer-card">
-    <div className="glass-inner-container">
-      {/* Left Text */}
-      <div>
-        <h4 className="glass-card-title">Official Warranties</h4>
-        <p className="glass-card-desc">
-          Full brand protection & hassle-free claim guarantees on all orders.
-        </p>
-      </div>
-      {/* Right Glass Art */}
-      <div className="glass-art-box">
-        <div className="glass-floating-shape shape-cyan" />
-      </div>
-    </div>
-  </div>
+              {/* Card 1 */}
+              <div className="glass-outer-card">
+                <div className="glass-inner-container">
+                  {/* Left Text */}
+                  <div>
+                    <h4 className="glass-card-title">Official Warranties</h4>
+                    <p className="glass-card-desc">
+                      Full brand protection & hassle-free claim guarantees on all orders.
+                    </p>
+                  </div>
+                  {/* Right Glass Art */}
+                  <div className="glass-art-box">
+                    <div className="glass-floating-shape shape-cyan" />
+                  </div>
+                </div>
+              </div>
 
-  {/* Card 2 */}
-  <div className="glass-outer-card">
-    <div className="glass-inner-container">
-      {/* Left Text */}
-      <div>
-        <h4 className="glass-card-title">100% Genuine Tech</h4>
-        <p className="glass-card-desc">
-          Directly imported, factory-sealed flagship inventory guaranteed.
-        </p>
-      </div>
-      {/* Right Glass Art */}
-      <div className="glass-art-box">
-        <div className="glass-floating-shape shape-purple" />
-      </div>
-    </div>
-  </div>
+              {/* Card 2 */}
+              <div className="glass-outer-card">
+                <div className="glass-inner-container">
+                  {/* Left Text */}
+                  <div>
+                    <h4 className="glass-card-title">100% Genuine Tech</h4>
+                    <p className="glass-card-desc">
+                      Directly imported, factory-sealed flagship inventory guaranteed.
+                    </p>
+                  </div>
+                  {/* Right Glass Art */}
+                  <div className="glass-art-box">
+                    <div className="glass-floating-shape shape-purple" />
+                  </div>
+                </div>
+              </div>
 
-  {/* Card 3 */}
-  <div className="glass-outer-card">
-    <div className="glass-inner-container">
-      {/* Left Text */}
-      <div>
-        <h4 className="glass-card-title">Fastest COD Delivery</h4>
-        <p className="glass-card-desc">
-          Safe doorstep payment & rapid nationwide tracking updates.
-        </p>
-      </div>
-      {/* Right Glass Art */}
-      <div className="glass-art-box">
-        <div className="glass-floating-shape shape-green" />
-      </div>
-    </div>
-  </div>
+              {/* Card 3 */}
+              <div className="glass-outer-card">
+                <div className="glass-inner-container">
+                  {/* Left Text */}
+                  <div>
+                    <h4 className="glass-card-title">Fastest COD Delivery</h4>
+                    <p className="glass-card-desc">
+                      Safe doorstep payment & rapid nationwide tracking updates.
+                    </p>
+                  </div>
+                  {/* Right Glass Art */}
+                  <div className="glass-art-box">
+                    <div className="glass-floating-shape shape-green" />
+                  </div>
+                </div>
+              </div>
 
-</div>
-{/* Glassmorphism Section - Left Text & Right Glass Mockup */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '3rem',
-  alignItems: 'center',
-  marginTop: '3.5rem',
-  padding: '2rem 0'
-}}>
+            </div>
+            {/* Glassmorphism Section - Left Text & Right Glass Mockup */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '3rem',
+              alignItems: 'center',
+              marginTop: '3.5rem',
+              padding: '2rem 0'
+            }}>
 
-  {/* Styles */}
-  <style>{`
+              {/* Styles */}
+              <style>{`
     /* ---------- LEFT SIDE TEXT ---------- */
     .ux-left-heading {
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -1280,58 +1280,58 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* ---------- LEFT SIDE ---------- */}
-  <div>
-    <h2 className="ux-left-heading">
-      High-Converting UI Experience
-    </h2>
-    <p className="ux-left-text">
-      Hum aisi websites design karte hain jo na sirf dikhne mein khoobsurat hain
-      balki unka UX user retention ko barha deta hai. Glassmorphism styling aur
-      ultra-smooth animations ke sath customer loyalty aur business growth dono
-      double ho jati hain.
-    </p>
-  </div>
+              {/* ---------- LEFT SIDE ---------- */}
+              <div>
+                <h2 className="ux-left-heading">
+                  High-Converting UI Experience
+                </h2>
+                <p className="ux-left-text">
+                  Hum aisi websites design karte hain jo na sirf dikhne mein khoobsurat hain
+                  balki unka UX user retention ko barha deta hai. Glassmorphism styling aur
+                  ultra-smooth animations ke sath customer loyalty aur business growth dono
+                  double ho jati hain.
+                </p>
+              </div>
 
 
 
-  {/* ---------- RIGHT SIDE GLASS MOCKUP ---------- */}
-  <div className="mockup-outer">
-    <div className="mockup-inner">
+              {/* ---------- RIGHT SIDE GLASS MOCKUP ---------- */}
+              <div className="mockup-outer">
+                <div className="mockup-inner">
 
-      {/* Header: globe icon + title */}
-      <div className="mockup-header">
-        <div className="mockup-icon">
-          {/* globe svg */}
-          <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-        </div>
-        <h4 className="mockup-title">Responsive Layout Mockup</h4>
-      </div>
+                  {/* Header: globe icon + title */}
+                  <div className="mockup-header">
+                    <div className="mockup-icon">
+                      {/* globe svg */}
+                      <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                      </svg>
+                    </div>
+                    <h4 className="mockup-title">Responsive Layout</h4>
+                  </div>
 
-      {/* Skeleton lines (as in image) */}
-      <div className="skeleton-line full" />
-      <div className="skeleton-line short" />
+                  {/* Skeleton lines (as in image) */}
+                  <div className="skeleton-line full" />
+                  <div className="skeleton-line short" />
 
-    </div>
-  </div>
+                </div>
+              </div>
 
 
-</div>
-{/* Glassmorphism Section - Variant 3: Glass Mockup LEFT, Text RIGHT */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '3rem',
-  alignItems: 'center',
-  marginTop: '3.5rem',
-  padding: '2rem 0'
-}}>
+            </div>
+            {/* Glassmorphism Section - Variant 3: Glass Mockup LEFT, Text RIGHT */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '3rem',
+              alignItems: 'center',
+              marginTop: '3.5rem',
+              padding: '2rem 0'
+            }}>
 
-  <style>{`
+              <style>{`
     /* ---------- RIGHT SIDE TEXT ---------- */
     .v3-right-heading {
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -1487,50 +1487,50 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* ---------- LEFT SIDE: GLASS MOCKUP ---------- */}
-  <div className="v3-mockup-outer">
-    <div className="v3-mockup-inner">
-      <div className="v3-mockup-header">
-        <div className="v3-mockup-icon">
-          {/* layers/stack svg */}
-          <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2" />
-            <polyline points="2 17 12 22 22 17" />
-            <polyline points="2 12 12 17 22 12" />
-          </svg>
-        </div>
-        <h4 className="v3-mockup-title">Conversion Optimized Layout</h4>
-      </div>
-      <div className="v3-skeleton-line full" />
-      <div className="v3-skeleton-line short" />
-    </div>
-  </div>
+              {/* ---------- LEFT SIDE: GLASS MOCKUP ---------- */}
+              <div className="v3-mockup-outer">
+                <div className="v3-mockup-inner">
+                  <div className="v3-mockup-header">
+                    <div className="v3-mockup-icon">
+                      {/* layers/stack svg */}
+                      <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                        <polyline points="2 17 12 22 22 17" />
+                        <polyline points="2 12 12 17 22 12" />
+                      </svg>
+                    </div>
+                    <h4 className="v3-mockup-title">Conversion Optimized</h4>
+                  </div>
+                  <div className="v3-skeleton-line full" />
+                  <div className="v3-skeleton-line short" />
+                </div>
+              </div>
 
-  {/* ---------- RIGHT SIDE: TEXT ---------- */}
-  <div className="v3-text-col">
-    <h2 className="v3-right-heading">
-      Conversion-Focused Design
-    </h2>
-    <p className="v3-right-text">
-      Har section strategically place kiya jata hai taake visitor ka attention
-      sahi jagah jaye. Clear CTAs, trust badges aur psychological triggers
-      ke sath aapki website sirf dikhne mein hi nahi, kaam karne mein bhi
-      khoobsurat hoti hai — jo sales ko directly barhati hai.
-    </p>
-  </div>
+              {/* ---------- RIGHT SIDE: TEXT ---------- */}
+              <div className="v3-text-col">
+                <h2 className="v3-right-heading">
+                  Conversion-Focused Design
+                </h2>
+                <p className="v3-right-text">
+                  Har section strategically place kiya jata hai taake visitor ka attention
+                  sahi jagah jaye. Clear CTAs, trust badges aur psychological triggers
+                  ke sath aapki website sirf dikhne mein hi nahi, kaam karne mein bhi
+                  khoobsurat hoti hai — jo sales ko directly barhati hai.
+                </p>
+              </div>
 
-</div>
-{/* Glassmorphism Section - Variant 1: Performance */}
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '3rem',
-  alignItems: 'center',
-  marginTop: '3.5rem',
-  padding: '2rem 0'
-}}>
+            </div>
+            {/* Glassmorphism Section - Variant 1: Performance */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '3rem',
+              alignItems: 'center',
+              marginTop: '3.5rem',
+              padding: '2rem 0'
+            }}>
 
-  <style>{`
+              <style>{`
     .v1-left-heading {
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 800;
@@ -1679,48 +1679,48 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* LEFT */}
-  <div>
-    <h2 className="v1-left-heading">
-      Blazing Fast Performance
-    </h2>
-    <p className="v1-left-text">
-      Hamari websites 90+ PageSpeed score ke sath load hoti hain. Optimized
-      images, lazy loading aur lightweight code ki wajah se aapke customers
-      ko ek smooth aur instant experience milta hai — jo directly conversions
-      ko boost karta hai.
-    </p>
-  </div>
+              {/* LEFT */}
+              <div>
+                <h2 className="v1-left-heading">
+                  Blazing Fast Performance
+                </h2>
+                <p className="v1-left-text">
+                  Hamari websites 90+ PageSpeed score ke sath load hoti hain. Optimized
+                  images, lazy loading aur lightweight code ki wajah se aapke customers
+                  ko ek smooth aur instant experience milta hai — jo directly conversions
+                  ko boost karta hai.
+                </p>
+              </div>
 
-  {/* RIGHT */}
-  <div className="v1-mockup-outer">
-    <div className="v1-mockup-inner">
-      <div className="v1-mockup-header">
-        <div className="v1-mockup-icon">
-          {/* lightning bolt svg */}
-          <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-          </svg>
-        </div>
-        <h4 className="v1-mockup-title">Speed Optimized Layout</h4>
-      </div>
-      <div className="v1-skeleton-line full" />
-      <div className="v1-skeleton-line short" />
-    </div>
-  </div>
+              {/* RIGHT */}
+              <div className="v1-mockup-outer">
+                <div className="v1-mockup-inner">
+                  <div className="v1-mockup-header">
+                    <div className="v1-mockup-icon">
+                      {/* lightning bolt svg */}
+                      <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                      </svg>
+                    </div>
+                    <h4 className="v1-mockup-title">Speed Optimized</h4>
+                  </div>
+                  <div className="v1-skeleton-line full" />
+                  <div className="v1-skeleton-line short" />
+                </div>
+              </div>
 
-</div>
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '4.5rem',
-  alignItems: 'center',
-  marginTop: '6rem',
-  padding: '3rem 1rem',
-  position: 'relative'
-}}>
+            </div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '4.5rem',
+              alignItems: 'center',
+              marginTop: '6rem',
+              padding: '3rem 1rem',
+              position: 'relative'
+            }}>
 
-  <style>{`
+              <style>{`
     @keyframes proGlowRotate {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -1889,79 +1889,190 @@ setAdminTab('dashboard');
       pointer-events: none;
       animation: proPulseGlow 6s infinite alternate;
     }
+
+    /* ===================== MOBILE RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .pro-heading {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        margin-bottom: 1.4rem;
+      }
+
+      .pro-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.85rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .pro-para-wrapper {
+        padding-left: 1rem;
+        gap: 1rem;
+      }
+
+      .pro-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+
+      .pro-image-inner {
+        padding: 0.85rem;
+      }
+
+      .pro-tall-img {
+        height: 380px;
+      }
+
+      .pro-floating-stat {
+        bottom: 1.2rem;
+        left: 0.5rem;
+        padding: 0.8rem 1.1rem;
+        gap: 0.9rem;
+        border-radius: 14px;
+      }
+
+      .pro-stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+
+      .pro-stat-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .pro-stat-val {
+        font-size: 1rem;
+      }
+
+      .pro-stat-lbl {
+        font-size: 0.7rem;
+      }
+
+      .pro-glow-orb {
+        width: 220px;
+        height: 220px;
+        top: 10%;
+        right: -10%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pro-heading {
+        font-size: 1.7rem;
+      }
+
+      .pro-paragraph {
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .pro-tall-img {
+        height: 300px;
+      }
+
+      .pro-image-inner {
+        padding: 0.6rem;
+        border-radius: 22px;
+      }
+
+      .pro-image-card {
+        border-radius: 24px;
+      }
+
+      .pro-floating-stat {
+        bottom: 0.8rem;
+        left: 0.5rem;
+        padding: 0.65rem 0.9rem;
+        gap: 0.7rem;
+      }
+
+      .pro-stat-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .pro-stat-val {
+        font-size: 0.9rem;
+      }
+
+      .pro-stat-lbl {
+        font-size: 0.65rem;
+      }
+    }
   `}</style>
 
-  {/* Ambient Back Glow */}
-  <div className="pro-glow-orb"></div>
+              {/* Ambient Back Glow */}
+              <div className="pro-glow-orb"></div>
 
-  {/* LEFT SIDE: Content */}
-  <div>
-    <div className="pro-badge">
-      <span className="pro-badge-dot"></span>
-      Next-Gen Architecture
-    </div>
+              {/* LEFT SIDE: Content */}
+              <div>
+                <div className="pro-badge">
+                  <span className="pro-badge-dot"></span>
+                  Next-Gen Architecture
+                </div>
 
-    <h2 className="pro-heading">
-      Architecting Unrivaled Digital Excellence
-    </h2>
+                <h2 className="pro-heading">
+                  Architecting Unrivaled Digital Excellence
+                </h2>
 
-    <div className="pro-para-wrapper">
-      <p className="pro-paragraph">
-        We specialize in engineering <strong>high-performance web solutions</strong> that seamlessly fuse aesthetic sophistication with rock-solid reliability. Every line of code is optimized to deliver flawless responsiveness across all modern devices and screen resolutions.
-      </p>
+                <div className="pro-para-wrapper">
+                  <p className="pro-paragraph">
+                    We specialize in engineering <strong>high-performance web solutions</strong> that seamlessly fuse aesthetic sophistication with rock-solid reliability. Every line of code is optimized to deliver flawless responsiveness across all modern devices and screen resolutions.
+                  </p>
 
-      <p className="pro-paragraph">
-        Our front-end design philosophy centers around <strong>fluid motion physics</strong> and precise visual hierarchy. By applying advanced layer depth and glassmorphism, we craft interfaces that draw users in and transform passive viewers into highly engaged, loyal customers.
-      </p>
+                  <p className="pro-paragraph">
+                    Our front-end design philosophy centers around <strong>fluid motion physics</strong> and precise visual hierarchy. By applying advanced layer depth and glassmorphism, we craft interfaces that draw users in and transform passive viewers into highly engaged, loyal customers.
+                  </p>
 
-      <p className="pro-paragraph">
-        Beyond raw speed, our architecture prioritizes <strong>modular scalability and security</strong>. Built using cutting-edge standards, your web ecosystem remains future-proof, easily adaptative to rapid business expansion, and capable of handling peak traffic effortlessly.
-      </p>
+                  <p className="pro-paragraph">
+                    Beyond raw speed, our architecture prioritizes <strong>modular scalability and security</strong>. Built using cutting-edge standards, your web ecosystem remains future-proof, easily adaptative to rapid business expansion, and capable of handling peak traffic effortlessly.
+                  </p>
 
-      <p className="pro-paragraph">
-        Experience a digital presence where <strong>innovation meets craftsmanship</strong>. From subtle micro-interactions to lightning-fast render cycles, every single detail is strategically orchestrated to elevate your brand far beyond industry benchmarks.
-      </p>
-    </div>
-  </div>
+                  <p className="pro-paragraph">
+                    Experience a digital presence where <strong>innovation meets craftsmanship</strong>. From subtle micro-interactions to lightning-fast render cycles, every single detail is strategically orchestrated to elevate your brand far beyond industry benchmarks.
+                  </p>
+                </div>
+              </div>
 
-  {/* RIGHT SIDE: Ultra-Pro Image Card with Floating Stat */}
-  <div style={{ position: 'relative' }}>
-    <div className="pro-image-card">
-      <div className="pro-image-inner">
-        <img
-          className="pro-tall-img"
-          src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80"
-          alt="Modern Developer Workspace Laptop"
-        />
-      </div>
-    </div>
+              {/* RIGHT SIDE: Ultra-Pro Image Card with Floating Stat */}
+              <div style={{ position: 'relative' }}>
+                <div className="pro-image-card">
+                  <div className="pro-image-inner">
+                    <img
+                      className="pro-tall-img"
+                      src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80"
+                      alt="Modern Developer Workspace Laptop"
+                    />
+                  </div>
+                </div>
 
-    {/* Floating Glass Widget */}
-    <div className="pro-floating-stat">
-      <div className="pro-stat-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
-      </div>
-      <div>
-        <div className="pro-stat-val">120 FPS</div>
-        <div className="pro-stat-lbl">Ultra-Fluid Render Speed</div>
-      </div>
-    </div>
-  </div>
+                {/* Floating Glass Widget */}
+                <div className="pro-floating-stat">
+                  <div className="pro-stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="pro-stat-val">120 FPS</div>
+                    <div className="pro-stat-lbl">Ultra-Fluid Render Speed</div>
+                  </div>
+                </div>
+              </div>
 
-</div>
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '4.5rem',
-  alignItems: 'center',
-  marginTop: '6rem',
-  padding: '3rem 1rem',
-  position: 'relative'
-}}>
+            </div>
 
-  <style>{`
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '4.5rem',
+              alignItems: 'center',
+              marginTop: '6rem',
+              padding: '3rem 1rem',
+              position: 'relative'
+            }}>
+
+              <style>{`
     @keyframes audioPulse {
       0%, 100% { transform: scale(1); opacity: 0.4; }
       50% { transform: scale(1.08); opacity: 0.8; }
@@ -2125,81 +2236,193 @@ setAdminTab('dashboard');
       pointer-events: none;
       animation: audioPulse 6s infinite alternate;
     }
+
+    /* ===================== MOBILE RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .audio-heading {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        margin-bottom: 1.4rem;
+      }
+
+      .audio-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.85rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .audio-para-wrapper {
+        padding-left: 1rem;
+        gap: 1rem;
+      }
+
+      .audio-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+
+      .audio-image-inner {
+        padding: 0.85rem;
+      }
+
+      .audio-tall-img {
+        height: 380px;
+      }
+
+      /* Floating stat ko screen ke andar laao */
+      .audio-floating-stat {
+        top: 1.2rem;
+        right: 0.5rem;
+        padding: 0.8rem 1.1rem;
+        gap: 0.9rem;
+        border-radius: 14px;
+      }
+
+      .audio-stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+
+      .audio-stat-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .audio-stat-val {
+        font-size: 1rem;
+      }
+
+      .audio-stat-lbl {
+        font-size: 0.7rem;
+      }
+
+      .audio-glow-orb {
+        width: 220px;
+        height: 220px;
+        bottom: 5%;
+        left: -10%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .audio-heading {
+        font-size: 1.7rem;
+      }
+
+      .audio-paragraph {
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .audio-tall-img {
+        height: 300px;
+      }
+
+      .audio-image-inner {
+        padding: 0.6rem;
+        border-radius: 22px;
+      }
+
+      .audio-image-card {
+        border-radius: 24px;
+      }
+
+      .audio-floating-stat {
+        top: 0.8rem;
+        right: 0.5rem;
+        padding: 0.65rem 0.9rem;
+        gap: 0.7rem;
+      }
+
+      .audio-stat-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .audio-stat-val {
+        font-size: 0.9rem;
+      }
+
+      .audio-stat-lbl {
+        font-size: 0.65rem;
+      }
+    }
   `}</style>
 
-  {/* Ambient Back Glow */}
-  <div className="audio-glow-orb"></div>
+              {/* Ambient Back Glow */}
+              <div className="audio-glow-orb"></div>
 
-  {/* LEFT SIDE: Image Frame & Floating Widget */}
-  <div style={{ position: 'relative' }}>
-    <div className="audio-image-card">
-      <div className="audio-image-inner">
-        <img
-          className="audio-tall-img"
-          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
-          alt="Studio Grade Wireless Headphones"
-        />
-      </div>
-    </div>
+              {/* LEFT SIDE: Image Frame & Floating Widget */}
+              <div style={{ position: 'relative' }}>
+                <div className="audio-image-card">
+                  <div className="audio-image-inner">
+                    <img
+                      className="audio-tall-img"
+                      src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
+                      alt="Studio Grade Wireless Headphones"
+                    />
+                  </div>
+                </div>
 
-    {/* Floating Glass Widget */}
-    <div className="audio-floating-stat">
-      <div className="audio-stat-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"></path>
-          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-        </svg>
-      </div>
-      <div>
-        <div className="audio-stat-val">-45 dB ANC</div>
-        <div className="audio-stat-lbl">Active Noise Cancellation</div>
-      </div>
-    </div>
-  </div>
+                {/* Floating Glass Widget */}
+                <div className="audio-floating-stat">
+                  <div className="audio-stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"></path>
+                      <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="audio-stat-val">-45 dB ANC</div>
+                    <div className="audio-stat-lbl">Active Noise Cancellation</div>
+                  </div>
+                </div>
+              </div>
 
-  {/* RIGHT SIDE: Audio Content */}
-  <div>
-    <div className="audio-badge">
-      <span className="audio-badge-dot"></span>
-      Acoustic Precision
-    </div>
+              {/* RIGHT SIDE: Audio Content */}
+              <div>
+                <div className="audio-badge">
+                  <span className="audio-badge-dot"></span>
+                  Acoustic Precision
+                </div>
 
-    <h2 className="audio-heading">
-      Immersive Acoustic Engineering Redefined
-    </h2>
+                <h2 className="audio-heading">
+                  Immersive Acoustic Engineering Redefined
+                </h2>
 
-    <div className="audio-para-wrapper">
-      <p className="audio-paragraph">
-        Step into an realm of pure audio clarity with our <strong>next-generation sound architecture</strong>. Engineered with custom-tuned 40mm titanium drivers, these headphones deliver ultra-deep bass response, lush midrange, and crystalline highs across every genre.
-      </p>
+                <div className="audio-para-wrapper">
+                  <p className="audio-paragraph">
+                    Step into an realm of pure audio clarity with our <strong>next-generation sound architecture</strong>. Engineered with custom-tuned 40mm titanium drivers, these headphones deliver ultra-deep bass response, lush midrange, and crystalline highs across every genre.
+                  </p>
 
-      <p className="audio-paragraph">
-        Equipped with <strong>adaptive spatial audio tracking</strong>, the soundscape dynamically adjusts to your physical movement. This creates an unparalleled 3D stage effect that puts you right at the center of live studio recordings and cinema-grade soundtracks.
-      </p>
+                  <p className="audio-paragraph">
+                    Equipped with <strong>adaptive spatial audio tracking</strong>, the soundscape dynamically adjusts to your physical movement. This creates an unparalleled 3D stage effect that puts you right at the center of live studio recordings and cinema-grade soundtracks.
+                  </p>
 
-      <p className="audio-paragraph">
-        Our proprietary <strong>Hybrid Active Noise Cancellation (ANC)</strong> continuously samples ambient noise 50,000 times per second. It suppresses environmental distractions seamlessly, ensuring completely uninterrupted focus whether you are commuting or in a busy workspace.
-      </p>
+                  <p className="audio-paragraph">
+                    Our proprietary <strong>Hybrid Active Noise Cancellation (ANC)</strong> continuously samples ambient noise 50,000 times per second. It suppresses environmental distractions seamlessly, ensuring completely uninterrupted focus whether you are commuting or in a busy workspace.
+                  </p>
 
-      <p className="audio-paragraph">
-        Crafted for end-to-end luxury, the chassis combines <strong>lightweight aerospace aluminum with memory foam ear cushions</strong> wrapped in breathable leather. Designed for zero-fatigue sessions, it offers up to 60 hours of continuous wireless listening on a single charge.
-      </p>
-    </div>
-  </div>
+                  <p className="audio-paragraph">
+                    Crafted for end-to-end luxury, the chassis combines <strong>lightweight aerospace aluminum with memory foam ear cushions</strong> wrapped in breathable leather. Designed for zero-fatigue sessions, it offers up to 60 hours of continuous wireless listening on a single charge.
+                  </p>
+                </div>
+              </div>
 
-</div>
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-  gap: '4.5rem',
-  alignItems: 'center',
-  marginTop: '6rem',
-  padding: '3rem 1rem',
-  position: 'relative'
-}}>
+            </div>
 
-  <style>{`
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '4.5rem',
+              alignItems: 'center',
+              marginTop: '6rem',
+              padding: '3rem 1rem',
+              position: 'relative'
+            }}>
+
+              <style>{`
     @keyframes watchPulse {
       0%, 100% { transform: scale(1); opacity: 0.35; }
       50% { transform: scale(1.08); opacity: 0.75; }
@@ -2363,76 +2586,187 @@ setAdminTab('dashboard');
       pointer-events: none;
       animation: watchPulse 6s infinite alternate;
     }
+
+    /* ===================== MOBILE RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .watch-heading {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        margin-bottom: 1.4rem;
+      }
+
+      .watch-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.85rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .watch-para-wrapper {
+        padding-left: 1rem;
+        gap: 1rem;
+      }
+
+      .watch-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+
+      .watch-image-inner {
+        padding: 0.85rem;
+      }
+
+      .watch-tall-img {
+        height: 380px;
+      }
+
+      /* Floating stat ko screen ke andar laao */
+      .watch-floating-stat {
+        bottom: 1.2rem;
+        left: 0.5rem;
+        padding: 0.8rem 1.1rem;
+        gap: 0.9rem;
+        border-radius: 14px;
+      }
+
+      .watch-stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+
+      .watch-stat-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .watch-stat-val {
+        font-size: 1rem;
+      }
+
+      .watch-stat-lbl {
+        font-size: 0.7rem;
+      }
+
+      .watch-glow-orb {
+        width: 220px;
+        height: 220px;
+        top: 5%;
+        right: -10%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .watch-heading {
+        font-size: 1.7rem;
+      }
+
+      .watch-paragraph {
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .watch-tall-img {
+        height: 300px;
+      }
+
+      .watch-image-inner {
+        padding: 0.6rem;
+        border-radius: 22px;
+      }
+
+      .watch-image-card {
+        border-radius: 24px;
+      }
+
+      .watch-floating-stat {
+        bottom: 0.8rem;
+        left: 0.5rem;
+        padding: 0.65rem 0.9rem;
+        gap: 0.7rem;
+      }
+
+      .watch-stat-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .watch-stat-val {
+        font-size: 0.9rem;
+      }
+
+      .watch-stat-lbl {
+        font-size: 0.65rem;
+      }
+    }
   `}</style>
 
-  {/* Ambient Back Glow */}
-  <div className="watch-glow-orb"></div>
+              {/* Ambient Back Glow */}
+              <div className="watch-glow-orb"></div>
 
-  {/* LEFT SIDE: Smartwatch Content */}
-  <div>
-    <div className="watch-badge">
-      <span className="watch-badge-dot"></span>
-      Biometric Precision
-    </div>
+              {/* LEFT SIDE: Smartwatch Content */}
+              <div>
+                <div className="watch-badge">
+                  <span className="watch-badge-dot"></span>
+                  Biometric Precision
+                </div>
 
-    <h2 className="watch-heading">
-      Next-Gen Wearable Intelligence
-    </h2>
+                <h2 className="watch-heading">
+                  Next-Gen Wearable Intelligence
+                </h2>
 
-    <div className="watch-para-wrapper">
-      <p className="watch-paragraph">
-        Experience the pinnacle of personal health monitoring with our <strong>flagship Smartwatch ecosystem</strong>. Featuring an ultra-bright Sapphire Crystal AMOLED display with 3000 nits peak brightness, every metric remains perfectly crisp even under direct sunlight.
-      </p>
+                <div className="watch-para-wrapper">
+                  <p className="watch-paragraph">
+                    Experience the pinnacle of personal health monitoring with our <strong>flagship Smartwatch ecosystem</strong>. Featuring an ultra-bright Sapphire Crystal AMOLED display with 3000 nits peak brightness, every metric remains perfectly crisp even under direct sunlight.
+                  </p>
 
-      <p className="watch-paragraph">
-        Powered by an advanced <strong>multi-channel optical sensor array</strong>, it tracks real-time heart rate variability, SpO2 blood oxygen saturation, and continuous stress levels with clinical-grade accuracy to give you actionable health insights throughout the day.
-      </p>
+                  <p className="watch-paragraph">
+                    Powered by an advanced <strong>multi-channel optical sensor array</strong>, it tracks real-time heart rate variability, SpO2 blood oxygen saturation, and continuous stress levels with clinical-grade accuracy to give you actionable health insights throughout the day.
+                  </p>
 
-      <p className="watch-paragraph">
-        Designed for extreme performance, the <strong>aerospace-grade titanium chassis</strong> is rated for 10 ATM water resistance. Dual-frequency GPS navigation ensures pinpoint route tracking through dense urban environments or remote mountain trails.
-      </p>
+                  <p className="watch-paragraph">
+                    Designed for extreme performance, the <strong>aerospace-grade titanium chassis</strong> is rated for 10 ATM water resistance. Dual-frequency GPS navigation ensures pinpoint route tracking through dense urban environments or remote mountain trails.
+                  </p>
 
-      <p className="watch-paragraph">
-        Stay effortlessly connected with <strong>on-device neural processing</strong>. From predictive sleep coaching to seamless contactless payments and 14-day battery life, it harmonizes intelligent connectivity with everyday endurance.
-      </p>
-    </div>
-  </div>
+                  <p className="watch-paragraph">
+                    Stay effortlessly connected with <strong>on-device neural processing</strong>. From predictive sleep coaching to seamless contactless payments and 14-day battery life, it harmonizes intelligent connectivity with everyday endurance.
+                  </p>
+                </div>
+              </div>
 
-  {/* RIGHT SIDE: Smartwatch Image Frame & Floating Widget */}
-  <div style={{ position: 'relative' }}>
-    <div className="watch-image-card">
-      <div className="watch-image-inner">
-        <img
-          className="watch-tall-img"
-          src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=900&q=80"
-          alt="Modern Premium Smartwatch"
-        />
-      </div>
-    </div>
+              {/* RIGHT SIDE: Smartwatch Image Frame & Floating Widget */}
+              <div style={{ position: 'relative' }}>
+                <div className="watch-image-card">
+                  <div className="watch-image-inner">
+                    <img
+                      className="watch-tall-img"
+                      src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=900&q=80"
+                      alt="Modern Premium Smartwatch"
+                    />
+                  </div>
+                </div>
 
-    {/* Floating Glass Widget */}
-    <div className="watch-floating-stat">
-      <div className="watch-stat-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 21.35l7.95-7.95.77-.78a5.4 5.4 0 0 0 0-7.64z"></path>
-        </svg>
-      </div>
-      <div>
-        <div className="watch-stat-val">72 BPM</div>
-        <div className="watch-stat-lbl">Real-time Heart Rate</div>
-      </div>
-    </div>
-  </div>
+                {/* Floating Glass Widget */}
+                <div className="watch-floating-stat">
+                  <div className="watch-stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 21.35l7.95-7.95.77-.78a5.4 5.4 0 0 0 0-7.64z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="watch-stat-val">72 BPM</div>
+                    <div className="watch-stat-lbl">Real-time Heart Rate</div>
+                  </div>
+                </div>
+              </div>
 
-</div>
-    
-{/* --- BHAR BHAR KE STORE DETAILS & FEATURES SECTION --- */}
-<div style={{ marginTop: '3rem', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+            </div>
 
-  {/* 1. Feature Cards Grid (4 Columns) */}
-<div className="features-grid-wrapper">
+            {/* --- BHAR BHAR KE STORE DETAILS & FEATURES SECTION --- */}
+            <div style={{ marginTop: '3rem', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
 
-  <style>{`
+              {/* 1. Feature Cards Grid (4 Columns) */}
+              <div className="features-grid-wrapper">
+
+                <style>{`
     .features-grid-wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -2599,84 +2933,84 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* Card 1: Delivery */}
-  <div className="feature-card">
-    <div className="icon-wrapper">
-      <svg className="delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-      </svg>
-    </div>
-    <div className="card-content-box">
-      <h3 className="card-title">Nationwide Express Delivery</h3>
-      <p className="card-description">
-        Get your favorite gadgets delivered directly to your doorstep in 2 to 4 business days with real-time tracking updates.
-      </p>
-    </div>
-  </div>
+                {/* Card 1: Delivery */}
+                <div className="feature-card">
+                  <div className="icon-wrapper">
+                    <svg className="delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                  </div>
+                  <div className="card-content-box">
+                    <h3 className="card-title">Nationwide Express Delivery</h3>
+                    <p className="card-description">
+                      Get your favorite gadgets delivered directly to your doorstep in 2 to 4 business days with real-time tracking updates.
+                    </p>
+                  </div>
+                </div>
 
-  {/* Card 2: Authenticity */}
-  <div className="feature-card">
-    <div className="icon-wrapper">
-      <svg className="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="m9 12 2 2 4-4" />
-      </svg>
-    </div>
-    <div className="card-content-box">
-      <h3 className="card-title">100% Brand Authenticity</h3>
-      <p className="card-description">
-        All products are sourced directly from official manufacturers, fully backed by valid official brand warranties.
-      </p>
-    </div>
-  </div>
+                {/* Card 2: Authenticity */}
+                <div className="feature-card">
+                  <div className="icon-wrapper">
+                    <svg className="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div className="card-content-box">
+                    <h3 className="card-title">100% Brand Authenticity</h3>
+                    <p className="card-description">
+                      All products are sourced directly from official manufacturers, fully backed by valid official brand warranties.
+                    </p>
+                  </div>
+                </div>
 
-  {/* Card 3: Cash on Delivery */}
-  <div className="feature-card">
-    <div className="icon-wrapper">
-      <svg className="cash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="5" width="20" height="14" rx="2" />
-        <line x1="2" y1="10" x2="22" y2="10" />
-      </svg>
-    </div>
-    <div className="card-content-box">
-      <h3 className="card-title">Safe Cash on Delivery</h3>
-      <p className="card-description">
-        Pay conveniently upon package arrival. Verify your order details before handing over cash with full peace of mind.
-      </p>
-    </div>
-  </div>
+                {/* Card 3: Cash on Delivery */}
+                <div className="feature-card">
+                  <div className="icon-wrapper">
+                    <svg className="cash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
+                    </svg>
+                  </div>
+                  <div className="card-content-box">
+                    <h3 className="card-title">Safe Cash on Delivery</h3>
+                    <p className="card-description">
+                      Pay conveniently upon package arrival. Verify your order details before handing over cash with full peace of mind.
+                    </p>
+                  </div>
+                </div>
 
-  {/* Card 4: Support */}
-  <div className="feature-card">
-    <div className="icon-wrapper">
-      <svg className="support-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-      </svg>
-    </div>
-    <div className="card-content-box">
-      <h3 className="card-title">24/7 Expert Support</h3>
-      <p className="card-description">
-        Our dedicated tech customer care team is available around the clock to assist you with order queries and technical setup.
-      </p>
-    </div>
-  </div>
+                {/* Card 4: Support */}
+                <div className="feature-card">
+                  <div className="icon-wrapper">
+                    <svg className="support-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+                    </svg>
+                  </div>
+                  <div className="card-content-box">
+                    <h3 className="card-title">24/7 Expert Support</h3>
+                    <p className="card-description">
+                      Our dedicated tech customer care team is available around the clock to assist you with order queries and technical setup.
+                    </p>
+                  </div>
+                </div>
 
 
-</div>
-<div style={{
-  position: 'relative',
-  width: '100%',
-  maxWidth: '1200px',
-  margin: '6rem auto',
-  padding: '4rem 1.5rem',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  overflow: 'hidden'
-}}>
+              </div>
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '1200px',
+                margin: '6rem auto',
+                padding: '4rem 1.5rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden'
+              }}>
 
-  <style>{`
+                <style>{`
     /* Background Cyberpunk Grid Floor Effect */
     .super-grid-bg {
       position: absolute;
@@ -2864,492 +3198,437 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  {/* Ambient Floor Grid & Glow */}
-  <div className="super-grid-bg"></div>
-  <div className="super-glow-orb"></div>
+                {/* Ambient Floor Grid & Glow */}
+                <div className="super-grid-bg"></div>
+                <div className="super-glow-orb"></div>
 
-  <div className="super-container">
+                <div className="super-container">
 
-    {/* TOP LEFT: Smartphone */}
-    <div className="super-card super-small-card" style={{ animationDelay: '0s' }}>
-      <div className="super-card-inner">
-        <img
-          className="super-img"
-          src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
-          alt="Smartphone"
-        />
-        <div className="super-badge">
-          <span className="super-badge-dot"></span>
-          Smartphone
-        </div>
-      </div>
-    </div>
+                  {/* TOP LEFT: Smartphone */}
+                  <div className="super-card super-small-card" style={{ animationDelay: '0s' }}>
+                    <div className="super-card-inner">
+                      <img
+                        className="super-img"
+                        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
+                        alt="Smartphone"
+                      />
+                      <div className="super-badge">
+                        <span className="super-badge-dot"></span>
+                        Smartphone
+                      </div>
+                    </div>
+                  </div>
 
-    {/* CENTER: Main Laptop */}
-    <div className="super-card super-center-card">
-      <div className="super-card-inner">
-        <img
-          className="super-img"
-          src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80"
-          alt="Pro Laptop"
-        />
-        <div className="super-badge">
-          <span className="super-badge-dot"></span>
-          Pro Laptop
-        </div>
-      </div>
-    </div>
+                  {/* CENTER: Main Laptop */}
+                  <div className="super-card super-center-card">
+                    <div className="super-card-inner">
+                      <img
+                        className="super-img"
+                        src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80"
+                        alt="Pro Laptop"
+                      />
+                      <div className="super-badge">
+                        <span className="super-badge-dot"></span>
+                        Pro Laptop
+                      </div>
+                    </div>
+                  </div>
 
-    {/* TOP RIGHT: Tablet */}
-    <div className="super-card super-small-card" style={{ animationDelay: '1s' }}>
-      <div className="super-card-inner">
-        <img
-          className="super-img"
-          src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80"
-          alt="Tablet"
-        />
-        <div className="super-badge">
-          <span className="super-badge-dot"></span>
-          Tablet
-        </div>
-      </div>
-    </div>
+                  {/* TOP RIGHT: Tablet */}
+                  <div className="super-card super-small-card" style={{ animationDelay: '1s' }}>
+                    <div className="super-card-inner">
+                      <img
+                        className="super-img"
+                        src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80"
+                        alt="Tablet"
+                      />
+                      <div className="super-badge">
+                        <span className="super-badge-dot"></span>
+                        Tablet
+                      </div>
+                    </div>
+                  </div>
 
-    {/* BOTTOM LEFT: Chromebook */}
-    <div className="super-card super-small-card" style={{ animationDelay: '1.5s' }}>
-      <div className="super-card-inner">
-        <img
-          className="super-img"
-          src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=600&q=80"
-          alt="Chromebook"
-        />
-        <div className="super-badge">
-          <span className="super-badge-dot"></span>
-          Chromebook
-        </div>
-      </div>
-    </div>
+                  {/* BOTTOM LEFT: Chromebook */}
+                  <div className="super-card super-small-card" style={{ animationDelay: '1.5s' }}>
+                    <div className="super-card-inner">
+                      <img
+                        className="super-img"
+                        src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=600&q=80"
+                        alt="Chromebook"
+                      />
+                      <div className="super-badge">
+                        <span className="super-badge-dot"></span>
+                        Chromebook
+                      </div>
+                    </div>
+                  </div>
 
-    {/* BOTTOM RIGHT: Smartwatch */}
-    <div className="super-card super-small-card" style={{ animationDelay: '2s' }}>
-      <div className="super-card-inner">
-        <img
-          className="super-img"
-          src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80"
-          alt="Smartwatch"
-        />
-        <div className="super-badge">
-          <span className="super-badge-dot"></span>
-          Smartwatch
-        </div>
-      </div>
-    </div>
+                  {/* BOTTOM RIGHT: Smartwatch */}
+                  <div className="super-card super-small-card" style={{ animationDelay: '2s' }}>
+                    <div className="super-card-inner">
+                      <img
+                        className="super-img"
+                        src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80"
+                        alt="Smartwatch"
+                      />
+                      <div className="super-badge">
+                        <span className="super-badge-dot"></span>
+                        Smartwatch
+                      </div>
+                    </div>
+                  </div>
 
-  </div>
+                </div>
 
-</div>
-  
-
-</div>
-
-{/* --- HOME PAGE UPLOADED PRODUCTS SHOWCASE --- */}
-<div className="showcase-section">
-  
-  {/* Section Heading */}
-  <div className="showcase-heading">
-    <span className="showcase-badge">Fresh Arrivals</span>
-    <h2 className="showcase-title">Premium Showcase ⚡</h2>
-    <p className="showcase-description">
-      Discover our top-tier inventory, carefully categorized for your ultimate tech upgrade.
-    </p>
-  </div>
-
-  {/* Dynamic Categories & Products Showcase */}
-  {products.length === 0 ? (
-    <div className="showcase-empty">
-      <p>Abhi tak koi product upload nahi hua. Admin Panel se naya product upload karein! 🚀</p>
-    </div>
-  ) : (
-    <div>
-      {(() => {
-        const uniqueCategories = [...new Set(products.map(p => p.category || 'Mobiles'))];
-
-        return uniqueCategories.map(category => {
-          const categoryProducts = products.filter(p => (p.category || 'Mobiles') === category).slice(0, 3);
-
-          if (categoryProducts.length === 0) return null;
-
-          return (
-            <div key={category} className="showcase-category-block">
-              
-              {/* Premium Category Heading */}
-              <div className="showcase-category-heading">
-                <h3 className="showcase-category-title">
-                  <span className="emoji">✨</span> 
-                  {category}
-                </h3>
-                <span className="showcase-category-tag">Top 3 Picks</span>
               </div>
 
-              {/* Products Grid */}
-              <div className="showcase-products-grid">
-                {categoryProducts.map(product => (
-                  <div className="showcase-product-card" key={product._id}>
-                    
-                    {/* Image Box */}
-                    <div 
-                      className="showcase-image-box"
-                      onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
-                    >
-                      <img 
-                        src={(product.images && product.images[0]) || 'https://via.placeholder.com/400'} 
-                        alt={product.name} 
-                      />
-                    </div>
 
-                    {/* Content */}
-                    <div className="showcase-product-content">
-                      
-                      {/* Product Name */}
-                      <h3 
-                        className="showcase-product-name"
-                        onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
-                      >
-                        {product.name}
-                      </h3>
+            </div>
 
-                      {/* Rating */}
-                      {(() => {
-                        const reviews = product.reviews || [];
-                        const totalReviews = reviews.length;
-                        const avgRating = totalReviews > 0 
-                          ? (reviews.reduce((acc, item) => acc + Number(item.rating || 0), 0) / totalReviews).toFixed(1)
-                          : (product.rating || 0).toFixed(1);
-                        const numericRating = Number(avgRating);
+            {/* --- HOME PAGE UPLOADED PRODUCTS SHOWCASE --- */}
+            <div className="showcase-section">
 
-                        return (
-                          <div className="showcase-ratings">
-                            <div className="showcase-stars">
-                              {'★'.repeat(Math.floor(numericRating))}
-                              {numericRating % 1 >= 0.5 ? '½' : ''}
-                              {'☆'.repeat(Math.max(0, 5 - Math.ceil(numericRating)))}
-                            </div>
-                            <span className="showcase-rating-number">
-                              {numericRating > 0 ? numericRating : '0.0'}
-                            </span>
-                            <span className="showcase-reviews-count">
-                              ({totalReviews})
-                            </span>
+              {/* Section Heading */}
+              <div className="showcase-heading">
+                <span className="showcase-badge">Fresh Arrivals</span>
+                <h2 className="showcase-title">Premium Showcase ⚡</h2>
+                <p className="showcase-description">
+                  Discover our top-tier inventory, carefully categorized for your ultimate tech upgrade.
+                </p>
+              </div>
+
+              {/* Dynamic Categories & Products Showcase */}
+              {products.length === 0 ? (
+                <div className="showcase-empty">
+                  <p>Abhi tak koi product upload nahi hua. Admin Panel se naya product upload karein! 🚀</p>
+                </div>
+              ) : (
+                <div>
+                  {(() => {
+                    const uniqueCategories = [...new Set(products.map(p => p.category || 'Mobiles'))];
+
+                    return uniqueCategories.map(category => {
+                      const categoryProducts = products.filter(p => (p.category || 'Mobiles') === category).slice(0, 3);
+
+                      if (categoryProducts.length === 0) return null;
+
+                      return (
+                        <div key={category} className="showcase-category-block">
+
+                          {/* Premium Category Heading */}
+                          <div className="showcase-category-heading">
+                            <h3 className="showcase-category-title">
+                              <span className="emoji">✨</span>
+                              {category}
+                            </h3>
+                            <span className="showcase-category-tag">Top 3 Picks</span>
                           </div>
-                        );
-                      })()}
 
-                      {/* Price */}
-                      <div className="showcase-price-row">
-                        <span className="showcase-currency">PKR</span>
-                        <span className="showcase-price">
-                          {product.discountPrice || product.regularPrice}
-                        </span>
-                        {product.discountPrice && (
-                          <span className="showcase-old-price">{product.regularPrice}</span>
-                        )}
-                      </div>
+                          {/* Products Grid */}
+                          <div className="showcase-products-grid">
+                            {categoryProducts.map(product => (
+                              <div className="showcase-product-card" key={product._id}>
 
-                      {/* Action Buttons */}
-                      <div className="showcase-actions">
-                        <button 
-                          className="showcase-btn-cart"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          Add to Cart
-                        </button>
-                        <button 
-                          className="showcase-btn-details"
-                          onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
-                        >
-                          Details →
-                        </button>
-                      </div>
+                                {/* Image Box */}
+                                <div
+                                  className="showcase-image-box"
+                                  onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                >
+                                  <img
+                                    src={(product.images && product.images[0]) || 'https://via.placeholder.com/400'}
+                                    alt={product.name}
+                                  />
+                                </div>
 
-                    </div>
+                                {/* Content */}
+                                <div className="showcase-product-content">
 
-                  </div>
-                ))}
+                                  {/* Product Name */}
+                                  <h3
+                                    className="showcase-product-name"
+                                    onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                  >
+                                    {product.name}
+                                  </h3>
+
+                                  {/* Rating */}
+                                  {(() => {
+                                    const reviews = product.reviews || [];
+                                    const totalReviews = reviews.length;
+                                    const avgRating = totalReviews > 0
+                                      ? (reviews.reduce((acc, item) => acc + Number(item.rating || 0), 0) / totalReviews).toFixed(1)
+                                      : (product.rating || 0).toFixed(1);
+                                    const numericRating = Number(avgRating);
+
+                                    return (
+                                      <div className="showcase-ratings">
+                                        <div className="showcase-stars">
+                                          {'★'.repeat(Math.floor(numericRating))}
+                                          {numericRating % 1 >= 0.5 ? '½' : ''}
+                                          {'☆'.repeat(Math.max(0, 5 - Math.ceil(numericRating)))}
+                                        </div>
+                                        <span className="showcase-rating-number">
+                                          {numericRating > 0 ? numericRating : '0.0'}
+                                        </span>
+                                        <span className="showcase-reviews-count">
+                                          ({totalReviews})
+                                        </span>
+                                      </div>
+                                    );
+                                  })()}
+
+                                  {/* Price */}
+                                  <div className="showcase-price-row">
+                                    <span className="showcase-currency">PKR</span>
+                                    <span className="showcase-price">
+                                      {product.discountPrice || product.regularPrice}
+                                    </span>
+                                    {product.discountPrice && (
+                                      <span className="showcase-old-price">{product.regularPrice}</span>
+                                    )}
+                                  </div>
+
+                                  {/* Action Buttons */}
+                                  <div className="showcase-actions">
+                                    <button
+                                      className="showcase-btn-cart"
+                                      onClick={() => handleAddToCart(product)}
+                                    >
+                                      Add to Cart
+                                    </button>
+                                    <button
+                                      className="showcase-btn-details"
+                                      onClick={() => { setSelectedProduct(product); window.scrollTo({ top: 0, behavior: 'smooth' }); setCurrentPage('product-detail'); }}
+                                    >
+                                      Details →
+                                    </button>
+                                  </div>
+
+                                </div>
+
+                              </div>
+                            ))}
+                          </div>
+
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              )}
+
+              {/* View All Products Button */}
+              <div className="showcase-view-all-wrap">
+                <button
+                  className="showcase-view-all-btn"
+                  onClick={() => setCurrentPage('products')}
+                >
+                  View Full Catalog ({products.length}) 🛍️
+                </button>
               </div>
 
             </div>
-          );
-        });
-      })()}
-    </div>
-  )}
+            {/* --- BHAR BHAR KE RICH DETAILS SECTION (5 ZIG-ZAG IMAGES & TEXT) --- */}
+            <div className="features-wrapper">
 
-  {/* View All Products Button */}
-  <div className="showcase-view-all-wrap">
-    <button
-      className="showcase-view-all-btn"
-      onClick={() => setCurrentPage('products')}
-    >
-      View Full Catalog ({products.length}) 🛍️
-    </button>
-  </div>
+              {/* 1. Feature Row 1 (Image Left, Text Right) */}
+              <div className="feature-row">
+                <div className="feature-image-box">
+                  <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1200&auto=format&fit=crop" alt="Flagship Smartphones" />
+                </div>
+                <div className="feature-text-box">
+                  <span className="feature-tag" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                    📱 Mobile Innovation
+                  </span>
+                  <h2 className="feature-heading">
+                    Flagship Smartphones Engineered for Perfection
+                  </h2>
+                  <p className="feature-para">
+                    Discover our ultra-high definition OLED screens, aerospace-grade titanium framing, and multi-lens camera setups designed to capture life's purest moments. Built with industry-leading processors to guarantee zero latency and blistering fast multi-tasking performance.
+                  </p>
+                  <div className="feature-points" style={{ color: '#38bdf8' }}>
+                    <span>✔ 120Hz Fluid Displays</span>
+                    <span>✔ 100x Optical Zoom</span>
+                  </div>
+                </div>
+              </div>
 
-</div>
-{/* --- BHAR BHAR KE RICH DETAILS SECTION (5 ZIG-ZAG IMAGES & TEXT) --- */}
-<div style={{ marginTop: '6rem', display: 'flex', flexDirection: 'column', gap: '5rem' }}>
+              {/* 2. Feature Row 2 (Text Left, Image Right) */}
+              <div className="feature-row feature-row-reverse">
+                <div className="feature-text-box">
+                  <span className="feature-tag" style={{ background: 'rgba(129, 140, 248, 0.15)', color: '#818cf8', border: '1px solid rgba(129, 140, 248, 0.3)' }}>
+                    💻 Next-Gen Workstations
+                  </span>
+                  <h2 className="feature-heading">
+                    Powerhouse Laptops for Creators & Professionals
+                  </h2>
+                  <p className="feature-para">
+                    Unleash pure creative freedom with workstation-grade graphics processing, liquid cooling thermals, and all-day battery efficiency. Whether rendering intensive 3D models or editing 8K video timelines, Electro Mark laptops deliver uncompromised computing speed.
+                  </p>
+                  <div className="feature-points" style={{ color: '#818cf8' }}>
+                    <span>✔ Up to 64GB DDR5 RAM</span>
+                    <span>✔ Thunderbolt 4 Ports</span>
+                  </div>
+                </div>
+                <div className="feature-image-box">
+                  <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop" alt="High Performance Laptops" />
+                </div>
+              </div>
 
-  {/* 1. Feature Row 1 (Image Left, Text Right) */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: '4rem',
-    background: 'rgba(15, 23, 42, 0.6)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(56, 189, 248, 0.2)',
-    borderRadius: '32px',
-    padding: '3rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-  }}>
-    <div style={{ flex: '1 1 450px', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-      <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1200&auto=format&fit=crop" alt="Flagship Smartphones" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', width: 'fit-content', textTransform: 'uppercase' }}>
-        📱 Mobile Innovation
-      </span>
-      <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#fff', margin: 0, lineHeight: '1.2' }}>
-        Flagship Smartphones Engineered for Perfection
-      </h2>
-      <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.8', margin: 0 }}>
-        Discover our ultra-high definition OLED screens, aerospace-grade titanium framing, and multi-lens camera setups designed to capture life's purest moments. Built with industry-leading processors to guarantee zero latency and blistering fast multi-tasking performance.
-      </p>
-      <div style={{ display: 'flex', gap: '1.5rem', color: '#38bdf8', fontWeight: 'bold', fontSize: '0.95rem' }}>
-        <span>✔ 120Hz Fluid Displays</span>
-        <span>✔ 100x Optical Zoom</span>
-      </div>
-    </div>
-  </div>
+              {/* 3. Feature Row 3 (Image Left, Text Right) */}
+              <div className="feature-row">
+                <div className="feature-image-box">
+                  <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="Audiophile Headsets" />
+                </div>
+                <div className="feature-text-box">
+                  <span className="feature-tag" style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
+                    🎧 Studio Fidelity Audio
+                  </span>
+                  <h2 className="feature-heading">
+                    Immersive Active Noise Cancelling Sound
+                  </h2>
+                  <p className="feature-para">
+                    Step into acoustic perfection with custom dynamic drivers, spatial 3D audio isolation, and active noise cancellation that silences background ambient noise. Enjoy studio-quality bass, crystalline highs, and continuous 40-hour playback stamina.
+                  </p>
+                  <div className="feature-points" style={{ color: '#4ade80' }}>
+                    <span>✔ Lossless Audio Codecs</span>
+                    <span>✔ Hybrid Noise Isolation</span>
+                  </div>
+                </div>
+              </div>
 
-  {/* 2. Feature Row 2 (Text Left, Image Right) */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap-reverse',
-    alignItems: 'center',
-    gap: '4rem',
-    background: 'rgba(15, 23, 42, 0.6)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(129, 140, 248, 0.2)',
-    borderRadius: '32px',
-    padding: '3rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-  }}>
-    <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-      <span style={{ background: 'rgba(129, 140, 248, 0.15)', color: '#818cf8', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(129, 140, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', width: 'fit-content', textTransform: 'uppercase' }}>
-        💻 Next-Gen Workstations
-      </span>
-      <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#fff', margin: 0, lineHeight: '1.2' }}>
-        Powerhouse Laptops for Creators & Professionals
-      </h2>
-      <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.8', margin: 0 }}>
-        Unleash pure creative freedom with workstation-grade graphics processing, liquid cooling thermals, and all-day battery efficiency. Whether rendering intensive 3D models or editing 8K video timelines, Electro Mark laptops deliver uncompromised computing speed.
-      </p>
-      <div style={{ display: 'flex', gap: '1.5rem', color: '#818cf8', fontWeight: 'bold', fontSize: '0.95rem' }}>
-        <span>✔ Up to 64GB DDR5 RAM</span>
-        <span>✔ Thunderbolt 4 Ports</span>
-      </div>
-    </div>
-    <div style={{ flex: '1 1 450px', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-      <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop" alt="High Performance Laptops" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  </div>
+              {/* 4. Feature Row 4 (Text Left, Image Right) */}
+              <div className="feature-row feature-row-reverse">
+                <div className="feature-text-box">
+                  <span className="feature-tag" style={{ background: 'rgba(251, 146, 60, 0.15)', color: '#fb923c', border: '1px solid rgba(251, 146, 60, 0.3)' }}>
+                    ⌚ Smart Wearables
+                  </span>
+                  <h2 className="feature-heading">
+                    Smartwatches Designed for Health & Fitness Tracking
+                  </h2>
+                  <p className="feature-para">
+                    Monitor real-time heart metrics, oxygen saturation, sleep cycles, and daily caloric burn with surgical precision. Encased in sapphire crystal glass with 50-meter water resistance, our wearables combine sleek elegance with rugged sports durability.
+                  </p>
+                  <div className="feature-points" style={{ color: '#fb923c' }}>
+                    <span>✔ Always-On AMOLED</span>
+                    <span>✔ Dual-Frequency GPS</span>
+                  </div>
+                </div>
+                <div className="feature-image-box">
+                  <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop" alt="Smartwatches & Wearables" />
+                </div>
+              </div>
 
-  {/* 3. Feature Row 3 (Image Left, Text Right) */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: '4rem',
-    background: 'rgba(15, 23, 42, 0.6)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(74, 222, 128, 0.2)',
-    borderRadius: '32px',
-    padding: '3rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-  }}>
-    <div style={{ flex: '1 1 450px', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="Audiophile Headsets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-      <span style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(74, 222, 128, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', width: 'fit-content', textTransform: 'uppercase' }}>
-        🎧 Studio Fidelity Audio
-      </span>
-      <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#fff', margin: 0, lineHeight: '1.2' }}>
-        Immersive Active Noise Cancelling Sound
-      </h2>
-      <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.8', margin: 0 }}>
-        Step into acoustic perfection with custom dynamic drivers, spatial 3D audio isolation, and active noise cancellation that silences background ambient noise. Enjoy studio-quality bass, crystalline highs, and continuous 40-hour playback stamina.
-      </p>
-      <div style={{ display: 'flex', gap: '1.5rem', color: '#4ade80', fontWeight: 'bold', fontSize: '0.95rem' }}>
-        <span>✔ Lossless Audio Codecs</span>
-        <span>✔ Hybrid Noise Isolation</span>
-      </div>
-    </div>
-  </div>
+              {/* 5. Feature Row 5 (Image Left, Text Right) */}
+              <div className="feature-row">
+                <div className="feature-image-box">
+                  <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1200&auto=format&fit=crop" alt="Pro Tablets" />
+                </div>
+                <div className="feature-text-box">
+                  <span className="feature-tag" style={{ background: 'rgba(236, 72, 153, 0.15)', color: '#ec4899', border: '1px solid rgba(236, 72, 153, 0.3)' }}>
+                    🎨 Pro Digital Canvas
+                  </span>
+                  <h2 className="feature-heading">
+                    Versatile Tablets & Accessories for Ultimate Productivity
+                  </h2>
+                  <p className="feature-para">
+                    Transform your workflow into a digital studio with stylus-enabled pressure sensitivity, magnetic keyboard dock support, and ultra-wide camera lenses. Designed for designers, students, and remote professionals who demand mobility without compromise.
+                  </p>
+                  <div className="feature-points" style={{ color: '#ec4899' }}>
+                    <span>✔ Stylus Pen Precision</span>
+                    <span>✔ Wi-Fi 6E Connectivity</span>
+                  </div>
+                </div>
+              </div>
 
-  {/* 4. Feature Row 4 (Text Left, Image Right) */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap-reverse',
-    alignItems: 'center',
-    gap: '4rem',
-    background: 'rgba(15, 23, 42, 0.6)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(251, 146, 60, 0.2)',
-    borderRadius: '32px',
-    padding: '3rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-  }}>
-    <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-      <span style={{ background: 'rgba(251, 146, 60, 0.15)', color: '#fb923c', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(251, 146, 60, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', width: 'fit-content', textTransform: 'uppercase' }}>
-        ⌚ Smart Wearables
-      </span>
-      <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#fff', margin: 0, lineHeight: '1.2' }}>
-        Smartwatches Designed for Health & Fitness Tracking
-      </h2>
-      <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.8', margin: 0 }}>
-        Monitor real-time heart metrics, oxygen saturation, sleep cycles, and daily caloric burn with surgical precision. Encased in sapphire crystal glass with 50-meter water resistance, our wearables combine sleek elegance with rugged sports durability.
-      </p>
-      <div style={{ display: 'flex', gap: '1.5rem', color: '#fb923c', fontWeight: 'bold', fontSize: '0.95rem' }}>
-        <span>✔ Always-On AMOLED</span>
-        <span>✔ Dual-Frequency GPS</span>
-      </div>
-    </div>
-    <div style={{ flex: '1 1 450px', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop" alt="Smartwatches & Wearables" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  </div>
+            </div>
+            {/* --- ULTRA PREMIUM UNIQUE EXTENDED SECTIONS --- */}
+            <div style={{ marginTop: '7rem', display: 'flex', flexDirection: 'column', gap: '6rem' }}>
 
-  {/* 5. Feature Row 5 (Image Left, Text Right) */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: '4rem',
-    background: 'rgba(15, 23, 42, 0.6)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(236, 72, 153, 0.2)',
-    borderRadius: '32px',
-    padding: '3rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-  }}>
-    <div style={{ flex: '1 1 450px', borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-      <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1200&auto=format&fit=crop" alt="Pro Tablets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-      <span style={{ background: 'rgba(236, 72, 153, 0.15)', color: '#ec4899', padding: '6px 16px', borderRadius: '20px', border: '1px solid rgba(236, 72, 153, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', width: 'fit-content', textTransform: 'uppercase' }}>
-        🎨 Pro Digital Canvas
-      </span>
-      <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#fff', margin: 0, lineHeight: '1.2' }}>
-        Versatile Tablets & Accessories for Ultimate Productivity
-      </h2>
-      <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.8', margin: 0 }}>
-        Transform your workflow into a digital studio with stylus-enabled pressure sensitivity, magnetic keyboard dock support, and ultra-wide camera lenses. Designed for designers, students, and remote professionals who demand mobility without compromise.
-      </p>
-      <div style={{ display: 'flex', gap: '1.5rem', color: '#ec4899', fontWeight: 'bold', fontSize: '0.95rem' }}>
-        <span>✔ Stylus Pen Precision</span>
-        <span>✔ Wi-Fi 6E Connectivity</span>
-      </div>
-    </div>
-  </div>
+              {/* 1. INTERACTIVE TECH ECOSYSTEM CARDS */}
+              <div style={{ textAlign: 'center' }}>
+                <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  Unified Standard
+                </span>
+                <h2 style={{ fontSize: '3rem', fontWeight: '900', color: '#fff', margin: '0.8rem 0 0.5rem 0' }}>
+                  The Electro Mark Architecture ⚡
+                </h2>
+                <p style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: '650px', margin: '0 auto 3rem auto' }}>
+                  Every gadget in our catalog adheres to strict performance, durability, and safety standards.
+                </p>
 
-</div>
-{/* --- ULTRA PREMIUM UNIQUE EXTENDED SECTIONS --- */}
-<div style={{ marginTop: '7rem', display: 'flex', flexDirection: 'column', gap: '6rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
 
-  {/* 1. INTERACTIVE TECH ECOSYSTEM CARDS */}
-  <div style={{ textAlign: 'center' }}>
-    <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-      Unified Standard
-    </span>
-    <h2 style={{ fontSize: '3rem', fontWeight: '900', color: '#fff', margin: '0.8rem 0 0.5rem 0' }}>
-      The Electro Mark Architecture ⚡
-    </h2>
-    <p style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: '650px', margin: '0 auto 3rem auto' }}>
-      Every gadget in our catalog adheres to strict performance, durability, and safety standards.
-    </p>
+                  {/* Box 1 */}
+                  <div style={{
+                    background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '28px',
+                    padding: '2.5rem 2rem',
+                    textAlign: 'left',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>⚡</div>
+                    <h3 style={{ color: '#f8fafc', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>Zero-Latency Sync</h3>
+                    <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
+                      Hardware optimized for instant Bluetooth 5.3 auto-pairing, ultra-wideband audio streaming, and lag-free wireless file sharing across all your devices.
+                    </p>
+                  </div>
 
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-      
-      {/* Box 1 */}
-      <div style={{
-        background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '28px',
-        padding: '2.5rem 2rem',
-        textAlign: 'left',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>⚡</div>
-        <h3 style={{ color: '#f8fafc', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>Zero-Latency Sync</h3>
-        <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
-          Hardware optimized for instant Bluetooth 5.3 auto-pairing, ultra-wideband audio streaming, and lag-free wireless file sharing across all your devices.
-        </p>
-      </div>
+                  {/* Box 2 */}
+                  <div style={{
+                    background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
+                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                    borderRadius: '28px',
+                    padding: '2.5rem 2rem',
+                    textAlign: 'left',
+                    position: 'relative',
+                    boxShadow: '0 15px 30px -10px rgba(56, 189, 248, 0.2)'
+                  }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>🛡️</div>
+                    <h3 style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>Military-Grade Testing</h3>
+                    <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
+                      Rigorous thermal resistance, drop protection, and water submersion testing ensure your devices survive harsh real-world environments effortless.
+                    </p>
+                  </div>
 
-      {/* Box 2 */}
-      <div style={{
-        background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
-        border: '1px solid rgba(56, 189, 248, 0.3)',
-        borderRadius: '28px',
-        padding: '2.5rem 2rem',
-        textAlign: 'left',
-        position: 'relative',
-        boxShadow: '0 15px 30px -10px rgba(56, 189, 248, 0.2)'
-      }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>🛡️</div>
-        <h3 style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>Military-Grade Testing</h3>
-        <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
-          Rigorous thermal resistance, drop protection, and water submersion testing ensure your devices survive harsh real-world environments effortless.
-        </p>
-      </div>
+                  {/* Box 3 */}
+                  <div style={{
+                    background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '28px',
+                    padding: '2.5rem 2rem',
+                    textAlign: 'left',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>🔋</div>
+                    <h3 style={{ color: '#f8fafc', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>AI Battery Optimization</h3>
+                    <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
+                      Smart power routing algorithms extend overall battery lifespan up to 300% longer while preventing thermal throttling during heavy power usage.
+                    </p>
+                  </div>
 
-      {/* Box 3 */}
-      <div style={{
-        background: 'linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '28px',
-        padding: '2.5rem 2rem',
-        textAlign: 'left',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1.2rem' }}>🔋</div>
-        <h3 style={{ color: '#f8fafc', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>AI Battery Optimization</h3>
-        <p style={{ color: '#cbd5e1', fontSize: '0.98rem', lineHeight: '1.7', margin: 0 }}>
-          Smart power routing algorithms extend overall battery lifespan up to 300% longer while preventing thermal throttling during heavy power usage.
-        </p>
-      </div>
-
-    </div>
-  </div>
+                </div>
+              </div>
 
 
-  {/* 2. MODERN COMPARISON MATRIX */}
-  <div style={{
-  position: 'relative',
-  width: '100%',
-  maxWidth: '1100px',
-  margin: '5rem auto',
-  padding: '1.5px',
-  borderRadius: '36px',
-  background: 'rgba(15, 23, 42, 0.8)',
-  boxShadow: '0 30px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(168, 85, 247, 0.25)',
-  overflow: 'hidden'
-}}>
+              {/* 2. MODERN COMPARISON MATRIX */}
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '1100px',
+                margin: '5rem auto',
+                padding: '1.5px',
+                borderRadius: '36px',
+                background: 'rgba(15, 23, 42, 0.8)',
+                boxShadow: '0 30px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(168, 85, 247, 0.25)',
+                overflow: 'hidden'
+              }}>
 
-  <style>{`
+                <style>{`
     @keyframes tableBorderGlow {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -3510,426 +3789,426 @@ setAdminTab('dashboard');
     }
   `}</style>
 
-  <div className="em-table-card">
-    <div className="em-table-glow"></div>
+                <div className="em-table-card">
+                  <div className="em-table-glow"></div>
 
-    <div className="em-table-inner">
-      
-      {/* Header Section */}
-      <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-        <div className="em-table-badge">
-          <span className="em-badge-dot"></span>
-          Verified Comparison
-        </div>
-        <h2 className="em-table-title">
-          Standard Market vs. Electro Mark Guarantee ⚡
-        </h2>
-        <p className="em-table-subtitle">
-          See why thousands of buyers choose our official tech inventory over market alternatives.
-        </p>
-      </div>
+                  <div className="em-table-inner">
 
-      {/* Table Container */}
-      <div style={{ overflowX: 'auto' }}>
-        <table className="em-custom-table">
-          <thead>
-            <tr>
-              <th style={{ color: '#94a3b8', width: '28%' }}>Key Feature</th>
-              <th style={{ color: '#94a3b8', width: '32%' }}>Ordinary Sellers</th>
-              <th className="em-highlight-header" style={{ color: '#38bdf8', fontSize: '1.2rem' }}>
-                Electro Mark Elite ⚡
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+                    {/* Header Section */}
+                    <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+                      <div className="em-table-badge">
+                        <span className="em-badge-dot"></span>
+                        Verified Comparison
+                      </div>
+                      <h2 className="em-table-title">
+                        Standard Market vs. Electro Mark Guarantee ⚡
+                      </h2>
+                      <p className="em-table-subtitle">
+                        See why thousands of buyers choose our official tech inventory over market alternatives.
+                      </p>
+                    </div>
 
-            <tr>
-              <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Product Authenticity</td>
-              <td>
-                <span className="em-badge-cross">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  Refurbished or Replica
-                </span>
-              </td>
-              <td className="em-highlight-col">
-                <span className="em-badge-check">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  100% Factory Sealed Genuine
-                </span>
-              </td>
-            </tr>
+                    {/* Table Container */}
+                    <div style={{ overflowX: 'auto' }}>
+                      <table className="em-custom-table">
+                        <thead>
+                          <tr>
+                            <th style={{ color: '#94a3b8', width: '28%' }}>Key Feature</th>
+                            <th style={{ color: '#94a3b8', width: '32%' }}>Ordinary Sellers</th>
+                            <th className="em-highlight-header" style={{ color: '#38bdf8', fontSize: '1.2rem' }}>
+                              Electro Mark Elite ⚡
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
 
-            <tr>
-              <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Warranty Coverage</td>
-              <td>
-                <span className="em-badge-cross">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  Short 7-Day Checking
-                </span>
-              </td>
-              <td className="em-highlight-col">
-                <span className="em-badge-check">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  1 to 2 Years Official Warranty
-                </span>
-              </td>
-            </tr>
+                          <tr>
+                            <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Product Authenticity</td>
+                            <td>
+                              <span className="em-badge-cross">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                Refurbished or Replica
+                              </span>
+                            </td>
+                            <td className="em-highlight-col">
+                              <span className="em-badge-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                100% Factory Sealed Genuine
+                              </span>
+                            </td>
+                          </tr>
 
-            <tr>
-              <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Delivery & Inspection</td>
-              <td>
-                <span className="em-badge-cross">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  Delayed Express & Advance Only
-                </span>
-              </td>
-              <td className="em-highlight-col">
-                <span className="em-badge-check">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Express Cash On Delivery
-                </span>
-              </td>
-            </tr>
+                          <tr>
+                            <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Warranty Coverage</td>
+                            <td>
+                              <span className="em-badge-cross">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                Short 7-Day Checking
+                              </span>
+                            </td>
+                            <td className="em-highlight-col">
+                              <span className="em-badge-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                1 to 2 Years Official Warranty
+                              </span>
+                            </td>
+                          </tr>
 
-            <tr>
-              <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Customer Support</td>
-              <td>
-                <span className="em-badge-cross">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  Unresponsive After Delivery
-                </span>
-              </td>
-              <td className="em-highlight-col" style={{ borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px' }}>
-                <span className="em-badge-check">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  24/7 Priority Tech Desk
-                </span>
-              </td>
-            </tr>
+                          <tr>
+                            <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Delivery & Inspection</td>
+                            <td>
+                              <span className="em-badge-cross">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                Delayed Express & Advance Only
+                              </span>
+                            </td>
+                            <td className="em-highlight-col">
+                              <span className="em-badge-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Express Cash On Delivery
+                              </span>
+                            </td>
+                          </tr>
 
-          </tbody>
-        </table>
-      </div>
+                          <tr>
+                            <td style={{ fontWeight: '700', color: '#f1f5f9' }}>Customer Support</td>
+                            <td>
+                              <span className="em-badge-cross">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                Unresponsive After Delivery
+                              </span>
+                            </td>
+                            <td className="em-highlight-col" style={{ borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px' }}>
+                              <span className="em-badge-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                24/7 Priority Tech Desk
+                              </span>
+                            </td>
+                          </tr>
 
-    </div>
-  </div>
+                        </tbody>
+                      </table>
+                    </div>
 
-</div>
+                  </div>
+                </div>
+
+              </div>
 
 
-  {/* 3. BUYER'S FAQ / ACCORDION STYLE TRUST SECTION */}
-  <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
-    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-      <span style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(74, 222, 128, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-        Got Questions?
-      </span>
-      <h2 style={{ fontSize: '2.8rem', fontWeight: '900', color: '#fff', margin: '0.8rem 0 0.5rem 0' }}>
-        Frequently Asked Questions 💬
-      </h2>
-      <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>Everything you need to know before ordering your next gadget.</p>
-    </div>
+              {/* 3. BUYER'S FAQ / ACCORDION STYLE TRUST SECTION */}
+              <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                  <span style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(74, 222, 128, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                    Got Questions?
+                  </span>
+                  <h2 style={{ fontSize: '2.8rem', fontWeight: '900', color: '#fff', margin: '0.8rem 0 0.5rem 0' }}>
+                    Frequently Asked Questions 💬
+                  </h2>
+                  <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>Everything you need to know before ordering your next gadget.</p>
+                </div>
 
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      
-      {/* FAQ Item 1 */}
-      <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
-        <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
-          ❓ How does Cash on Delivery (COD) work?
-        </h4>
-        <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-          Simply place your order online, fill out your shipping address at checkout, and select COD. You only pay in cash once the courier hands over your sealed parcel at your doorstep.
-        </p>
-      </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-      {/* FAQ Item 2 */}
-      <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
-        <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
-          ❓ How do I claim the brand warranty if needed?
-        </h4>
-        <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-          All products come with an official warranty card inside the box. You can claim it at any official service center nationwide or contact our 24/7 support team to guide you through the process.
-        </p>
-      </div>
+                  {/* FAQ Item 1 */}
+                  <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
+                    <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
+                      ❓ How does Cash on Delivery (COD) work?
+                    </h4>
+                    <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                      Simply place your order online, fill out your shipping address at checkout, and select COD. You only pay in cash once the courier hands over your sealed parcel at your doorstep.
+                    </p>
+                  </div>
 
-      {/* FAQ Item 3 */}
-      <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
-        <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
-          ❓ What is the estimated delivery timeframe?
-        </h4>
-        <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-          Orders are dispatched within 24 hours. Major metropolitan cities receive orders within 2 business days, while other areas take 3 to 4 business days.
-        </p>
-      </div>
+                  {/* FAQ Item 2 */}
+                  <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
+                    <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
+                      ❓ How do I claim the brand warranty if needed?
+                    </h4>
+                    <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                      All products come with an official warranty card inside the box. You can claim it at any official service center nationwide or contact our 24/7 support team to guide you through the process.
+                    </p>
+                  </div>
 
-    </div>
-  </div>
+                  {/* FAQ Item 3 */}
+                  <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '1.8rem 2rem' }}>
+                    <h4 style={{ color: '#38bdf8', fontSize: '1.2rem', margin: '0 0 0.6rem 0', fontWeight: '800' }}>
+                      ❓ What is the estimated delivery timeframe?
+                    </h4>
+                    <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                      Orders are dispatched within 24 hours. Major metropolitan cities receive orders within 2 business days, while other areas take 3 to 4 business days.
+                    </p>
+                  </div>
 
-</div>
-{/* --- FINAL ECOSYSTEM HIGHLIGHT & NEWSLETTER SECTION (1-INCH MARGIN BEFORE FOOTER) --- */}
-<div style={{ 
-  marginTop: '6rem', 
-  marginBottom: '2.5rem', /* 1 Inch Gap Before Footer */
-  display: 'flex', 
-  flexDirection: 'column', 
-  gap: '4rem' 
-}}>
+                </div>
+              </div>
 
-  {/* 1. Interactive 3-Column Innovation Grid */}
-  <div style={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '2rem'
-  }}>
-    
-    {/* Card 1 */}
-    <div style={{
-      background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
-      backdropFilter: 'blur(16px)',
-      border: '1px solid rgba(56, 189, 248, 0.25)',
-      borderRadius: '28px',
-      padding: '2.5rem',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{ 
-        width: '50px', 
-        height: '50px', 
-        borderRadius: '16px', 
-        background: 'rgba(56, 189, 248, 0.15)', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        fontSize: '1.8rem', 
-        marginBottom: '1.5rem',
-        border: '1px solid rgba(56, 189, 248, 0.3)'
-      }}>
-        ⚙️
-      </div>
-      <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
-        Precision Quality Control
-      </h3>
-      <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-        Every single item shipped from our warehouse undergoes a strict 15-point diagnostic check to ensure zero defective hardware or aesthetic blemishes reach your hands.
-      </p>
-    </div>
+            </div>
+            {/* --- FINAL ECOSYSTEM HIGHLIGHT & NEWSLETTER SECTION (1-INCH MARGIN BEFORE FOOTER) --- */}
+            <div style={{
+              marginTop: '6rem',
+              marginBottom: '2.5rem', /* 1 Inch Gap Before Footer */
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '4rem'
+            }}>
 
-    {/* Card 2 */}
-    <div style={{
-      background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
-      backdropFilter: 'blur(16px)',
-      border: '1px solid rgba(129, 140, 248, 0.25)',
-      borderRadius: '28px',
-      padding: '2.5rem',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{ 
-        width: '50px', 
-        height: '50px', 
-        borderRadius: '16px', 
-        background: 'rgba(129, 140, 248, 0.15)', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        fontSize: '1.8rem', 
-        marginBottom: '1.5rem',
-        border: '1px solid rgba(129, 140, 248, 0.3)'
-      }}>
-        🔄
-      </div>
-      <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
-        Hassle-Free Replacement
-      </h3>
-      <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-        Encountered an unexpected glitch? Our streamlined 7-day instant replacement window ensures your order is swapped for a brand-new unit without lengthy waiting periods.
-      </p>
-    </div>
+              {/* 1. Interactive 3-Column Innovation Grid */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '2rem'
+              }}>
 
-    {/* Card 3 */}
-    <div style={{
-      background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
-      backdropFilter: 'blur(16px)',
-      border: '1px solid rgba(74, 222, 128, 0.25)',
-      borderRadius: '28px',
-      padding: '2.5rem',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{ 
-        width: '50px', 
-        height: '50px', 
-        borderRadius: '16px', 
-        background: 'rgba(74, 222, 128, 0.15)', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        fontSize: '1.8rem', 
-        marginBottom: '1.5rem',
-        border: '1px solid rgba(74, 222, 128, 0.3)'
-      }}>
-        🌍
-      </div>
-      <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
-        Global Tech Sourcing
-      </h3>
-      <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
-        We partner directly with authorized international distributors in North America, Japan, and Europe to bring rare, high-demand flagship electronics straight to Pakistan.
-      </p>
-    </div>
+                {/* Card 1 */}
+                <div style={{
+                  background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(56, 189, 248, 0.25)',
+                  borderRadius: '28px',
+                  padding: '2.5rem',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '16px',
+                    background: 'rgba(56, 189, 248, 0.15)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '1.8rem',
+                    marginBottom: '1.5rem',
+                    border: '1px solid rgba(56, 189, 248, 0.3)'
+                  }}>
+                    ⚙️
+                  </div>
+                  <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
+                    Precision Quality Control
+                  </h3>
+                  <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                    Every single item shipped from our warehouse undergoes a strict 15-point diagnostic check to ensure zero defective hardware or aesthetic blemishes reach your hands.
+                  </p>
+                </div>
 
-  </div>
+                {/* Card 2 */}
+                <div style={{
+                  background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(129, 140, 248, 0.25)',
+                  borderRadius: '28px',
+                  padding: '2.5rem',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '16px',
+                    background: 'rgba(129, 140, 248, 0.15)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '1.8rem',
+                    marginBottom: '1.5rem',
+                    border: '1px solid rgba(129, 140, 248, 0.3)'
+                  }}>
+                    🔄
+                  </div>
+                  <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
+                    Hassle-Free Replacement
+                  </h3>
+                  <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                    Encountered an unexpected glitch? Our streamlined 7-day instant replacement window ensures your order is swapped for a brand-new unit without lengthy waiting periods.
+                  </p>
+                </div>
 
-  {/* 2. VIP Tech Club / Newsletter Subscription Banner */}
-  <div>
-  {/* CSS Styles for Animated Border Beam */}
-  <style>{`
+                {/* Card 3 */}
+                <div style={{
+                  background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(74, 222, 128, 0.25)',
+                  borderRadius: '28px',
+                  padding: '2.5rem',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '16px',
+                    background: 'rgba(74, 222, 128, 0.15)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '1.8rem',
+                    marginBottom: '1.5rem',
+                    border: '1px solid rgba(74, 222, 128, 0.3)'
+                  }}>
+                    🌍
+                  </div>
+                  <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '800', margin: '0 0 0.8rem 0' }}>
+                    Global Tech Sourcing
+                  </h3>
+                  <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7', margin: 0 }}>
+                    We partner directly with authorized international distributors in North America, Japan, and Europe to bring rare, high-demand flagship electronics straight to Pakistan.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* 2. VIP Tech Club / Newsletter Subscription Banner */}
+              <div>
+                {/* CSS Styles for Animated Border Beam */}
+                <style>{`
     @keyframes moveBeam {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
   `}</style>
 
-  {/* Outer Container with Rotating Border Line */}
-  <div style={{
-    position: 'relative',
-    borderRadius: '32px',
-    padding: '2px', // Border Thickness
-    overflow: 'hidden',
-    maxWidth: '700px',
-    margin: '0 auto',
-    boxShadow: '0 0 40px rgba(56, 189, 248, 0.25)'
-  }}>
-    {/* Moving Beam Layer */}
-    <div style={{
-      position: 'absolute',
-      top: '-50%',
-      left: '-50%',
-      width: '200%',
-      height: '200%',
-      background: 'conic-gradient(from 0deg, transparent 0 270deg, #38bdf8 310deg, #818cf8 340deg, #c084fc 360deg)',
-      animation: 'moveBeam 3.5s linear infinite'
-    }} />
+                {/* Outer Container with Rotating Border Line */}
+                <div style={{
+                  position: 'relative',
+                  borderRadius: '32px',
+                  padding: '2px', // Border Thickness
+                  overflow: 'hidden',
+                  maxWidth: '700px',
+                  margin: '0 auto',
+                  boxShadow: '0 0 40px rgba(56, 189, 248, 0.25)'
+                }}>
+                  {/* Moving Beam Layer */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '-50%',
+                    left: '-50%',
+                    width: '200%',
+                    height: '200%',
+                    background: 'conic-gradient(from 0deg, transparent 0 270deg, #38bdf8 310deg, #818cf8 340deg, #c084fc 360deg)',
+                    animation: 'moveBeam 3.5s linear infinite'
+                  }} />
 
-    {/* Inner Dark Glass Card */}
-    <div style={{
-      position: 'relative',
-      zIndex: 1,
-      background: 'radial-gradient(circle at top right, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.98) 80%)',
-      backdropFilter: 'blur(24px)',
-      borderRadius: '30px',
-      padding: '3.5rem 2.5rem',
-      textAlign: 'center'
-    }}>
-      <span style={{ 
-        background: 'rgba(56, 189, 248, 0.1)', 
-        color: '#38bdf8', 
-        padding: '6px 20px', 
-        borderRadius: '30px', 
-        border: '1px solid rgba(56, 189, 248, 0.25)', 
-        fontSize: '0.85rem', 
-        fontWeight: 'bold', 
-        letterSpacing: '2px', 
-        textTransform: 'uppercase' 
-      }}>
-        ⚡ Get In Touch
-      </span>
+                  {/* Inner Dark Glass Card */}
+                  <div style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    background: 'radial-gradient(circle at top right, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.98) 80%)',
+                    backdropFilter: 'blur(24px)',
+                    borderRadius: '30px',
+                    padding: '3.5rem 2.5rem',
+                    textAlign: 'center'
+                  }}>
+                    <span style={{
+                      background: 'rgba(56, 189, 248, 0.1)',
+                      color: '#38bdf8',
+                      padding: '6px 20px',
+                      borderRadius: '30px',
+                      border: '1px solid rgba(56, 189, 248, 0.25)',
+                      fontSize: '0.85rem',
+                      fontWeight: 'bold',
+                      letterSpacing: '2px',
+                      textTransform: 'uppercase'
+                    }}>
+                      ⚡ Get In Touch
+                    </span>
 
-      <h2 style={{ 
-        fontSize: '3rem', 
-        fontWeight: '900', 
-        color: '#fff', 
-        margin: '1.2rem 0 0.8rem 0',
-        background: 'linear-gradient(to right, #ffffff, #38bdf8, #818cf8)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent'
-      }}>
-        Contact Us
-      </h2>
+                    <h2 style={{
+                      fontSize: '3rem',
+                      fontWeight: '900',
+                      color: '#fff',
+                      margin: '1.2rem 0 0.8rem 0',
+                      background: 'linear-gradient(to right, #ffffff, #38bdf8, #818cf8)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}>
+                      Contact Us
+                    </h2>
 
-      <p style={{ color: '#94a3b8', fontSize: '1.15rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', lineHeight: '1.7' }}>
-        Have questions or need assistance? Reach out directly to the Electro Mark team via WhatsApp or Email for instant support.
-      </p>
+                    <p style={{ color: '#94a3b8', fontSize: '1.15rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', lineHeight: '1.7' }}>
+                      Have questions or need assistance? Reach out directly to the Electro Mark team via WhatsApp or Email for instant support.
+                    </p>
 
-      {/* Circle Icons Section */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        gap: '2rem', 
-        alignItems: 'center' 
-      }}>
-        {/* WhatsApp Icon Circle */}
-        <a 
-          href="https://wa.me/923421287734?text=Hello%20Electro%20Mark%20team,%20I%20have%20a%20query%20and%20need%20some%20assistance" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          style={{
-            width: '70px',
-            height: '70px',
-            borderRadius: '50%',
-            background: 'rgba(37, 211, 102, 0.1)',
-            border: '1px solid rgba(37, 211, 102, 0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 20px rgba(37, 211, 102, 0.2)',
-            transition: 'all 0.3s ease',
-            textDecoration: 'none'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-            e.currentTarget.style.background = '#25D366';
-            e.currentTarget.querySelector('svg').style.fill = '#ffffff';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.background = 'rgba(37, 211, 102, 0.1)';
-            e.currentTarget.querySelector('svg').style.fill = '#25D366';
-          }}
-        >
-          <svg style={{ width: '35px', height: '35px', fill: '#25D366', transition: 'fill 0.3s ease' }} viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-        </a>
+                    {/* Circle Icons Section */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '2rem',
+                      alignItems: 'center'
+                    }}>
+                      {/* WhatsApp Icon Circle */}
+                      <a
+                        href="https://wa.me/923421287734?text=Hello%20Electro%20Mark%20team,%20I%20have%20a%20query%20and%20need%20some%20assistance"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          width: '70px',
+                          height: '70px',
+                          borderRadius: '50%',
+                          background: 'rgba(37, 211, 102, 0.1)',
+                          border: '1px solid rgba(37, 211, 102, 0.4)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 0 20px rgba(37, 211, 102, 0.2)',
+                          transition: 'all 0.3s ease',
+                          textDecoration: 'none'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.background = '#25D366';
+                          e.currentTarget.querySelector('svg').style.fill = '#ffffff';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.background = 'rgba(37, 211, 102, 0.1)';
+                          e.currentTarget.querySelector('svg').style.fill = '#25D366';
+                        }}
+                      >
+                        <svg style={{ width: '35px', height: '35px', fill: '#25D366', transition: 'fill 0.3s ease' }} viewBox="0 0 24 24">
+                          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                        </svg>
+                      </a>
 
-        {/* Gmail Icon Circle */}
-        <a 
-          href="mailto:book.apexcode@gmail.com?subject=Inquiry%20for%20Electro%20Mark" 
-          style={{
-            width: '70px',
-            height: '70px',
-            borderRadius: '50%',
-            background: 'rgba(234, 67, 53, 0.1)',
-            border: '1px solid rgba(234, 67, 53, 0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 20px rgba(234, 67, 53, 0.2)',
-            transition: 'all 0.3s ease',
-            textDecoration: 'none'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-            e.currentTarget.style.background = '#EA4335';
-            e.currentTarget.querySelector('svg').style.fill = '#ffffff';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.background = 'rgba(234, 67, 53, 0.1)';
-            e.currentTarget.querySelector('svg').style.fill = '#EA4335';
-          }}
-        >
-          <svg style={{ width: '32px', height: '32px', fill: '#EA4335', transition: 'fill 0.3s ease' }} viewBox="0 0 24 24">
-            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.545l8.073-6.052C21.69 2.28 24 3.434 24 5.457z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+                      {/* Gmail Icon Circle */}
+                      <a
+                        href="mailto:book.apexcode@gmail.com?subject=Inquiry%20for%20Electro%20Mark"
+                        style={{
+                          width: '70px',
+                          height: '70px',
+                          borderRadius: '50%',
+                          background: 'rgba(234, 67, 53, 0.1)',
+                          border: '1px solid rgba(234, 67, 53, 0.4)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 0 20px rgba(234, 67, 53, 0.2)',
+                          transition: 'all 0.3s ease',
+                          textDecoration: 'none'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.background = '#EA4335';
+                          e.currentTarget.querySelector('svg').style.fill = '#ffffff';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.background = 'rgba(234, 67, 53, 0.1)';
+                          e.currentTarget.querySelector('svg').style.fill = '#EA4335';
+                        }}
+                      >
+                        <svg style={{ width: '32px', height: '32px', fill: '#EA4335', transition: 'fill 0.3s ease' }} viewBox="0 0 24 24">
+                          <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.545l8.073-6.052C21.69 2.28 24 3.434 24 5.457z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-</div>
-  </div>
-)}
+            </div>
+          </div>
+        )}
 
         {/* Login Page */}
         {currentPage === 'login' && (
@@ -3938,7 +4217,7 @@ setAdminTab('dashboard');
               <div className="login-header">
                 <div className="login-icon-badge">
                   <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
                   </svg>
                 </div>
                 <h2>Admin Portal</h2>
@@ -3950,14 +4229,14 @@ setAdminTab('dashboard');
                   <label>Email Address</label>
                   <div className="input-wrapper">
                     <svg className="input-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
-                    <input 
-                      type="email" 
-                      placeholder="admin@electromark.com" 
-                      value={email} 
-                      onChange={(e) => setEmail(e.target.value)} 
-                      required 
+                    <input
+                      type="email"
+                      placeholder="admin@electromark.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -3966,14 +4245,14 @@ setAdminTab('dashboard');
                   <label>Password</label>
                   <div className="input-wrapper">
                     <svg className="input-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.66 0 3 1.34 3 3v2H9V6c0-1.66 1.34-3 3-3zm6 15H6V10h12v10z"/>
+                      <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.66 0 3 1.34 3 3v2H9V6c0-1.66 1.34-3 3-3zm6 15H6V10h12v10z" />
                     </svg>
-                    <input 
-                      type="password" 
-                      placeholder="••••••••" 
-                      value={password} 
-                      onChange={(e) => setPassword(e.target.value)} 
-                      required 
+                    <input
+                      type="password"
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -3981,7 +4260,7 @@ setAdminTab('dashboard');
                 {error && (
                   <div className="error-message">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
                     </svg>
                     <span>{error}</span>
                   </div>
@@ -3991,8 +4270,8 @@ setAdminTab('dashboard');
                   Sign In
                 </button>
 
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="btn-back-home"
                   onClick={() => setCurrentPage('home')}
                 >
@@ -4017,15 +4296,15 @@ setAdminTab('dashboard');
               </div>
 
               <nav className="sidebar-menu">
-                <button 
+                <button
                   className={`sidebar-btn ${adminTab === 'dashboard' ? 'active' : ''}`}
                   onClick={() => setAdminTab('dashboard')}
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" /></svg>
                   Dashboard
                 </button>
 
-                <button 
+                <button
                   className={`sidebar-btn ${adminTab === 'upload-product' ? 'active' : ''}`}
                   onClick={() => {
                     setEditingId(null);
@@ -4033,41 +4312,41 @@ setAdminTab('dashboard');
                     setAdminTab('upload-product');
                   }}
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
                   Upload Product
                 </button>
 
-                <button 
+                <button
                   className={`sidebar-btn ${adminTab === 'update-password' ? 'active' : ''}`}
                   onClick={() => setAdminTab('update-password')}
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.66 0 3 1.34 3 3v2H9V6c0-1.66 1.34-3 3-3zm6 15H6V10h12v10z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.66 0 3 1.34 3 3v2H9V6c0-1.66 1.34-3 3-3zm6 15H6V10h12v10z" /></svg>
                   Update Password
                 </button>
               </nav>
 
               <button className="sidebar-btn btn-logout" onClick={() => { setCurrentPage('home'); setIsAdmin(false); }}>
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
                 Logout
               </button>
             </aside>
 
             {/* Content Area */}
             <section className="admin-content">
-{adminTab === 'dashboard' && (
-  <div>
-    {/* 1. KHOOBSURAT HEADING (Box se bahar/alag) */}
-    <div style={{ marginBottom: '2rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 14px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>
-        Store Control Center
-      </span>
-      <h1 style={{ fontSize: '2.8rem', fontWeight: '900', margin: '0.8rem 0 0.5rem 0', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Admin Management Dashboard ⚡
-      </h1>
-      <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0, maxWidth: '650px', lineHeight: '1.6' }}>
-        Welcome back, Admin! Here you can manage your inventory, update prices, list new flagship products, and control store security settings seamlessly.
-      </p>
-    </div>
+              {adminTab === 'dashboard' && (
+                <div>
+                  {/* 1. KHOOBSURAT HEADING (Box se bahar/alag) */}
+                  <div style={{ marginBottom: '2rem' }}>
+                    <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 14px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      Store Control Center
+                    </span>
+                    <h1 style={{ fontSize: '2.8rem', fontWeight: '900', margin: '0.8rem 0 0.5rem 0', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      Admin Management Dashboard ⚡
+                    </h1>
+                    <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0, maxWidth: '650px', lineHeight: '1.6' }}>
+                      Welcome back, Admin! Here you can manage your inventory, update prices, list new flagship products, and control store security settings seamlessly.
+                    </p>
+                  </div>
                   {/* Ye rahi aapki Admin wali Product List */}
                   <div style={{ marginTop: '2rem' }}>
                     <h3 style={{ borderBottom: '1px solid #334155', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Uploaded Products</h3>
@@ -4083,59 +4362,59 @@ setAdminTab('dashboard');
                               <div className="product-pricing" style={{ marginBottom: '0.5rem' }}>
                                 <span className="current-price" style={{ color: '#38bdf8' }}>PKR {product.discountPrice || product.regularPrice}</span>
                               </div>
-                              
+
                               {/* Edit & Delete Buttons sirf admin list me */}
                               <div className="admin-product-controls" style={{ display: 'flex', gap: '0.5rem' }}>
-                                <button 
+                                <button
                                   onClick={() => handleEditClick(product)}
                                   style={{ flex: 1, background: '#eab308', color: '#000', border: 'none', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem' }}
                                 >
                                   Edit
                                 </button>
-                                <button 
+                                <button
                                   onClick={() => handleDeleteProduct(product._id)}
                                   style={{ flex: 1, background: '#ef4444', color: '#fff', border: 'none', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem' }}
                                 >
                                   Delete
                                 </button>
-                              {/* Admin Product Controls yahan khatam hote hain */}
-</div>
+                                {/* Admin Product Controls yahan khatam hote hain */}
+                              </div>
 
-{/* NAYA CODE: Admin Review Management */}
-<div className="admin-product-reviews" style={{ marginTop: '1rem', borderTop: '1px solid #334155', paddingTop: '0.5rem' }}>
-  <h5 style={{ color: '#94a3b8', margin: '0 0 0.5rem 0', fontSize: '0.85rem' }}>
-    Reviews ({product.reviews ? product.reviews.length : 0})
-  </h5>
-  
-  <div style={{ maxHeight: '100px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-    {(product.reviews || []).map(review => (
-      <div key={review.id} style={{ background: '#0f172a', padding: '0.5rem', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        
-        <div style={{ fontSize: '0.75rem', lineHeight: '1.2' }}>
-          <strong style={{color: '#fff'}}>{review.name}</strong> <span style={{color: '#fbbf24'}}>⭐{review.rating}</span><br/>
-          <span style={{color: '#cbd5e1'}}>{review.comment}</span>
-        </div>
-        
-        <button 
-          onClick={async () => {
-            if(window.confirm("Are you sure you want to delete this comment?")) {
-              const res = await fetch(`https://electro-mark.onrender.com/api/products/${product._id}/reviews/${review.id}`, { method: 'DELETE' });
-              if (res.ok) {
-                // Fetch fresh products list after deleting review
-                const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
-                setProducts(updated);
-              }
-            }
-          }}
-          style={{ background: '#ef4444', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 'bold' }}
-        >
-          Del
-        </button>
-        
-      </div>
-    ))}
-  </div>
-</div>
+                              {/* NAYA CODE: Admin Review Management */}
+                              <div className="admin-product-reviews" style={{ marginTop: '1rem', borderTop: '1px solid #334155', paddingTop: '0.5rem' }}>
+                                <h5 style={{ color: '#94a3b8', margin: '0 0 0.5rem 0', fontSize: '0.85rem' }}>
+                                  Reviews ({product.reviews ? product.reviews.length : 0})
+                                </h5>
+
+                                <div style={{ maxHeight: '100px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                                  {(product.reviews || []).map(review => (
+                                    <div key={review.id} style={{ background: '#0f172a', padding: '0.5rem', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                                      <div style={{ fontSize: '0.75rem', lineHeight: '1.2' }}>
+                                        <strong style={{ color: '#fff' }}>{review.name}</strong> <span style={{ color: '#fbbf24' }}>⭐{review.rating}</span><br />
+                                        <span style={{ color: '#cbd5e1' }}>{review.comment}</span>
+                                      </div>
+
+                                      <button
+                                        onClick={async () => {
+                                          if (window.confirm("Are you sure you want to delete this comment?")) {
+                                            const res = await fetch(`https://electro-mark.onrender.com/api/products/${product._id}/reviews/${review.id}`, { method: 'DELETE' });
+                                            if (res.ok) {
+                                              // Fetch fresh products list after deleting review
+                                              const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
+                                              setProducts(updated);
+                                            }
+                                          }
+                                        }}
+                                        style={{ background: '#ef4444', color: '#fff', border: 'none', padding: '0.3rem 0.6rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 'bold' }}
+                                      >
+                                        Del
+                                      </button>
+
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -4146,226 +4425,252 @@ setAdminTab('dashboard');
 
               {/* The Working Product Form */}
               {adminTab === 'upload-product' && (
-  <div className="admin-card" style={{
-    background: 'rgba(15, 23, 42, 0.75)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(56, 189, 248, 0.25)',
-    borderRadius: '24px',
-    padding: '2.5rem',
-    boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.7)',
-    maxWidth: '800px',
-    margin: '0 auto'
-  }}>
-    <div className="card-header" style={{ marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '1rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 14px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>
-        Inventory Management
-      </span>
-      <h3 style={{ fontSize: '2.2rem', fontWeight: '900', color: '#fff', margin: '0.5rem 0 0.2rem 0' }}>
-        {editingId ? "✏️ Edit Product Details" : "🚀 Add New Product"}
-      </h3>
-      <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem' }}>Fill in the details below to publish your item live to the store.</p>
-    </div>
+                <div className="admin-card" style={{
+                  background: 'rgba(15, 23, 42, 0.75)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(56, 189, 248, 0.25)',
+                  borderRadius: '24px',
+                  padding: '2.5rem',
+                  boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.7)',
+                  maxWidth: '800px',
+                  margin: '0 auto'
+                }}>
+                  <div className="card-header" style={{ marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '1rem' }}>
+                    <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 14px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      Inventory Management
+                    </span>
+                    <h3 style={{ fontSize: '2.2rem', fontWeight: '900', color: '#fff', margin: '0.5rem 0 0.2rem 0' }}>
+                      {editingId ? "✏️ Edit Product Details" : "🚀 Add New Product"}
+                    </h3>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem' }}>Fill in the details below to publish your item live to the store.</p>
+                  </div>
 
-    <form onSubmit={handleProductSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      
-      {/* Product Title */}
-      <div className="form-group">
-        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Product Title *</label>
-        <input 
-          type="text" 
-          value={formData.name} 
-          onChange={(e) => setFormData({...formData, name: e.target.value})} 
-          placeholder="e.g. iPhone 15 Pro Max 256GB" 
-          required 
-          style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
-        />
-      </div>
+                  <form onSubmit={handleProductSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-      {/* Category & Stock Status Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem' }}>
-        
-        {/* Category Dropdown */}
-        <div className="form-group">
-          <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Category *</label>
-          <select 
-            value={formData.category} 
-            onChange={(e) => setFormData({...formData, category: e.target.value})}
-            style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none', cursor: 'pointer' }}
-          >
-            <option value="Mobiles">📱 Mobiles & Tablets</option>
-            <option value="Laptops">💻 Laptops & Computers</option>
-            <option value="Audio">🎧 Headphones & Audio</option>
-            <option value="Smartwatches">⌚ Smartwatches</option>
-            <option value="Accessories">🔌 Accessories & Cables</option>
-          </select>
-        </div>
+                    {/* Product Title */}
+                    <div className="form-group">
+                      <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Product Title *</label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="e.g. iPhone 15 Pro Max 256GB"
+                        required
+                        style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
+                      />
+                    </div>
 
-        {/* Stock Status Dropdown */}
-        <div className="form-group">
-          <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Stock Status *</label>
-          <select 
-            value={formData.stockStatus} 
-            onChange={(e) => setFormData({...formData, stockStatus: e.target.value})}
-            style={{ 
-              width: '100%', 
-              padding: '1rem', 
-              borderRadius: '12px', 
-              background: '#1e293b', 
-              border: formData.stockStatus === 'in_stock' ? '1px solid #4ade80' : '1px solid #ef4444', 
-              color: formData.stockStatus === 'in_stock' ? '#4ade80' : '#ef4444', 
-              fontWeight: 'bold',
-              fontSize: '1rem', 
-              outline: 'none', 
-              cursor: 'pointer' 
-            }}
-          >
-            <option value="in_stock" style={{ color: '#4ade80', background: '#0f172a' }}>🟢 In Stock</option>
-            <option value="out_of_stock" style={{ color: '#ef4444', background: '#0f172a' }}>🔴 Out of Stock</option>
-          </select>
-        </div>
+                    {/* Category & Stock Status Row */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem' }}>
 
-      </div>
+                      {/* Category Dropdown */}
+                      <div className="form-group">
+                        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Category *</label>
+                        <select
+                          value={formData.category}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none', cursor: 'pointer' }}
+                        >
+                          <option value="Mobiles">📱 Mobiles & Tablets</option>
+                          <option value="Laptops">💻 Laptops & Computers</option>
+                          <option value="Audio">🎧 Headphones & Audio</option>
+                          <option value="Smartwatches">⌚ Smartwatches</option>
+                          <option value="Accessories">🔌 Accessories & Cables</option>
+                        </select>
+                      </div>
 
-      {/* Description */}
-      <div className="form-group">
-        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Description *</label>
-        <textarea 
-          value={formData.description} 
-          onChange={(e) => setFormData({...formData, description: e.target.value})} 
-          placeholder="Detailed specs, features, and warranty details..." 
-          rows="4" 
-          required 
-          style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', resize: 'vertical', outline: 'none' }}
-        ></textarea>
-      </div>
+                      {/* Stock Status Dropdown */}
+                      <div className="form-group">
+                        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Stock Status *</label>
+                        <select
+                          value={formData.stockStatus}
+                          onChange={(e) => setFormData({ ...formData, stockStatus: e.target.value })}
+                          style={{
+                            width: '100%',
+                            padding: '1rem',
+                            borderRadius: '12px',
+                            background: '#1e293b',
+                            border: formData.stockStatus === 'in_stock' ? '1px solid #4ade80' : '1px solid #ef4444',
+                            color: formData.stockStatus === 'in_stock' ? '#4ade80' : '#ef4444',
+                            fontWeight: 'bold',
+                            fontSize: '1rem',
+                            outline: 'none',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <option value="in_stock" style={{ color: '#4ade80', background: '#0f172a' }}>🟢 In Stock</option>
+                          <option value="out_of_stock" style={{ color: '#ef4444', background: '#0f172a' }}>🔴 Out of Stock</option>
+                        </select>
+                      </div>
 
-      {/* Regular & Discount Price */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem' }}>
-        <div className="form-group">
-          <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Regular Price (PKR) *</label>
-          <input 
-            type="number" 
-            step="1" 
-            value={formData.regularPrice} 
-            onChange={(e) => setFormData({...formData, regularPrice: e.target.value})} 
-            placeholder="50000" 
-            required 
-            style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
-          />
-        </div>
-        <div className="form-group">
-          <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Discount Price (PKR)</label>
-          <input 
-            type="number" 
-            step="1" 
-            value={formData.discountPrice} 
-            onChange={(e) => setFormData({...formData, discountPrice: e.target.value})} 
-            placeholder="45000" 
-            style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
-          />
-        </div>
-      </div>
+                    </div>
 
-      {/* Image Upload */}
-      <div className="form-group">
-        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Upload Product Images *</label>
-        <input 
-          type="file" 
-          multiple 
-          accept="image/*"
-          onChange={handleImageUpload} 
-          required={!editingId}
-          style={{ width: '100%', background: 'rgba(30, 41, 59, 0.6)', padding: '1rem', borderRadius: '12px', color: '#cbd5e1', border: '1px dashed rgba(56, 189, 248, 0.4)', cursor: 'pointer' }}
-        />
-        {formData.images.length > 0 && (
-          <span style={{ color: '#38bdf8', fontSize: '0.85rem', marginTop: '0.5rem', display: 'inline-block', fontWeight: 'bold' }}>
-            ✓ {formData.images.length} Image(s) Attached
-          </span>
-        )}
-      </div>
+                    {/* Description */}
+                    <div className="form-group">
+                      <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Description *</label>
+                      <textarea
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        placeholder="Detailed specs, features, and warranty details..."
+                        rows="4"
+                        required
+                        style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', resize: 'vertical', outline: 'none' }}
+                      ></textarea>
+                    </div>
 
-      {/* Submit Button */}
-      <button 
-        type="submit" 
-        style={{ 
-          marginTop: '1rem', 
-          padding: '1.2rem', 
-          background: 'linear-gradient(135deg, #38bdf8, #2563eb)', 
-          color: '#fff', 
-          border: 'none', 
-          borderRadius: '14px', 
-          fontSize: '1.1rem', 
-          fontWeight: 'bold', 
-          cursor: 'pointer',
-          boxShadow: '0 10px 25px rgba(56, 189, 248, 0.3)',
-          transition: 'transform 0.2s' 
-        }}
-      >
-        {editingId ? "Update Product Listing" : "Publish Product Now 🚀"}
-      </button>
-    </form>
-  </div>
-)}
+                    {/* Regular & Discount Price */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem' }}>
+                      <div className="form-group">
+                        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Regular Price (PKR) *</label>
+                        <input
+                          type="number"
+                          step="1"
+                          value={formData.regularPrice}
+                          onChange={(e) => setFormData({ ...formData, regularPrice: e.target.value })}
+                          placeholder="50000"
+                          required
+                          style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Discount Price (PKR)</label>
+                        <input
+                          type="number"
+                          step="1"
+                          value={formData.discountPrice}
+                          onChange={(e) => setFormData({ ...formData, discountPrice: e.target.value })}
+                          placeholder="45000"
+                          style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none' }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Image Upload */}
+                    <div className="form-group">
+                      <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Upload Product Images *</label>
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        required={!editingId}
+                        style={{ width: '100%', background: 'rgba(30, 41, 59, 0.6)', padding: '1rem', borderRadius: '12px', color: '#cbd5e1', border: '1px dashed rgba(56, 189, 248, 0.4)', cursor: 'pointer' }}
+                      />
+                      {formData.images.length > 0 && (
+                        <span style={{ color: '#38bdf8', fontSize: '0.85rem', marginTop: '0.5rem', display: 'inline-block', fontWeight: 'bold' }}>
+                          ✓ {formData.images.length} Image(s) Attached
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      style={{
+                        marginTop: '1rem',
+                        padding: '1.2rem',
+                        background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '14px',
+                        fontSize: '1.1rem',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        boxShadow: '0 10px 25px rgba(56, 189, 248, 0.3)',
+                        transition: 'transform 0.2s'
+                      }}
+                    >
+                      {editingId ? "Update Product Listing" : "Publish Product Now 🚀"}
+                    </button>
+                  </form>
+                </div>
+              )}
 
               {adminTab === 'update-password' && (
-  <div className="admin-card max-w-md">
-    <div className="card-header">
-      <h3>Update Security Password</h3>
-      <p>Ensure your account stays safe with a strong password</p>
-    </div>
+                <div className="admin-card max-w-md">
+                  <div className="card-header">
+                    <h3>Update Security Password</h3>
+                    <p>Ensure your account stays safe with a strong password</p>
+                  </div>
 
-    {/* Old form ko iss naye form se replace karein */}
-    <form onSubmit={handlePasswordUpdate} className="admin-form">
-      <div className="form-group">
-        <label>Current Password</label>
-        <input 
-          type="password" 
-          placeholder="••••••••" 
-          value={passForm.currentPass} 
-          onChange={(e) => setPassForm({...passForm, currentPass: e.target.value})} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label>New Password</label>
-        <input 
-          type="password" 
-          placeholder="••••••••" 
-          value={passForm.newPass} 
-          onChange={(e) => setPassForm({...passForm, newPass: e.target.value})} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label>Confirm New Password</label>
-        <input 
-          type="password" 
-          placeholder="••••••••" 
-          value={passForm.confirmPass} 
-          onChange={(e) => setPassForm({...passForm, confirmPass: e.target.value})} 
-          required 
-        />
-      </div>
-      <button type="submit" className="btn-primary">Save New Password</button>
-    </form>
-  </div>
-)}
+                  {/* Old form ko iss naye form se replace karein */}
+                  <form onSubmit={handlePasswordUpdate} className="admin-form">
+                    <div className="form-group">
+                      <label>Current Password</label>
+                      <input
+                        type="password"
+                        placeholder="••••••••"
+                        value={passForm.currentPass}
+                        onChange={(e) => setPassForm({ ...passForm, currentPass: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>New Password</label>
+                      <input
+                        type="password"
+                        placeholder="••••••••"
+                        value={passForm.newPass}
+                        onChange={(e) => setPassForm({ ...passForm, newPass: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Confirm New Password</label>
+                      <input
+                        type="password"
+                        placeholder="••••••••"
+                        value={passForm.confirmPass}
+                        onChange={(e) => setPassForm({ ...passForm, confirmPass: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="btn-primary">Save New Password</button>
+                  </form>
+                </div>
+              )}
             </section>
           </div>
         )}
 
         {/* Products Page */}
         {/* Products Page - Ultra Glowing Premium 2-Column Grid */}
-  {currentPage === 'products' && (
-  <div className="products-page-container" style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
-    
-    {/* Inline CSS for Hyper-Glowing Animations & Hover Effects */}
-    <style>{`
+        {currentPage === 'products' && (
+          <div className="products-page-container">
+
+            {/* Inline CSS for Hyper-Glowing Animations & Hover Effects + MOBILE RESPONSIVE */}
+            <style>{`
+      /* ===================== BASE ANIMATIONS ===================== */
       @keyframes neonGlow {
         0% { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 0 20px rgba(56, 189, 248, 0.1); }
         50% { border-color: rgba(56, 189, 248, 0.7); box-shadow: 0 0 35px rgba(56, 189, 248, 0.3); }
         100% { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 0 20px rgba(56, 189, 248, 0.1); }
       }
+      @keyframes pulseGlowBorder {
+        0%, 100% { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
+        50% { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 25px 60px rgba(56, 189, 248, 0.25); }
+      }
+      @keyframes beamSweep {
+        0% { left: -100%; }
+        100% { left: 200%; }
+      }
+      @keyframes pulseAura {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.15); }
+      }
+      @keyframes shineRay {
+        0% { left: -100%; }
+        100% { left: 200%; }
+      }
+
+      /* ===================== PAGE CONTAINER ===================== */
+      .products-page-container {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      /* ===================== GLOWING PRODUCT CARD ===================== */
       .glowing-card {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
         backdrop-filter: blur(20px);
@@ -4386,6 +4691,10 @@ setAdminTab('dashboard');
       }
       .glowing-card-img {
         transition: transform 0.6s ease;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
       }
       .glowing-card:hover .glowing-card-img {
         transform: scale(1.1);
@@ -4397,761 +4706,1167 @@ setAdminTab('dashboard');
       .glow-btn-primary:hover {
         box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
       }
+
+      /* ===================== PRODUCT CARD ELEMENTS ===================== */
+      .product-card-image {
+        cursor: pointer;
+        background: rgba(255,255,255,0.02);
+        height: 280px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        overflow: hidden;
+      }
+
+      .product-card-content {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .product-card-name {
+        cursor: pointer;
+        font-size: 1.4rem;
+        color: #f8fafc;
+        font-weight: 800;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .product-card-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-family: system-ui, sans-serif;
+      }
+
+      .product-card-currency {
+        font-size: 0.9rem;
+        color: #e2e8f0;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
+      .product-card-price {
+        font-size: 1.8rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 4px 10px rgba(56, 189, 248, 0.3);
+      }
+
+      .product-card-actions {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      .product-card-btn-add {
+        flex: 1;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .product-card-btn-add:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .product-card-btn-explore {
+        flex: 1;
+        padding: 0.8rem;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .product-card-admin {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.8rem;
+        padding-top: 0.8rem;
+        border-top: 1px dashed rgba(255,255,255,0.1);
+      }
+      .product-card-btn-edit {
+        flex: 1;
+        background: #eab308;
+        color: #000;
+        border: none;
+        padding: 0.6rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+      .product-card-btn-delete {
+        flex: 1;
+        background: #ef4444;
+        color: #fff;
+        border: none;
+        padding: 0.6rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      /* ===================== PRODUCTS GRID ===================== */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+
+      /* ===================== GLASS FEATURE CARD ===================== */
+      .glass-feature-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(30px) saturate(210%);
+        -webkit-backdrop-filter: blur(30px) saturate(210%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 32px;
+        padding: 3rem;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.04);
+      }
+      .glass-feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
+        transition: left 0.8s ease;
+        z-index: 3;
+      }
+      .glass-feature-card::after {
+        content: '';
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+        top: -50px;
+        right: -50px;
+        pointer-events: none;
+        transition: all 0.5s ease;
+        z-index: 0;
+      }
+      .glass-feature-card:hover {
+        transform: translateY(-12px) scale(1.01);
+        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.3);
+      }
+      .glass-feature-card:hover::before {
+        left: 200%;
+      }
+      .glass-feature-card:hover::after {
+        transform: scale(1.5);
+        opacity: 0.8;
+      }
+
+      .glass-img-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      }
+      .glass-img-container img {
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .glass-feature-card:hover .glass-img-container img {
+        transform: scale(1.1) rotate(1deg);
+      }
+
+      /* ===================== GLASS CATEGORY CARD ===================== */
+      .glass-category-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(35px) saturate(220%);
+        -webkit-backdrop-filter: blur(35px) saturate(220%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
+        border-left: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 36px;
+        padding: 3.5rem 3rem;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), inset 0 0 20px rgba(255, 255, 255, 0.03);
+      }
+      .glass-category-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--card-glow-color, #38bdf8), transparent);
+        transition: left 0.8s ease;
+        z-index: 3;
+      }
+      .glass-category-card:hover {
+        transform: translateY(-10px) scale(1.01);
+        border-color: var(--card-glow-color, rgba(56, 189, 248, 0.5));
+        box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.85), 0 0 40px -5px var(--card-glow-shadow, rgba(56, 189, 248, 0.3));
+      }
+      .glass-category-card:hover::before {
+        left: 200%;
+      }
+
+      .glass-feature-pill {
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 1.8rem;
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .glass-feature-pill:hover {
+        background: rgba(30, 41, 59, 0.75);
+        border-color: var(--card-glow-color, rgba(56, 189, 248, 0.4));
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .icon-glass-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 24px;
+        font-size: 2.4rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        transition: all 0.5s ease;
+        flex-shrink: 0;
+      }
+      .glass-category-card:hover .icon-glass-avatar {
+        transform: scale(1.12) rotate(-5deg);
+        box-shadow: 0 0 30px var(--card-glow-color, rgba(56, 189, 248, 0.6));
+      }
+
+      /* ===================== SECTION HEADINGS ===================== */
+      .section-heading-title {
+        font-size: 3.2rem;
+        color: #fff;
+        margin: 0 0 1.2rem 0;
+        font-weight: 900;
+        line-height: 1.15;
+        background: linear-gradient(to right, #ffffff, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+      }
+
+      .section-heading-desc {
+        color: #94a3b8;
+        line-height: 1.7;
+        font-size: 1.15rem;
+        margin: 0;
+        font-weight: 400;
+        max-width: 700px;
+      }
+
+      /* ===================== CATEGORY HEADINGS ===================== */
+      .category-heading-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .category-heading-title {
+        font-size: 2.4rem;
+        color: #fff;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+      }
+      .category-heading-sub {
+        font-size: 0.98rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      .category-para {
+        color: #cbd5e1;
+        font-size: 1.1rem;
+        line-height: 1.9;
+        margin-bottom: 2.5rem;
+        font-weight: 400;
+      }
+      .category-pills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.8rem;
+      }
+
+      /* ===================== FEATURE ROWS (5-SECTION) ===================== */
+      .feature-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 3.5rem;
+      }
+      .feature-row-reverse {
+        flex-wrap: wrap-reverse;
+      }
+      .feature-row-text {
+        flex: 1 1 400px;
+        z-index: 1;
+      }
+      .feature-row-img {
+        flex: 1 1 400px;
+        height: 340px;
+      }
+      .feature-row-tag {
+        padding: 6px 18px;
+        border-radius: 30px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 0.8rem;
+      }
+      .feature-row-title {
+        font-size: 2.5rem;
+        color: #fff;
+        margin: 0.5rem 0 1rem 0;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+      .feature-row-para {
+        color: #cbd5e1;
+        line-height: 1.85;
+        font-size: 1.08rem;
+        margin: 0;
+        font-weight: 400;
+      }
+
+      /* ===================== MOBILE RESPONSIVE (≤768px) ===================== */
+      @media (max-width: 768px) {
+        .products-page-container {
+          padding: 1.5rem 1rem;
+        }
+
+        /* 🔥 ASLI FIX — 2 PRODUCTS EK LINE ME */
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 0.85rem !important;
+        }
+
+        .product-card-image {
+          height: 160px;
+          padding: 1rem;
+        }
+
+        .product-card-content {
+          padding: 0.75rem;
+          gap: 0.5rem;
+        }
+
+        .product-card-name {
+          font-size: 0.85rem;
+        }
+
+        .product-card-currency {
+          font-size: 0.65rem;
+          letter-spacing: 1px;
+        }
+
+        .product-card-price {
+          font-size: 1.15rem;
+        }
+
+        .product-card-actions {
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+
+        .product-card-btn-add,
+        .product-card-btn-explore {
+          font-size: 0.7rem;
+          padding: 0.5rem 0.4rem;
+          border-radius: 9px;
+        }
+
+        .product-card-admin {
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+        .product-card-btn-edit,
+        .product-card-btn-delete {
+          font-size: 0.7rem;
+          padding: 0.45rem;
+        }
+
+        /* Header / Title */
+        .products-title {
+          font-size: 2.2rem !important;
+        }
+        .products-subtitle {
+          font-size: 0.95rem !important;
+        }
+        .search-input {
+          padding: 1rem 1.2rem 1rem 3rem !important;
+          font-size: 0.9rem !important;
+        }
+
+        /* Section headings */
+        .section-heading-title {
+          font-size: 1.9rem;
+          margin-bottom: 0.9rem;
+        }
+        .section-heading-desc {
+          font-size: 0.95rem;
+          line-height: 1.65;
+        }
+
+        /* Feature rows (5-section) */
+        .feature-row,
+        .feature-row-reverse {
+          flex-wrap: wrap !important;
+          gap: 1.5rem;
+        }
+        .feature-row-reverse .feature-row-img {
+          order: -1;
+        }
+        .feature-row-text {
+          flex: 1 1 100%;
+        }
+        .feature-row-img {
+          flex: 1 1 100%;
+          height: 220px;
+        }
+        .feature-row-title {
+          font-size: 1.5rem;
+          line-height: 1.3;
+        }
+        .feature-row-para {
+          font-size: 0.95rem;
+          line-height: 1.7;
+        }
+        .feature-row-tag {
+          font-size: 0.7rem;
+          padding: 5px 12px;
+          letter-spacing: 1px;
+        }
+
+        /* Glass feature card */
+        .glass-feature-card {
+          padding: 1.5rem;
+          border-radius: 24px;
+        }
+        .glass-img-container {
+          border-radius: 16px;
+        }
+
+        /* Glass category card */
+        .glass-category-card {
+          padding: 1.75rem 1.25rem;
+          border-radius: 26px;
+        }
+        .category-heading-row {
+          gap: 1rem;
+          margin-bottom: 1.2rem;
+          align-items: flex-start;
+        }
+        .category-heading-title {
+          font-size: 1.4rem;
+          line-height: 1.3;
+        }
+        .category-heading-sub {
+          font-size: 0.78rem;
+          letter-spacing: 0.2px;
+          display: inline-block;
+          margin-top: 0.2rem;
+        }
+        .category-para {
+          font-size: 0.95rem;
+          line-height: 1.75;
+          margin-bottom: 1.5rem;
+        }
+        .category-pills-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .glass-feature-pill {
+          padding: 1.25rem;
+          border-radius: 18px;
+        }
+        .glass-feature-pill h4 {
+          font-size: 1.05rem !important;
+        }
+        .glass-feature-pill p {
+          font-size: 0.88rem !important;
+          line-height: 1.55 !important;
+        }
+        .icon-glass-avatar {
+          width: 52px;
+          height: 52px;
+          font-size: 1.7rem;
+          border-radius: 16px;
+        }
+
+        /* Inline-styled headings in glass sections (glow header) */
+        .glow-section-title {
+          font-size: 1.9rem !important;
+        }
+        .glow-section-desc {
+          font-size: 0.95rem !important;
+        }
+      }
+
+      /* ===================== SMALL MOBILE (≤480px) ===================== */
+      @media (max-width: 480px) {
+        .products-page-container {
+          padding: 1rem 0.75rem;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 0.6rem !important;
+        }
+
+        .product-card-image {
+          height: 140px;
+          padding: 0.75rem;
+        }
+        .product-card-content {
+          padding: 0.6rem;
+          gap: 0.4rem;
+        }
+        .product-card-name {
+          font-size: 0.78rem;
+        }
+        .product-card-price {
+          font-size: 1rem;
+        }
+        .product-card-currency {
+          font-size: 0.6rem;
+        }
+        .product-card-btn-add,
+        .product-card-btn-explore {
+          font-size: 0.65rem;
+          padding: 0.45rem 0.3rem;
+        }
+
+        .products-title {
+          font-size: 1.8rem !important;
+        }
+
+        .section-heading-title {
+          font-size: 1.55rem;
+        }
+        .section-heading-desc {
+          font-size: 0.88rem;
+        }
+
+        .feature-row-img {
+          height: 180px;
+        }
+        .feature-row-title {
+          font-size: 1.25rem;
+        }
+        .feature-row-para {
+          font-size: 0.88rem;
+        }
+
+        .glass-feature-card {
+          padding: 1.1rem;
+          border-radius: 20px;
+        }
+
+        .glass-category-card {
+          padding: 1.25rem 0.9rem;
+          border-radius: 20px;
+        }
+        .category-heading-title {
+          font-size: 1.15rem;
+        }
+        .category-heading-sub {
+          font-size: 0.7rem;
+        }
+        .category-para {
+          font-size: 0.88rem;
+          line-height: 1.65;
+        }
+        .glass-feature-pill {
+          padding: 1rem;
+          border-radius: 14px;
+        }
+        .glass-feature-pill h4 {
+          font-size: 0.95rem !important;
+        }
+        .glass-feature-pill p {
+          font-size: 0.82rem !important;
+          line-height: 1.5 !important;
+        }
+        .icon-glass-avatar {
+          width: 44px;
+          height: 44px;
+          font-size: 1.4rem;
+          border-radius: 14px;
+        }
+
+        .glow-section-title {
+          font-size: 1.55rem !important;
+        }
+        .glow-section-desc {
+          font-size: 0.88rem !important;
+        }
+
+        /* Rating stars chhote */
+        .glowing-card [style*="font-size: 1.1rem"] {
+          font-size: 0.75rem !important;
+        }
+      }
     `}</style>
 
-    {/* HEADER SECTION (Title & Subtitle) */}
-    <div className="products-header" style={{ textAlign: 'center', marginBottom: '2rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-        Exclusive Tech Store
-      </span>
-      <h2 className="products-title" style={{ fontSize: '3.8rem', fontWeight: '900', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '1rem 0 0.5rem 0' }}>
-        Featured Collection
-      </h2>
-      <p className="products-subtitle" style={{ color: '#94a3b8', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
-        Explore next-generation electronics built for performance and modern living.
-      </p>
+            {/* HEADER SECTION (Title & Subtitle) */}
+            <div className="products-header" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                Exclusive Tech Store
+              </span>
+              <h2 className="products-title" style={{ fontSize: '3.8rem', fontWeight: '900', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '1rem 0 0.5rem 0' }}>
+                Featured Collection
+              </h2>
+              <p className="products-subtitle" style={{ color: '#94a3b8', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
+                Explore next-generation electronics built for performance and modern living.
+              </p>
 
-      {/* SEARCH BAR */}
-      <div className="search-box-wrapper" style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ position: 'relative', width: '100%', maxWidth: '550px', display: 'flex', alignItems: 'center' }}>
-          <svg 
-            style={{ position: 'absolute', left: '18px', width: '22px', height: '22px', fill: '#38bdf8', pointerEvents: 'none', zIndex: 10, display: 'block' }} 
-            viewBox="0 0 24 24"
-          >
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-          </svg>
+              {/* SEARCH BAR */}
+              <div className="search-box-wrapper" style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ position: 'relative', width: '100%', maxWidth: '550px', display: 'flex', alignItems: 'center' }}>
+                  <svg
+                    style={{ position: 'absolute', left: '18px', width: '22px', height: '22px', fill: '#38bdf8', pointerEvents: 'none', zIndex: 10, display: 'block' }}
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                  </svg>
 
-          <input 
-            type="text" 
-            placeholder="Search by brand, type (e.g. iPhone, Samsung, Laptop)..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-            style={{ width: '100%', padding: '1.2rem 1.8rem 1.2rem 3.5rem', borderRadius: '35px', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#fff', fontSize: '1.05rem', outline: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', boxSizing: 'border-box' }}
-          />
-        </div>
-      </div>
-    </div>
-
-    {/* FILTER & SORT DROPDOWNS */}
-    <div style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-      
-      {/* 1. Category Filter Dropdown */}
-      <select 
-  value={selectedCategory} 
-  onChange={(e) => setSelectedCategory(e.target.value)}
-  style={{
-    padding: '0.9rem 1.6rem',
-    borderRadius: '24px',
-    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.75)',
-    backdropFilter: 'blur(30px) saturate(210%)',
-    WebkitBackdropFilter: 'blur(30px) saturate(210%)',
-    border: '1px solid rgba(56, 189, 248, 0.4)',
-    borderTop: '1px solid rgba(255, 255, 255, 0.4)',
-    borderLeft: '1px solid rgba(255, 255, 255, 0.4)',
-    color: '#fff',
-    fontSize: '0.95rem',
-    fontWeight: '600',
-    outline: 'none',
-    cursor: 'pointer',
-    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.15)',
-    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%2338bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>')`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 1.2rem center'
-  }}
->
-  <option value="All" style={{ background: '#0f172a', color: '#fff' }}>📂 All Categories</option>
-  <option value="Mobiles" style={{ background: '#0f172a', color: '#fff' }}>📱 Mobiles & Tablets</option>
-  <option value="Laptops" style={{ background: '#0f172a', color: '#fff' }}>💻 Laptops & Computers</option>
-  <option value="Audio" style={{ background: '#0f172a', color: '#fff' }}>🎧 Headphones & Audio</option>
-  <option value="Smartwatches" style={{ background: '#0f172a', color: '#fff' }}>⌚ Smartwatches</option>
-  <option value="Accessories" style={{ background: '#0f172a', color: '#fff' }}>🔌 Accessories & Cables</option>
-</select>
-
-      {/* 2. Price Sort Dropdown */}
-      <select 
-  value={sortOrder} 
-  onChange={(e) => setSortOrder(e.target.value)}
-  style={{
-    padding: '0.9rem 2.8rem 0.9rem 1.6rem',
-    borderRadius: '24px',
-    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.75)',
-    backdropFilter: 'blur(30px) saturate(210%)',
-    WebkitBackdropFilter: 'blur(30px) saturate(210%)',
-    border: '1px solid rgba(56, 189, 248, 0.4)',
-    borderTop: '1px solid rgba(255, 255, 255, 0.4)',
-    borderLeft: '1px solid rgba(255, 255, 255, 0.4)',
-    color: '#fff',
-    fontSize: '0.95rem',
-    fontWeight: '600',
-    outline: 'none',
-    cursor: 'pointer',
-    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.15)',
-    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%2338bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>')`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 1.2rem center'
-  }}
->
-  <option value="default" style={{ background: '#0f172a', color: '#fff' }}>⚡ Sort By Price</option>
-  <option value="high-to-low" style={{ background: '#0f172a', color: '#fff' }}>📈 Price: High to Low</option>
-  <option value="low-to-high" style={{ background: '#0f172a', color: '#fff' }}>📉 Price: Low to High</option>
-</select>
-    </div>
-
-    {/* DYNAMIC PRODUCT GRID - 3 Columns (1 line mein 3 products) */}
-    <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
-      {(products || [])
-        // 1. Search Query Filter
-        .filter(product => {
-          if (!searchQuery.trim()) return true;
-          const content = `${product.name || ''} ${product.description || ''}`.toLowerCase();
-          const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
-          return searchTerms.every(term => content.includes(term));
-        })
-        // 2. Category Filter
-        .filter(product => {
-          if (selectedCategory === 'All') return true;
-          return product.category === selectedCategory;
-        })
-        // 3. Price Sorting
-        .sort((a, b) => {
-          const priceA = Number(a.discountPrice || a.regularPrice || 0);
-          const priceB = Number(b.discountPrice || b.regularPrice || 0);
-          if (sortOrder === 'high-to-low') return priceB - priceA;
-          if (sortOrder === 'low-to-high') return priceA - priceB;
-          return 0; 
-        })
-        .map(product => (
-          <div className="glowing-card" key={product._id}>
-            
-            {/* Image Section */}
-            <div 
-              onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
-              style={{ cursor: 'pointer', background: 'rgba(255,255,255,0.02)', height: '280px', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem', overflow: 'hidden' }}
-            >
-              <img 
-                className="glowing-card-img"
-                src={(product.images && product.images[0]) || 'https://via.placeholder.com/300'} 
-                alt={product.name} 
-                style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.5))' }}
-              />
+                  <input
+                    type="text"
+                    placeholder="Search by brand, type (e.g. iPhone, Samsung, Laptop)..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                    style={{ width: '100%', padding: '1.2rem 1.8rem 1.2rem 3.5rem', borderRadius: '35px', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#fff', fontSize: '1.05rem', outline: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', boxSizing: 'border-box' }}
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Clean Content Details */}
-            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <h3 
-                onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
-                style={{ cursor: 'pointer', fontSize: '1.4rem', color: '#f8fafc', fontWeight: '800', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            {/* FILTER & SORT DROPDOWNS */}
+            <div style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+
+              {/* 1. Category Filter Dropdown */}
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                style={{
+                  padding: '0.9rem 1.6rem',
+                  borderRadius: '24px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.75)',
+                  backdropFilter: 'blur(30px) saturate(210%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(210%)',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.4)',
+                  borderLeft: '1px solid rgba(255, 255, 255, 0.4)',
+                  color: '#fff',
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.15)',
+                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%2338bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>')`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 1.2rem center'
+                }}
               >
-                {product.name}
-              </h3>
+                <option value="All" style={{ background: '#0f172a', color: '#fff' }}>📂 All Categories</option>
+                <option value="Mobiles" style={{ background: '#0f172a', color: '#fff' }}>📱 Mobiles & Tablets</option>
+                <option value="Laptops" style={{ background: '#0f172a', color: '#fff' }}>💻 Laptops & Computers</option>
+                <option value="Audio" style={{ background: '#0f172a', color: '#fff' }}>🎧 Headphones & Audio</option>
+                <option value="Smartwatches" style={{ background: '#0f172a', color: '#fff' }}>⌚ Smartwatches</option>
+                <option value="Accessories" style={{ background: '#0f172a', color: '#fff' }}>🔌 Accessories & Cables</option>
+              </select>
 
-              {/* Review Stars */}
-{(() => {
-  const productReviews = product.reviews || [];
-  const totalReviews = productReviews.length;
-  const avgStars = totalReviews > 0 
-    ? (productReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / totalReviews).toFixed(1) 
-    : (product.rating || 0).toFixed(1);
-  const numericRating = Number(avgStars);
+              {/* 2. Price Sort Dropdown */}
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                style={{
+                  padding: '0.9rem 2.8rem 0.9rem 1.6rem',
+                  borderRadius: '24px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.75)',
+                  backdropFilter: 'blur(30px) saturate(210%)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(210%)',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.4)',
+                  borderLeft: '1px solid rgba(255, 255, 255, 0.4)',
+                  color: '#fff',
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  outline: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.15)',
+                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%2338bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>')`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 1.2rem center'
+                }}
+              >
+                <option value="default" style={{ background: '#0f172a', color: '#fff' }}>⚡ Sort By Price</option>
+                <option value="high-to-low" style={{ background: '#0f172a', color: '#fff' }}>📈 Price: High to Low</option>
+                <option value="low-to-high" style={{ background: '#0f172a', color: '#fff' }}>📉 Price: Low to High</option>
+              </select>
+            </div>
 
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-      <span style={{ color: '#fbbf24', fontSize: '1.1rem' }}>
-        {'★'.repeat(Math.floor(numericRating))}
-        {numericRating % 1 >= 0.5 ? '½' : ''}
-        <span style={{color: '#64748b'}}>
-          {'☆'.repeat(Math.max(0, 5 - Math.ceil(numericRating)))}
-        </span>
-      </span>
-      <span style={{ color: '#64748b', fontSize: '0.85rem' }}>
-        ({numericRating > 0 ? numericRating : '0.0'})
-      </span>
-    </div>
-  );
-})()}
+            {/* DYNAMIC PRODUCT GRID */}
+            <div className="products-grid">
+              {(products || [])
+                .filter(product => {
+                  if (!searchQuery.trim()) return true;
+                  const content = `${product.name || ''} ${product.description || ''}`.toLowerCase();
+                  const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
+                  return searchTerms.every(term => content.includes(term));
+                })
+                .filter(product => {
+                  if (selectedCategory === 'All') return true;
+                  return product.category === selectedCategory;
+                })
+                .sort((a, b) => {
+                  const priceA = Number(a.discountPrice || a.regularPrice || 0);
+                  const priceB = Number(b.discountPrice || b.regularPrice || 0);
+                  if (sortOrder === 'high-to-low') return priceB - priceA;
+                  if (sortOrder === 'low-to-high') return priceA - priceB;
+                  return 0;
+                })
+                .map(product => (
+                  <div className="glowing-card" key={product._id}>
 
-              {/* Pricing */}
-              <div style={{ 
-  display: 'center', 
-  alignItems: 'baseline', 
-  gap: '6px', 
-  fontFamily: 'system-ui, sans-serif' 
-}}>
-  {/* PKR - Sleek & Muted White */}
-  <span style={{ 
-    fontSize: '0.9rem', 
-    color: '#e2e8f0', // Thoda sa soft white/silver premium look ke liye
-    fontWeight: '600', 
-    letterSpacing: '1.5px', // Khula khula text premium lagta hai
-    textTransform: 'uppercase',
-    opacity: '0.9'
-  }}>
-    PKR
-  </span>
+                    {/* Image Section */}
+                    <div
+                      className="product-card-image"
+                      onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                    >
+                      <img
+                        className="glowing-card-img"
+                        src={(product.images && product.images[0]) || 'https://via.placeholder.com/300'}
+                        alt={product.name}
+                      />
+                    </div>
 
-  {/* Price - Vibrant Gradient & Glow */}
-  <span style={{ 
-    fontSize: '1.8rem', 
-    fontWeight: '900', 
-    // Ek khoobsurat light-blue se purple-blue ka gradient
-    background: 'linear-gradient(135deg, #38bdf8 0%, #6366f1 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    // Halka sa neon glow effect
-    textShadow: '0px 4px 10px rgba(56, 189, 248, 0.3)' 
-  }}>
-    {product.discountPrice || product.regularPrice}
-  </span>
-</div>
-              
-              {/* Buttons */}
-              <div style={{ display: 'flex', gap: '0.8rem', marginTop: '0.5rem' }}>
-                <button 
-                  onClick={() => handleAddToCart(product)}
-                  style={{ flex: 1, padding: '0.8rem', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', transition: '0.3s' }} 
-                  onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'} 
-                  onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                >
-                  🛒 Add
-                </button>
-                <button 
-                  onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
-                  className="glow-btn-primary" 
-                  style={{ flex: 1, padding: '0.8rem', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
-                >
-                  Explore →
-                </button>
+                    {/* Clean Content Details */}
+                    <div className="product-card-content">
+                      <h3
+                        className="product-card-name"
+                        onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                      >
+                        {product.name}
+                      </h3>
+
+                      {/* Review Stars */}
+                      {(() => {
+                        const productReviews = product.reviews || [];
+                        const totalReviews = productReviews.length;
+                        const avgStars = totalReviews > 0
+                          ? (productReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / totalReviews).toFixed(1)
+                          : (product.rating || 0).toFixed(1);
+                        const numericRating = Number(avgStars);
+
+                        return (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ color: '#fbbf24', fontSize: '1.1rem' }}>
+                              {'★'.repeat(Math.floor(numericRating))}
+                              {numericRating % 1 >= 0.5 ? '½' : ''}
+                              <span style={{ color: '#64748b' }}>
+                                {'☆'.repeat(Math.max(0, 5 - Math.ceil(numericRating)))}
+                              </span>
+                            </span>
+                            <span style={{ color: '#64748b', fontSize: '0.85rem' }}>
+                              ({numericRating > 0 ? numericRating : '0.0'})
+                            </span>
+                          </div>
+                        );
+                      })()}
+
+                      {/* Pricing */}
+                      <div className="product-card-price-row">
+                        <span className="product-card-currency">PKR</span>
+                        <span className="product-card-price">
+                          {product.discountPrice || product.regularPrice}
+                        </span>
+                      </div>
+
+                      {/* Buttons */}
+                      <div className="product-card-actions">
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="product-card-btn-add"
+                        >
+                          🛒 Add
+                        </button>
+                        <button
+                          onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                          className="glow-btn-primary product-card-btn-explore"
+                        >
+                          Explore →
+                        </button>
+                      </div>
+
+                      {/* Admin Controls */}
+                      {isAdmin && (
+                        <div className="product-card-admin">
+                          <button onClick={() => handleEditClick(product)} className="product-card-btn-edit">
+                            Edit
+                          </button>
+                          <button onClick={() => handleDeleteProduct(product._id)} className="product-card-btn-delete">
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* --- ULTRA-PREMIUM ANIMATED GLASSMORPHISM 5-FEATURE SECTION --- */}
+            <div style={{ marginTop: '5rem', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+
+              {/* Header Section */}
+              <div style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '8px 20px', borderRadius: '40px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem', boxShadow: '0 0 20px rgba(56, 189, 248, 0.15)' }}>
+                  ⚡ DEEP TECHNICAL DEEP-DIVE
+                </span>
+                <h2 className="section-heading-title glow-section-title">
+                  Comprehensive Product Breakdown & Specifications
+                </h2>
+                <p className="section-heading-desc glow-section-desc">
+                  Explore the inner engineering, premium architecture, and hardware components powering our entire flagship electronic store inventory.
+                </p>
               </div>
 
-              {/* Admin Controls */}
-              {isAdmin && (
-                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.8rem', paddingTop: '0.8rem', borderTop: '1px dashed rgba(255,255,255,0.1)' }}>
-                  <button 
-                    onClick={() => handleEditClick(product)}
-                    style={{ flex: 1, background: '#eab308', color: '#000', border: 'none', padding: '0.6rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.9rem' }}
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    onClick={() => handleDeleteProduct(product._id)}
-                    style={{ flex: 1, background: '#ef4444', color: '#fff', border: 'none', padding: '0.6rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.9rem' }}
-                  >
-                    Delete
-                  </button>
+              {/* Row 1 */}
+              <div className="glass-feature-card feature-row">
+                <div className="glass-img-container feature-row-img">
+                  <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1200&auto=format&fit=crop" alt="Mobile Tech" />
                 </div>
-              )}
+                <div className="feature-row-text">
+                  <span className="feature-row-tag" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.35)', boxShadow: '0 0 15px rgba(56, 189, 248, 0.25)' }}>
+                    01. Mobile Technology
+                  </span>
+                  <h3 className="feature-row-title" style={{ background: 'linear-gradient(to right, #fff, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Flagship Smartphones Engineered for Speed
+                  </h3>
+                  <p className="feature-row-para">
+                    Discover ultra-high definition OLED screens, aerospace-grade titanium framing, and multi-lens camera setups designed to capture life's purest moments. Built with industry-leading processors for seamless multitasking.
+                  </p>
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="glass-feature-card feature-row feature-row-reverse">
+                <div className="feature-row-text">
+                  <span className="feature-row-tag" style={{ background: 'rgba(129, 140, 248, 0.15)', color: '#818cf8', border: '1px solid rgba(129, 140, 248, 0.35)', boxShadow: '0 0 15px rgba(129, 140, 248, 0.25)' }}>
+                    02. High Performance
+                  </span>
+                  <h3 className="feature-row-title" style={{ background: 'linear-gradient(to right, #fff, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Next-Gen Laptops for Heavy Workloads
+                  </h3>
+                  <p className="feature-row-para">
+                    Unleash creative freedom with workstation-grade graphics processing, liquid cooling thermals, and all-day battery efficiency. Perfect for high-end gaming, 3D rendering, and software development.
+                  </p>
+                </div>
+                <div className="glass-img-container feature-row-img">
+                  <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop" alt="Laptops" />
+                </div>
+              </div>
+
+              {/* Row 3 */}
+              <div className="glass-feature-card feature-row">
+                <div className="glass-img-container feature-row-img">
+                  <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="Headphones" />
+                </div>
+                <div className="feature-row-text">
+                  <span className="feature-row-tag" style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', border: '1px solid rgba(74, 222, 128, 0.35)', boxShadow: '0 0 15px rgba(74, 222, 128, 0.25)' }}>
+                    03. Studio Audio
+                  </span>
+                  <h3 className="feature-row-title" style={{ background: 'linear-gradient(to right, #fff, #4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Immersive Active Noise Cancelling Acoustic Systems
+                  </h3>
+                  <p className="feature-row-para">
+                    Step into acoustic perfection with custom dynamic drivers, spatial 3D audio isolation, and active noise cancellation that silences background ambient noise for a pure studio listening experience.
+                  </p>
+                </div>
+              </div>
+
+              {/* Row 4 */}
+              <div className="glass-feature-card feature-row feature-row-reverse">
+                <div className="feature-row-text">
+                  <span className="feature-row-tag" style={{ background: 'rgba(251, 146, 60, 0.15)', color: '#fb923c', border: '1px solid rgba(251, 146, 60, 0.35)', boxShadow: '0 0 15px rgba(251, 146, 60, 0.25)' }}>
+                    04. Smart Wearables
+                  </span>
+                  <h3 className="feature-row-title" style={{ background: 'linear-gradient(to right, #fff, #fb923c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Advanced Fitness & Health Analytics Wearables
+                  </h3>
+                  <p className="feature-row-para">
+                    Monitor real-time heart metrics, oxygen saturation, sleep cycles, and physical activity with surgical precision. Encased in durable sapphire glass with water resistance for all-day wear.
+                  </p>
+                </div>
+                <div className="glass-img-container feature-row-img">
+                  <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop" alt="Smartwatch" />
+                </div>
+              </div>
+
+              {/* Row 5 */}
+              <div className="glass-feature-card feature-row">
+                <div className="glass-img-container feature-row-img">
+                  <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1200&auto=format&fit=crop" alt="Tablets" />
+                </div>
+                <div className="feature-row-text">
+                  <span className="feature-row-tag" style={{ background: 'rgba(236, 72, 153, 0.15)', color: '#ec4899', border: '1px solid rgba(236, 72, 153, 0.35)', boxShadow: '0 0 15px rgba(236, 72, 153, 0.25)' }}>
+                    05. Pro Digital Canvas
+                  </span>
+                  <h3 className="feature-row-title" style={{ background: 'linear-gradient(to right, #fff, #ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Versatile Ultra-Slim Digital Tablets
+                  </h3>
+                  <p className="feature-row-para">
+                    Transform your workflow into a mobile digital studio with stylus-enabled pressure sensitivity, magnetic keyboard dock support, and ultra-wide camera lenses for maximum creative output.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* --- ULTRA-PREMIUM ANIMATED GLASSMORPHISM CATEGORY SHOWCASE --- */}
+            <div style={{ marginTop: '6rem', display: 'flex', flexDirection: 'column', gap: '4.5rem' }}>
+
+              {/* 👑 ULTRA-GLOW CENTER HERO HEADER */}
+              <div style={{ textAlign: 'center', position: 'relative', maxWidth: '850px', margin: '0 auto' }}>
+
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '350px',
+                  height: '150px',
+                  background: 'radial-gradient(ellipse, rgba(56, 189, 248, 0.3) 0%, transparent 70%)',
+                  filter: 'blur(50px)',
+                  pointerEvents: 'none',
+                  zIndex: 0
+                }} />
+
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <span style={{
+                    background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(129, 140, 248, 0.1) 100%)',
+                    color: '#38bdf8',
+                    padding: '8px 24px',
+                    borderRadius: '99px',
+                    border: '1px solid rgba(56, 189, 248, 0.4)',
+                    fontSize: '0.85rem',
+                    fontWeight: '800',
+                    letterSpacing: '3px',
+                    textTransform: 'uppercase',
+                    boxShadow: '0 0 25px rgba(56, 189, 248, 0.3)',
+                    display: 'inline-block',
+                    marginBottom: '1.2rem'
+                  }}>
+                    ⚡ Deep Technical Deep-Dive
+                  </span>
+
+                  <h2 className="section-heading-title glow-section-title" style={{ letterSpacing: '-1px', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }}>
+                    Comprehensive Product Breakdown & Specifications
+                  </h2>
+
+                  <p className="section-heading-desc glow-section-desc">
+                    Explore the inner engineering, premium architecture, and hardware components powering our entire flagship electronic store inventory.
+                  </p>
+                </div>
+              </div>
+
+              {/* 📱 Category 1 */}
+              <div className="glass-category-card" style={{ '--card-glow-color': '#38bdf8', '--card-glow-shadow': 'rgba(56, 189, 248, 0.35)' }}>
+                <div className="category-heading-row">
+                  <div className="icon-glass-avatar" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', background: 'rgba(56, 189, 248, 0.12)' }}>
+                    📱
+                  </div>
+                  <div>
+                    <h3 className="category-heading-title">
+                      Flagship Mobile & Smartphone Ecosystem
+                    </h3>
+                    <span className="category-heading-sub" style={{ color: '#38bdf8' }}>
+                      Ultra OLED Displays • Bionic & Snapdragon Chips • Periscope Telephoto Cameras
+                    </span>
+                  </div>
+                </div>
+
+                <p className="category-para">
+                  Our flagship smartphone collection represents the pinnacle of modern mobile engineering. Crafted with aerospace-grade titanium chassis and ceramic-shield glass, these devices are designed to withstand drop impacts while maintaining an ultra-sleek, ergonomic profile. Powered by 3nm processor architectures, they execute billions of neural calculations per second, ensuring zero frame drops during heavy 4K video editing, real-time ray tracing gaming, and heavy background multitasking.
+                </p>
+
+                <div className="category-pills-grid">
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
+                    <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⚡ Pro Display Super Retina</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Dynamic 120Hz ProMotion refresh rates with up to 2600 nits peak outdoor brightness. Featuring Always-On technology and ambient color sensing.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
+                    <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>📸 Cinema-Grade Optical Optics</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      200MP main sensors paired with periscope telephoto lenses offering up to 100x digital zoom, 8K video recording, and nightography computational AI.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
+                    <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔋 All-Day Power & Fast Charging</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      High-density 5000mAh silicon-carbon batteries supporting 100W GaN fast wired charging, achieving 0 to 80% charge in under 18 minutes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 💻 Category 2 */}
+              <div className="glass-category-card" style={{ '--card-glow-color': '#818cf8', '--card-glow-shadow': 'rgba(129, 140, 248, 0.35)' }}>
+                <div className="category-heading-row">
+                  <div className="icon-glass-avatar" style={{ borderColor: 'rgba(129, 140, 248, 0.4)', background: 'rgba(129, 140, 248, 0.12)' }}>
+                    💻
+                  </div>
+                  <div>
+                    <h3 className="category-heading-title">
+                      High-Performance Laptops & Workstations
+                    </h3>
+                    <span className="category-heading-sub" style={{ color: '#818cf8' }}>
+                      DDR5 RAM • PCIe Gen4 NVMe SSDs • Vapor Chamber Thermal Cooling
+                    </span>
+                  </div>
+                </div>
+
+                <p className="category-para">
+                  Designed for software engineers, video producers, 3D animators, and hardcore gamers, our workstation laptops redefine portable computing power. Built with CNC-machined aluminum unibodies, these machines integrate vapor chamber cooling chambers with dual liquid-crystal polymer fans to keep thermal throttling at zero even under 100% CPU and GPU loads.
+                </p>
+
+                <div className="category-pills-grid">
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
+                    <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🖥️ Studio Color-Calibrated Displays</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      4K Mini-LED panels covering 100% DCI-P3 color gamut with Delta E &lt; 1 color accuracy, ideal for high-precision video color grading.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
+                    <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⚡ Extreme PCIe Gen4 Storage</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Ultra-fast read speeds up to 7000MB/s allow instant project file loading, seamless game booting, and rapid multi-gigabyte file transfers.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
+                    <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⌨️ Tactile Mechanical Keyboards</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Per-key RGB backlighting with 1.5mm key travel distance and anti-ghosting switches engineered for comfortable, high-speed typing sessions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 🎧 Category 3 */}
+              <div className="glass-category-card" style={{ '--card-glow-color': '#4ade80', '--card-glow-shadow': 'rgba(74, 222, 128, 0.35)' }}>
+                <div className="category-heading-row">
+                  <div className="icon-glass-avatar" style={{ borderColor: 'rgba(74, 222, 128, 0.4)', background: 'rgba(74, 222, 128, 0.12)' }}>
+                    🎧
+                  </div>
+                  <div>
+                    <h3 className="category-heading-title">
+                      Studio Fidelity Audio & ANC Headsets
+                    </h3>
+                    <span className="category-heading-sub" style={{ color: '#4ade80' }}>
+                      Active Noise Cancellation • 40mm Custom Drivers • Spatial 3D Audio
+                    </span>
+                  </div>
+                </div>
+
+                <p className="category-para">
+                  Engineered for audiophiles and music lovers who demand pure sound transparency. Our high-resolution certified audio gear features custom beryllium-coated drivers that produce deep, tight bass, rich midranges, and crystal-clear high frequencies. Integrated dual-chip ANC processors constantly sample surrounding environmental sound 40,000 times per second to generate inverted soundwaves, effectively silencing plane engines and city noise.
+                </p>
+
+                <div className="category-pills-grid">
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
+                    <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔊 Lossless Audio Codecs</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Supports LDAC, aptX Adaptive, and AAC codecs delivering bitrates up to 990kbps for studio-master quality wireless audio playback.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
+                    <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🎙️ Beamforming Microphones</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Multi-mic array isolates your voice while filtering wind and ambient noise, ensuring crystal clear voice calls in noisy outdoor environments.
+                    </p>
+                  </div>
+
+                  <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
+                    <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔋 50-Hour Playback Stamina</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
+                      Ultra-efficient Bluetooth 5.3 chips provide continuous music playback for up to 50 hours on a single charge with ANC enabled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-        ))}
-    </div>
-    {/* --- ULTRA-PREMIUM ANIMATED GLASSMORPHISM 5-FEATURE SECTION --- */}
-<div style={{ marginTop: '5rem', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-
-  {/* Custom CSS for Animations & Glass Effect */}
-  <style>{`
-    @keyframes pulseGlowBorder {
-      0%, 100% { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
-      50% { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 25px 60px rgba(56, 189, 248, 0.25); }
-    }
-
-    @keyframes beamSweep {
-      0% { left: -100%; }
-      100% { left: 200%; }
-    }
-
-    .glass-feature-card {
-      position: relative;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(30px) saturate(210%);
-      -webkit-backdrop-filter: blur(30px) saturate(210%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 32px;
-      padding: 3rem;
-      overflow: hidden;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.04);
-    }
-
-    /* Moving Light Beam Effect */
-    .glass-feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
-      transition: left 0.8s ease;
-      z-index: 3;
-    }
-
-    /* Floating Background Aura Light */
-    .glass-feature-card::after {
-      content: '';
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-      top: -50px;
-      right: -50px;
-      pointer-events: none;
-      transition: all 0.5s ease;
-      z-index: 0;
-    }
-
-    .glass-feature-card:hover {
-      transform: translateY(-12px) scale(1.01);
-      border-color: rgba(56, 189, 248, 0.5);
-      box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.8),
-                  0 0 40px rgba(56, 189, 248, 0.3);
-    }
-
-    .glass-feature-card:hover::before {
-      left: 200%;
-    }
-
-    .glass-feature-card:hover::after {
-      transform: scale(1.5);
-      opacity: 0.8;
-    }
-
-    /* Image Container Zoom Effect */
-    .glass-img-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .glass-img-container img {
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .glass-feature-card:hover .glass-img-container img {
-      transform: scale(1.1) rotate(1deg);
-    }
-  `}</style>
-
-  {/* Header Section */}
-  <div style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '8px 20px', borderRadius: '40px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem', boxShadow: '0 0 20px rgba(56, 189, 248, 0.15)' }}>
-      ⚡ DEEP TECHNICAL DEEP-DIVE
-    </span>
-    <h2 style={{ fontSize: '3.2rem', color: '#fff', margin: '0 0 1.2rem 0', fontWeight: '900', lineHeight: '1.15', background: 'linear-gradient(to right, #ffffff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.5px' }}>
-      Comprehensive Product Breakdown & Specifications
-    </h2>
-    <p style={{ color: '#94a3b8', lineHeight: '1.7', fontSize: '1.15rem', margin: 0, fontWeight: '400', maxWidth: '700px' }}>
-      Explore the inner engineering, premium architecture, and hardware components powering our entire flagship electronic store inventory.
-    </p>
-  </div>
-
-  {/* Row 1: Image Left | Text Right */}
-  <div className="glass-feature-card" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '3.5rem' }}>
-    <div className="glass-img-container" style={{ flex: '1 1 400px', height: '340px' }}>
-      <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1200&auto=format&fit=crop" alt="Mobile Tech" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.35)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '0.8rem', boxShadow: '0 0 15px rgba(56, 189, 248, 0.25)' }}>
-        01. Mobile Technology
-      </span>
-      <h3 style={{ fontSize: '2.5rem', color: '#fff', margin: '0.5rem 0 1rem 0', fontWeight: '900', lineHeight: '1.2', background: 'linear-gradient(to right, #fff, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Flagship Smartphones Engineered for Speed
-      </h3>
-      <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1.08rem', margin: 0, fontWeight: '400' }}>
-        Discover ultra-high definition OLED screens, aerospace-grade titanium framing, and multi-lens camera setups designed to capture life's purest moments. Built with industry-leading processors for seamless multitasking.
-      </p>
-    </div>
-  </div>
-
-  {/* Row 2: Text Left | Image Right */}
-  <div className="glass-feature-card" style={{ display: 'flex', flexWrap: 'wrap-reverse', alignItems: 'center', gap: '3.5rem' }}>
-    <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-      <span style={{ background: 'rgba(129, 140, 248, 0.15)', color: '#818cf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(129, 140, 248, 0.35)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '0.8rem', boxShadow: '0 0 15px rgba(129, 140, 248, 0.25)' }}>
-        02. High Performance
-      </span>
-      <h3 style={{ fontSize: '2.5rem', color: '#fff', margin: '0.5rem 0 1rem 0', fontWeight: '900', lineHeight: '1.2', background: 'linear-gradient(to right, #fff, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Next-Gen Laptops for Heavy Workloads
-      </h3>
-      <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1.08rem', margin: 0, fontWeight: '400' }}>
-        Unleash creative freedom with workstation-grade graphics processing, liquid cooling thermals, and all-day battery efficiency. Perfect for high-end gaming, 3D rendering, and software development.
-      </p>
-    </div>
-    <div className="glass-img-container" style={{ flex: '1 1 400px', height: '340px' }}>
-      <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop" alt="Laptops" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  </div>
-
-  {/* Row 3: Image Left | Text Right */}
-  <div className="glass-feature-card" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '3.5rem' }}>
-    <div className="glass-img-container" style={{ flex: '1 1 400px', height: '340px' }}>
-      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="Headphones" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-      <span style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ade80', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(74, 222, 128, 0.35)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '0.8rem', boxShadow: '0 0 15px rgba(74, 222, 128, 0.25)' }}>
-        03. Studio Audio
-      </span>
-      <h3 style={{ fontSize: '2.5rem', color: '#fff', margin: '0.5rem 0 1rem 0', fontWeight: '900', lineHeight: '1.2', background: 'linear-gradient(to right, #fff, #4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Immersive Active Noise Cancelling Acoustic Systems
-      </h3>
-      <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1.08rem', margin: 0, fontWeight: '400' }}>
-        Step into acoustic perfection with custom dynamic drivers, spatial 3D audio isolation, and active noise cancellation that silences background ambient noise for a pure studio listening experience.
-      </p>
-    </div>
-  </div>
-
-  {/* Row 4: Text Left | Image Right */}
-  <div className="glass-feature-card" style={{ display: 'flex', flexWrap: 'wrap-reverse', alignItems: 'center', gap: '3.5rem' }}>
-    <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-      <span style={{ background: 'rgba(251, 146, 60, 0.15)', color: '#fb923c', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(251, 146, 60, 0.35)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '0.8rem', boxShadow: '0 0 15px rgba(251, 146, 60, 0.25)' }}>
-        04. Smart Wearables
-      </span>
-      <h3 style={{ fontSize: '2.5rem', color: '#fff', margin: '0.5rem 0 1rem 0', fontWeight: '900', lineHeight: '1.2', background: 'linear-gradient(to right, #fff, #fb923c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Advanced Fitness & Health Analytics Wearables
-      </h3>
-      <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1.08rem', margin: 0, fontWeight: '400' }}>
-        Monitor real-time heart metrics, oxygen saturation, sleep cycles, and physical activity with surgical precision. Encased in durable sapphire glass with water resistance for all-day wear.
-      </p>
-    </div>
-    <div className="glass-img-container" style={{ flex: '1 1 400px', height: '340px' }}>
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop" alt="Smartwatch" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  </div>
-
-  {/* Row 5: Image Left | Text Right */}
-  <div className="glass-feature-card" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '3.5rem' }}>
-    <div className="glass-img-container" style={{ flex: '1 1 400px', height: '340px' }}>
-      <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1200&auto=format&fit=crop" alt="Tablets" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-    <div style={{ flex: '1 1 400px', zIndex: 1 }}>
-      <span style={{ background: 'rgba(236, 72, 153, 0.15)', color: '#ec4899', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(236, 72, 153, 0.35)', fontSize: '0.82rem', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', display: 'inline-block', marginBottom: '0.8rem', boxShadow: '0 0 15px rgba(236, 72, 153, 0.25)' }}>
-        05. Pro Digital Canvas
-      </span>
-      <h3 style={{ fontSize: '2.5rem', color: '#fff', margin: '0.5rem 0 1rem 0', fontWeight: '900', lineHeight: '1.2', background: 'linear-gradient(to right, #fff, #ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Versatile Ultra-Slim Digital Tablets
-      </h3>
-      <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1.08rem', margin: 0, fontWeight: '400' }}>
-        Transform your workflow into a mobile digital studio with stylus-enabled pressure sensitivity, magnetic keyboard dock support, and ultra-wide camera lenses for maximum creative output.
-      </p>
-    </div>
-  </div>
-
-</div>
-{/* --- ULTRA-PREMIUM ANIMATED GLASSMORPHISM CATEGORY SHOWCASE --- */}
-<div style={{ marginTop: '6rem', display: 'flex', flexDirection: 'column', gap: '4.5rem' }}>
-
-  {/* CSS Styles for Animated Glassmorphism & Micro-Interactions */}
-  <style>{`
-    @keyframes pulseAura {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.15); }
-    }
-
-    @keyframes shineRay {
-      0% { left: -100%; }
-      100% { left: 200%; }
-    }
-
-    /* 💎 Ultra Glassmorphic Category Card */
-    .glass-category-card {
-      position: relative;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(35px) saturate(220%);
-      -webkit-backdrop-filter: blur(35px) saturate(220%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-top: 1px solid rgba(255, 255, 255, 0.28);
-      border-left: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 36px;
-      padding: 3.5rem 3rem;
-      overflow: hidden;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), inset 0 0 20px rgba(255, 255, 255, 0.03);
-    }
-
-    /* Top Moving Light Ray */
-    .glass-category-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--card-glow-color, #38bdf8), transparent);
-      transition: left 0.8s ease;
-      z-index: 3;
-    }
-
-    .glass-category-card:hover {
-      transform: translateY(-10px) scale(1.01);
-      border-color: var(--card-glow-color, rgba(56, 189, 248, 0.5));
-      box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.85),
-                  0 0 40px -5px var(--card-glow-shadow, rgba(56, 189, 248, 0.3));
-    }
-
-    .glass-category-card:hover::before {
-      left: 200%;
-    }
-
-    /* 🌟 Inner Glass Feature Box */
-    .glass-feature-pill {
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 1.8rem;
-      transition: all 0.4s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    .glass-feature-pill:hover {
-      background: rgba(30, 41, 59, 0.75);
-      border-color: var(--card-glow-color, rgba(56, 189, 248, 0.4));
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Floating Icon Glow */
-    .icon-glass-avatar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 70px;
-      height: 70px;
-      border-radius: 24px;
-      font-size: 2.4rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-      transition: all 0.5s ease;
-    }
-
-    .glass-category-card:hover .icon-glass-avatar {
-      transform: scale(1.12) rotate(-5deg);
-      box-shadow: 0 0 30px var(--card-glow-color, rgba(56, 189, 248, 0.6));
-    }
-  `}</style>
-
-  {/* 👑 ULTRA-GLOW CENTER HERO HEADER */}
-  <div style={{ textAlign: 'center', position: 'relative', maxWidth: '850px', margin: '0 auto' }}>
-    
-    {/* Background Glow Aura */}
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '350px',
-      height: '150px',
-      background: 'radial-gradient(ellipse, rgba(56, 189, 248, 0.3) 0%, transparent 70%)',
-      filter: 'blur(50px)',
-      pointerEvents: 'none',
-      zIndex: 0
-    }} />
-
-    <div style={{ position: 'relative', zIndex: 1 }}>
-      <span style={{ 
-        background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(129, 140, 248, 0.1) 100%)', 
-        color: '#38bdf8', 
-        padding: '8px 24px', 
-        borderRadius: '99px', 
-        border: '1px solid rgba(56, 189, 248, 0.4)', 
-        fontSize: '0.85rem', 
-        fontWeight: '800', 
-        letterSpacing: '3px', 
-        textTransform: 'uppercase',
-        boxShadow: '0 0 25px rgba(56, 189, 248, 0.3)',
-        display: 'inline-block',
-        marginBottom: '1.2rem'
-      }}>
-        ⚡ Deep Technical Deep-Dive
-      </span>
-
-      <h2 style={{ 
-        fontSize: '3.6rem', 
-        fontWeight: '900', 
-        color: '#fff', 
-        margin: '0 0 1rem 0', 
-        lineHeight: '1.15',
-        letterSpacing: '-1px',
-        background: 'linear-gradient(135deg, #ffffff 20%, #38bdf8 70%, #818cf8 100%)', 
-        WebkitBackgroundClip: 'text', 
-        WebkitTextFillColor: 'transparent',
-        filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))'
-      }}>
-        Comprehensive Product Breakdown & Specifications
-      </h2>
-
-      <p style={{ color: '#94a3b8', fontSize: '1.2rem', margin: '0 auto', lineHeight: '1.8', fontWeight: '400' }}>
-        Explore the inner engineering, premium architecture, and hardware components powering our entire flagship electronic store inventory.
-      </p>
-    </div>
-  </div>
-
-  {/* 📱 Category 1: Mobiles & Smartphones */}
-  <div className="glass-category-card" style={{ '--card-glow-color': '#38bdf8', '--card-glow-shadow': 'rgba(56, 189, 248, 0.35)' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-      <div className="icon-glass-avatar" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', background: 'rgba(56, 189, 248, 0.12)' }}>
-        📱
-      </div>
-      <div>
-        <h3 style={{ fontSize: '2.4rem', color: '#fff', margin: 0, fontWeight: '900', letterSpacing: '-0.5px' }}>
-          Flagship Mobile & Smartphone Ecosystem
-        </h3>
-        <span style={{ color: '#38bdf8', fontSize: '0.98rem', fontWeight: '800', letterSpacing: '0.5px' }}>
-          Ultra OLED Displays • Bionic & Snapdragon Chips • Periscope Telephoto Cameras
-        </span>
-      </div>
-    </div>
-    
-    <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.9', marginBottom: '2.5rem', fontWeight: '400' }}>
-      Our flagship smartphone collection represents the pinnacle of modern mobile engineering. Crafted with aerospace-grade titanium chassis and ceramic-shield glass, these devices are designed to withstand drop impacts while maintaining an ultra-sleek, ergonomic profile. Powered by 3nm processor architectures, they execute billions of neural calculations per second, ensuring zero frame drops during heavy 4K video editing, real-time ray tracing gaming, and heavy background multitasking.
-    </p>
-
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.8rem' }}>
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
-        <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⚡ Pro Display Super Retina</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Dynamic 120Hz ProMotion refresh rates with up to 2600 nits peak outdoor brightness. Featuring Always-On technology and ambient color sensing.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
-        <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>📸 Cinema-Grade Optical Optics</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          200MP main sensors paired with periscope telephoto lenses offering up to 100x digital zoom, 8K video recording, and nightography computational AI.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#38bdf8' }}>
-        <h4 style={{ color: '#38bdf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔋 All-Day Power & Fast Charging</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          High-density 5000mAh silicon-carbon batteries supporting 100W GaN fast wired charging, achieving 0 to 80% charge in under 18 minutes.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* 💻 Category 2: Laptops & Workstations */}
-  <div className="glass-category-card" style={{ '--card-glow-color': '#818cf8', '--card-glow-shadow': 'rgba(129, 140, 248, 0.35)' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-      <div className="icon-glass-avatar" style={{ borderColor: 'rgba(129, 140, 248, 0.4)', background: 'rgba(129, 140, 248, 0.12)' }}>
-        💻
-      </div>
-      <div>
-        <h3 style={{ fontSize: '2.4rem', color: '#fff', margin: 0, fontWeight: '900', letterSpacing: '-0.5px' }}>
-          High-Performance Laptops & Workstations
-        </h3>
-        <span style={{ color: '#818cf8', fontSize: '0.98rem', fontWeight: '800', letterSpacing: '0.5px' }}>
-          DDR5 RAM • PCIe Gen4 NVMe SSDs • Vapor Chamber Thermal Cooling
-        </span>
-      </div>
-    </div>
-    
-    <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.9', marginBottom: '2.5rem', fontWeight: '400' }}>
-      Designed for software engineers, video producers, 3D animators, and hardcore gamers, our workstation laptops redefine portable computing power. Built with CNC-machined aluminum unibodies, these machines integrate vapor chamber cooling chambers with dual liquid-crystal polymer fans to keep thermal throttling at zero even under 100% CPU and GPU loads.
-    </p>
-
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.8rem' }}>
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
-        <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🖥️ Studio Color-Calibrated Displays</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          4K Mini-LED panels covering 100% DCI-P3 color gamut with Delta E &lt; 1 color accuracy, ideal for high-precision video color grading.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
-        <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⚡ Extreme PCIe Gen4 Storage</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Ultra-fast read speeds up to 7000MB/s allow instant project file loading, seamless game booting, and rapid multi-gigabyte file transfers.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#818cf8' }}>
-        <h4 style={{ color: '#818cf8', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>⌨️ Tactile Mechanical Keyboards</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Per-key RGB backlighting with 1.5mm key travel distance and anti-ghosting switches engineered for comfortable, high-speed typing sessions.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* 🎧 Category 3: Audio & Studio Headphones */}
-  <div className="glass-category-card" style={{ '--card-glow-color': '#4ade80', '--card-glow-shadow': 'rgba(74, 222, 128, 0.35)' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-      <div className="icon-glass-avatar" style={{ borderColor: 'rgba(74, 222, 128, 0.4)', background: 'rgba(74, 222, 128, 0.12)' }}>
-        🎧
-      </div>
-      <div>
-        <h3 style={{ fontSize: '2.4rem', color: '#fff', margin: 0, fontWeight: '900', letterSpacing: '-0.5px' }}>
-          Studio Fidelity Audio & ANC Headsets
-        </h3>
-        <span style={{ color: '#4ade80', fontSize: '0.98rem', fontWeight: '800', letterSpacing: '0.5px' }}>
-          Active Noise Cancellation • 40mm Custom Drivers • Spatial 3D Audio
-        </span>
-      </div>
-    </div>
-    
-    <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: '1.9', marginBottom: '2.5rem', fontWeight: '400' }}>
-      Engineered for audiophiles and music lovers who demand pure sound transparency. Our high-resolution certified audio gear features custom beryllium-coated drivers that produce deep, tight bass, rich midranges, and crystal-clear high frequencies. Integrated dual-chip ANC processors constantly sample surrounding environmental sound 40,000 times per second to generate inverted soundwaves, effectively silencing plane engines and city noise.
-    </p>
-
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.8rem' }}>
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
-        <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔊 Lossless Audio Codecs</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Supports LDAC, aptX Adaptive, and AAC codecs delivering bitrates up to 990kbps for studio-master quality wireless audio playback.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
-        <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🎙️ Beamforming Microphones</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Multi-mic array isolates your voice while filtering wind and ambient noise, ensuring crystal clear voice calls in noisy outdoor environments.
-        </p>
-      </div>
-
-      <div className="glass-feature-pill" style={{ '--card-glow-color': '#4ade80' }}>
-        <h4 style={{ color: '#4ade80', margin: '0 0 0.6rem 0', fontSize: '1.25rem', fontWeight: '800' }}>🔋 50-Hour Playback Stamina</h4>
-        <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.98rem', lineHeight: '1.65' }}>
-          Ultra-efficient Bluetooth 5.3 chips provide continuous music playback for up to 50 hours on a single charge with ANC enabled.
-        </p>
-      </div>
-    </div>
-  </div>
-
-</div>
-  </div>
-)}
+        )}
         {/* === ULTRA PRO MAX PREMIUM PRODUCT DETAILS PAGE === */}
         {currentPage === 'product-detail' && selectedProduct && (() => {
-  // Dynamic Rating Calculation
-  // Database se aane wale reviews ko directly use karo
-const productReviews = selectedProduct.reviews || [];
-  const totalReviews = productReviews.length;
-  const avgStars = totalReviews > 0 ? (productReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1) : 5.0;
-  const fullStars = '★'.repeat(Math.round(avgStars));
-  const emptyStars = '☆'.repeat(5 - Math.round(avgStars));
+          const productReviews = selectedProduct.reviews || [];
+          const totalReviews = productReviews.length;
+          const avgStars = totalReviews > 0 ? (productReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1) : 5.0;
+          const fullStars = '★'.repeat(Math.round(avgStars));
+          const emptyStars = '☆'.repeat(5 - Math.round(avgStars));
 
-  // ⚡ GET ALL RELATED PRODUCTS BY CATEGORY 
-  const relatedProducts = (products || []).filter(
-    p => p.category === selectedProduct.category && p._id !== selectedProduct._id
-  );
+          const relatedProducts = (products || []).filter(
+            p => p.category === selectedProduct.category && p._id !== selectedProduct._id
+          );
 
-  return (
-    <div className="product-detail-container" style={{ padding: '2rem', maxWidth: '1350px', margin: '0 auto', color: '#fff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      
-      {/* CSS for Premium Smooth Animations, Shimmer & Soft Glows */}
-      <style>{`
+          return (
+            <div className="product-detail-container">
+
+              <style>{`
+        /* ===================== ANIMATIONS ===================== */
         @keyframes fadeUp {
           0% { opacity: 0; transform: translateY(40px); }
           100% { opacity: 1; transform: translateY(0); }
@@ -5165,14 +5880,23 @@ const productReviews = selectedProduct.reviews || [];
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
-        
+
+        /* ===================== BASE ===================== */
+        .product-detail-container {
+          padding: 2rem;
+          max-width: 1350px;
+          margin: 0 auto;
+          color: #fff;
+          font-family: system-ui, -apple-system, sans-serif;
+        }
+
         .animate-item { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
 
-        /* Ultra Premium Glass Card */
+        /* ===================== GLASS CARDS ===================== */
         .glass-card-premium {
           background: linear-gradient(145deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.4) 100%);
           backdrop-filter: blur(30px);
@@ -5181,9 +5905,9 @@ const productReviews = selectedProduct.reviews || [];
           border-top: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 32px;
           box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+          padding: 4rem 3rem;
         }
 
-        /* Inner Glass Panels for subtle separation */
         .glass-panel {
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
@@ -5198,430 +5922,1176 @@ const productReviews = selectedProduct.reviews || [];
         .hover-lift { transition: transform 0.3s ease, background 0.3s ease; }
         .hover-lift:hover { transform: translateY(-4px); background: rgba(56, 189, 248, 0.1); }
 
-        /* Premium Input Fields */
         .premium-input {
-          width: 100%; padding: 1.2rem; border-radius: 16px;
-          background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08);
-          color: #fff; font-size: 1rem; transition: all 0.3s ease; outline: none;
+          width: 100%;
+          padding: 1.2rem;
+          border-radius: 16px;
+          background: rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #fff;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          outline: none;
+          box-sizing: border-box;
         }
         .premium-input:focus {
-          border-color: #38bdf8; background: rgba(0,0,0,0.4);
+          border-color: #38bdf8;
+          background: rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+        }
+
+        /* ===================== BACK BUTTON ===================== */
+        .premium-back-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 24px;
+          background: rgba(15, 23, 42, 0.6);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 30px;
+          color: #cbd5e1;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-bottom: 2rem;
+        }
+        .premium-back-btn:hover {
+          background: rgba(56, 189, 248, 0.15);
+          border-color: rgba(56, 189, 248, 0.4);
+          color: #38bdf8;
+          transform: translateX(-4px);
+        }
+
+        /* ===================== HERO SECTION ===================== */
+        .hero-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6rem;
+          align-items: center;
+        }
+        .hero-image-col {
+          flex: 1 1 450px;
+          position: relative;
+        }
+        .hero-text-col {
+          flex: 1 1 450px;
+          display: flex;
+          flex-direction: column;
+        }
+        .hero-image-wrapper {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 500px;
+          width: 100%;
+        }
+        .hero-image-glow {
+          position: absolute;
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(0,0,0,0) 70%);
+          border-radius: 50%;
+          filter: blur(40px);
+          z-index: 0;
+        }
+        .hero-product-img {
+          width: 100%;
+          max-width: 500px;
+          max-height: 550px;
+          object-fit: contain;
+          animation: floatPremium 6s ease-in-out infinite;
+          z-index: 1;
+          position: relative;
+        }
+        .hero-title {
+          font-size: 3.5rem;
+          margin: 0 0 1.2rem 0;
+          color: #ffffff;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: -1px;
+        }
+        .hero-rating-row {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+          flex-wrap: wrap;
+        }
+        .hero-rating-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(0,0,0,0.2);
+          padding: 8px 16px;
+          border-radius: 30px;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+        .hero-desc {
+          color: #cbd5e1;
+          line-height: 1.8;
+          font-size: 1.1rem;
+          white-space: pre-wrap;
+          margin-bottom: 2.5rem;
+          font-weight: 300;
+        }
+        .hero-price-row {
+          display: flex;
+          align-items: flex-end;
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+          flex-wrap: wrap;
+        }
+        .hero-price-main {
+          font-size: 3.8rem;
+          font-weight: 900;
+          color: #fff;
+          line-height: 1;
+          letter-spacing: -1px;
+        }
+        .hero-price-currency {
+          font-size: 2rem;
+          color: #38bdf8;
+          vertical-align: top;
+          margin-right: 8px;
+        }
+        .hero-features-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 2.5rem;
+        }
+        .hero-feature-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 18px;
+        }
+        .hero-feature-item span:first-child {
+          font-size: 1.5rem;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        .hero-feature-item span:last-child {
+          color: #e2e8f0;
+          font-size: 0.95rem;
+          font-weight: 600;
+        }
+        .hero-buy-btn {
+          width: 100%;
+          padding: 1.4rem;
+          background: linear-gradient(110deg, #2563eb, #38bdf8, #2563eb);
+          background-size: 200% auto;
+          color: #fff;
+          border: none;
+          border-radius: 16px;
+          font-size: 1.2rem;
+          font-weight: 800;
+          cursor: pointer;
+          animation: shimmerEffect 3s linear infinite;
+          box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3);
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hero-buy-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 20px 40px rgba(56, 189, 248, 0.5);
+        }
+
+        /* ===================== SPECIFICATIONS ===================== */
+        .spec-section {
+          margin-top: 6rem;
+          padding-top: 4rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .spec-heading {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+        .spec-heading h2 {
+          font-size: 2.8rem;
+          color: #fff;
+          margin: 0 0 1rem 0;
+          font-weight: 800;
+          letter-spacing: -0.5px;
+        }
+        .spec-heading p {
+          color: #94a3b8;
+          font-size: 1.15rem;
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+        .spec-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          gap: 2.5rem;
+        }
+        .spec-table {
+          padding: 2.5rem;
+        }
+        .spec-table h3 {
+          margin-bottom: 2rem;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 1.4rem;
+        }
+        .spec-table h3 span {
+          font-size: 1.8rem;
+        }
+        .spec-row {
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          gap: 1rem;
+        }
+        .spec-row:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+        .spec-row span {
+          color: #94a3b8;
+          font-size: 1.05rem;
+        }
+        .spec-row strong {
+          color: #f8fafc;
+          font-size: 1.05rem;
+          font-weight: 600;
+          text-align: right;
+        }
+
+        /* ===================== REVIEWS ===================== */
+        .reviews-section {
+          margin-top: 6rem;
+          padding-top: 4rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .reviews-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5rem;
+        }
+        .reviews-left {
+          flex: 1 1 350px;
+        }
+        .reviews-left h2 {
+          font-size: 2.8rem;
+          color: #fff;
+          margin: 0 0 2rem 0;
+          font-weight: 800;
+          letter-spacing: -0.5px;
+        }
+        .reviews-score-box {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          margin-bottom: 3rem;
+          background: rgba(0,0,0,0.15);
+          padding: 2rem;
+          border-radius: 24px;
+          border: 1px solid rgba(255,255,255,0.03);
+        }
+        .reviews-score-num {
+          font-size: 5rem;
+          font-weight: 900;
+          color: #fff;
+          line-height: 1;
+          text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .reviews-right {
+          flex: 1 1 400px;
+        }
+        .reviews-form-box {
+          padding: 3rem;
+        }
+        .reviews-form-box h3 {
+          margin: 0 0 2rem 0;
+          color: #fff;
+          font-size: 1.6rem;
+          font-weight: 700;
+        }
+        .reviews-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .reviews-submit-btn {
+          padding: 1.2rem;
+          background: linear-gradient(135deg, #38bdf8, #2563eb);
+          color: #fff;
+          border: none;
+          border-radius: 16px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          cursor: pointer;
+          box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+        }
+        .comments-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+          gap: 2rem;
+        }
+        .comment-card {
+          padding: 2rem;
+        }
+        .comment-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 1.2rem;
+        }
+        .comment-avatar {
+          width: 55px;
+          height: 55px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #38bdf8, #2563eb);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: 800;
+          font-size: 1.4rem;
+          color: #fff;
+          box-shadow: 0 5px 15px rgba(56,189,248,0.3);
+          flex-shrink: 0;
+        }
+
+        /* ===================== RELATED PRODUCTS ===================== */
+        .related-products-section {
+          margin-top: 6rem;
+        }
+        .related-heading {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        .related-badge {
+          display: inline-block;
+          background: rgba(56, 189, 248, 0.1);
+          color: #38bdf8;
+          padding: 6px 18px;
+          border-radius: 30px;
+          border: 1px solid rgba(56, 189, 248, 0.3);
+          fontSize: 0.8rem;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+        }
+        .related-title {
+          font-size: 2.5rem;
+          color: #fff;
+          margin: 0 0 0.8rem 0;
+          font-weight: 900;
+          letter-spacing: -0.5px;
+        }
+        .related-subtitle {
+          color: #94a3b8;
+          font-size: 1.05rem;
+          margin: 0;
+        }
+        .related-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+        .related-card {
+          background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+          border: 1px solid rgba(56, 189, 248, 0.2);
+          border-radius: 24px;
+          overflow: hidden;
+          transition: all 0.4s ease;
+          display: flex;
+          flex-direction: column;
+        }
+        .related-card:hover {
+          transform: translateY(-8px);
+          border-color: #38bdf8;
+          box-shadow: 0 0 30px rgba(56, 189, 248, 0.3), 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+        .related-image-box {
+          cursor: pointer;
+          background: rgba(255,255,255,0.02);
+          height: 240px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 1.5rem;
+          overflow: hidden;
+        }
+        .related-image-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+          transition: transform 0.6s ease;
+        }
+        .related-card:hover .related-image-box img {
+          transform: scale(1.1);
+        }
+        .related-details {
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+        .related-product-name {
+          cursor: pointer;
+          font-size: 1.2rem;
+          color: #f8fafc;
+          font-weight: 800;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .related-price {
+          font-size: 1.5rem;
+          font-weight: 900;
+          background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .related-actions {
+          display: flex;
+          gap: 0.8rem;
+          margin-top: 0.5rem;
+        }
+        .related-btn-cart {
+          flex: 1;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          color: #fff;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+        .related-btn-cart:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        .related-btn-explore {
+          flex: 1;
+          padding: 0.75rem;
+          background: linear-gradient(135deg, #38bdf8, #2563eb);
+          color: #fff;
+          border: none;
+          border-radius: 12px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        /* ===================== MOBILE RESPONSIVE (≤768px) ===================== */
+        @media (max-width: 768px) {
+          .product-detail-container {
+            padding: 1rem 0.85rem;
+          }
+
+          .glass-card-premium {
+            padding: 1.5rem 1.1rem;
+            border-radius: 22px;
+          }
+
+          .premium-back-btn {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+          }
+
+          /* Hero */
+          .hero-row {
+            gap: 2rem;
+          }
+          .hero-image-col,
+          .hero-text-col {
+            flex: 1 1 100%;
+          }
+          .hero-image-wrapper {
+            min-height: 300px;
+          }
+          .hero-image-glow {
+            width: 220px;
+            height: 220px;
+          }
+          .hero-product-img {
+            max-width: 280px;
+            max-height: 320px;
+          }
+          .hero-title {
+            font-size: 1.85rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+          }
+          .hero-rating-row {
+            gap: 0.8rem;
+            margin-bottom: 1.4rem;
+          }
+          .hero-rating-pill {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+          }
+          .hero-rating-pill span {
+            font-size: 0.8rem !important;
+          }
+          .hero-desc {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+          }
+          .hero-price-main {
+            font-size: 2.2rem;
+          }
+          .hero-price-currency {
+            font-size: 1.2rem;
+          }
+          .hero-price-row {
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+          }
+          .hero-features-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+          }
+          .hero-feature-item {
+            padding: 10px 12px;
+            gap: 8px;
+          }
+          .hero-feature-item span:first-child {
+            font-size: 1.1rem;
+          }
+          .hero-feature-item span:last-child {
+            font-size: 0.75rem;
+          }
+          .hero-buy-btn {
+            padding: 1.05rem;
+            font-size: 1rem;
+            border-radius: 12px;
+          }
+
+          /* Specs */
+          .spec-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+          }
+          .spec-heading {
+            margin-bottom: 2rem;
+          }
+          .spec-heading h2 {
+            font-size: 1.7rem;
+          }
+          .spec-heading p {
+            font-size: 0.9rem;
+          }
+          .spec-grid {
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+          }
+          .spec-table {
+            padding: 1.4rem;
+          }
+          .spec-table h3 {
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+          }
+          .spec-table h3 span {
+            font-size: 1.4rem;
+          }
+          .spec-row {
+            padding-bottom: 0.75rem;
+          }
+          .spec-row span,
+          .spec-row strong {
+            font-size: 0.88rem;
+          }
+
+          /* Reviews */
+          .reviews-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+          }
+          .reviews-row {
+            gap: 2rem;
+          }
+          .reviews-left h2 {
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+          }
+          .reviews-score-box {
+            padding: 1.2rem;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+            border-radius: 18px;
+          }
+          .reviews-score-num {
+            font-size: 3rem;
+          }
+          .reviews-score-box > div:last-child div:first-child {
+            font-size: 1.1rem !important;
+            letter-spacing: 2px !important;
+          }
+          .reviews-score-box > div:last-child div:last-child {
+            font-size: 0.85rem !important;
+          }
+          .reviews-form-box {
+            padding: 1.4rem;
+          }
+          .reviews-form-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+          }
+          .reviews-form {
+            gap: 1rem;
+          }
+          .premium-input {
+            padding: 0.9rem;
+            font-size: 0.9rem;
+            border-radius: 12px;
+          }
+          .reviews-submit-btn {
+            padding: 1rem;
+            font-size: 0.95rem;
+            border-radius: 12px;
+          }
+          .comments-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+          .comment-card {
+            padding: 1.2rem;
+          }
+          .comment-avatar {
+            width: 44px;
+            height: 44px;
+            font-size: 1.1rem;
+          }
+          .comment-header strong {
+            font-size: 1rem !important;
+          }
+
+          /* Fake rating bars */
+          .reviews-left [style*="width: 50px"] {
+            width: 40px !important;
+            font-size: 0.8rem !important;
+          }
+          .reviews-left [style*="width: 35px"] {
+            width: 30px !important;
+            font-size: 0.75rem !important;
+          }
+
+          /* Related products — 2 per line mobile */
+          .related-title {
+            font-size: 1.6rem;
+          }
+          .related-subtitle {
+            font-size: 0.9rem;
+          }
+          .related-heading {
+            margin-bottom: 2rem;
+          }
+          .related-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.85rem;
+          }
+          .related-image-box {
+            height: 140px;
+            padding: 1rem;
+          }
+          .related-details {
+            padding: 0.8rem;
+            gap: 0.5rem;
+          }
+          .related-product-name {
+            font-size: 0.82rem;
+          }
+          .related-price {
+            font-size: 1.05rem;
+          }
+          .related-actions {
+            flex-direction: column;
+            gap: 0.4rem;
+          }
+          .related-btn-cart,
+          .related-btn-explore {
+            font-size: 0.7rem;
+            padding: 0.5rem 0.4rem;
+            border-radius: 9px;
+          }
+        }
+
+        /* ===================== SMALL MOBILE (≤480px) ===================== */
+        @media (max-width: 480px) {
+          .product-detail-container {
+            padding: 0.85rem 0.6rem;
+          }
+
+          .glass-card-premium {
+            padding: 1.1rem 0.9rem;
+            border-radius: 18px;
+          }
+
+          .hero-image-wrapper {
+            min-height: 240px;
+          }
+          .hero-product-img {
+            max-width: 220px;
+            max-height: 260px;
+          }
+          .hero-title {
+            font-size: 1.5rem;
+          }
+          .hero-desc {
+            font-size: 0.85rem;
+            line-height: 1.65;
+          }
+          .hero-price-main {
+            font-size: 1.8rem;
+          }
+          .hero-price-currency {
+            font-size: 1rem;
+          }
+          .hero-features-grid {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+          }
+          .hero-feature-item span:last-child {
+            font-size: 0.8rem;
+          }
+
+          .spec-heading h2 {
+            font-size: 1.4rem;
+          }
+          .spec-table h3 {
+            font-size: 1rem;
+          }
+          .spec-row span,
+          .spec-row strong {
+            font-size: 0.8rem;
+          }
+
+          .reviews-left h2 {
+            font-size: 1.4rem;
+          }
+          .reviews-score-num {
+            font-size: 2.4rem;
+          }
+
+          .related-title {
+            font-size: 1.35rem;
+          }
+          .related-image-box {
+            height: 120px;
+            padding: 0.75rem;
+          }
+          .related-details {
+            padding: 0.65rem;
+          }
+          .related-product-name {
+            font-size: 0.75rem;
+          }
+          .related-price {
+            font-size: 0.95rem;
+          }
+          .related-btn-cart,
+          .related-btn-explore {
+            font-size: 0.65rem;
+            padding: 0.45rem 0.3rem;
+          }
         }
       `}</style>
 
-      {/* Top Navigation */}
-      <div className="animate-item back-button-wrapper">
-  <button 
-    onClick={() => setCurrentPage('products')} 
-    className="premium-back-btn"
-  >
-    <span className="back-btn-icon">←</span>
-    <span className="back-btn-text">Back to Collection</span>
-  </button>
-</div>
-
-      {/* MAIN HERO SECTION */}
-      <div className="glass-card-premium animate-item delay-1" style={{ padding: '4rem 3rem' }}>
-        
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6rem', alignItems: 'center' }}>
-          
-          {/* Left Side: Product Image Showcase */}
-          <div style={{ flex: '1 1 450px', position: 'relative' }}>
-            
-            {/* Floating Badges */}
-            <div style={{ position: 'absolute', top: '0', left: '0', zIndex: 10, display: 'flex', gap: '12px' }}>
-              <span style={{ background: 'linear-gradient(135deg, #ef4444, #f97316)', padding: '6px 18px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', boxShadow: '0 8px 20px rgba(239, 68, 68, 0.4)' }}>🔥 Bestseller</span>
-              <span style={{ background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(10px)', padding: '6px 18px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.1)' }}>✨ Limited</span>
-            </div>
-
-            {/* Glowing Orb Background for Image */}
-            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '500px', width: '100%' }}>
-              <div style={{ position: 'absolute', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(0,0,0,0) 70%)', borderRadius: '50%', filter: 'blur(40px)', zIndex: 0 }}></div>
-              
-              <img src={(selectedProduct.images && selectedProduct.images[0]) || 'https://via.placeholder.com/600'} alt={selectedProduct.name} style={{ width: '100%', maxWidth: '500px', maxHeight: '550px', objectFit: 'contain', animation: 'floatPremium 6s ease-in-out infinite', zIndex: 1, position: 'relative' }} />
-            </div>
-          </div>
-
-          {/* Right Side: Core Details */}
-          <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column' }}>
-            
-            <h1 style={{ fontSize: '3.5rem', margin: '0 0 1.2rem 0', color: '#ffffff', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px' }}>
-              {selectedProduct.name}
-            </h1>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '8px 16px', borderRadius: '30px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                <span style={{ color: '#fbbf24', fontSize: '1.2rem', letterSpacing: '1px' }}>{fullStars}<span style={{color: '#475569'}}>{emptyStars}</span></span>
-                <span style={{ color: '#fff', fontSize: '1rem', fontWeight: '700', marginLeft: '4px' }}>{avgStars}</span>
-                <span style={{ color: '#64748b', fontSize: '0.9rem' }}>({totalReviews} reviews)</span>
+              {/* Top Navigation */}
+              <div className="animate-item back-button-wrapper">
+                <button onClick={() => setCurrentPage('products')} className="premium-back-btn">
+                  <span className="back-btn-icon">←</span>
+                  <span className="back-btn-text">Back to Collection</span>
+                </button>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#4ade80', fontSize: '0.9rem', fontWeight: '600' }}>
-                <div style={{ width: '10px', height: '10px', background: '#4ade80', borderRadius: '50%', boxShadow: '0 0 12px #4ade80' }}></div> Ready to Ship
-              </div>
-            </div>
-              
-            {/* Description */}
-            <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.1rem',whiteSpace: 'pre-wrap', marginBottom: '2.5rem', fontWeight: '300' }}>
-              {selectedProduct.description}
-            </p>
 
-            {/* Pricing Section (Clean & Minimal) */}
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '3.8rem', fontWeight: '900', color: '#fff', lineHeight: '1', letterSpacing: '-1px' }}>
-                <span style={{ fontSize: '2rem', color: '#38bdf8', verticalAlign: 'top', marginRight: '8px' }}>PKR</span> 
-                {selectedProduct.discountPrice || selectedProduct.regularPrice}
-              </span>
-              {selectedProduct.discountPrice && (
-                <div style={{ paddingBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '1.3rem', textDecoration: 'line-through', color: '#64748b', display: 'block', marginBottom: '4px' }}>PKR {selectedProduct.regularPrice}</span>
-                  <span style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: '700', background: 'rgba(239, 68, 68, 0.1)', padding: '4px 10px', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)' }}>You Save PKR {(selectedProduct.regularPrice - selectedProduct.discountPrice).toFixed(2)}</span>
+              {/* MAIN HERO SECTION */}
+              <div className="glass-card-premium animate-item delay-1">
+
+                <div className="hero-row">
+
+                  {/* Left Side: Product Image Showcase */}
+                  <div className="hero-image-col">
+
+                    {/* Floating Badges */}
+                    <div style={{ position: 'absolute', top: '0', left: '0', zIndex: 10, display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ background: 'linear-gradient(135deg, #ef4444, #f97316)', padding: '5px 14px', borderRadius: '30px', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', boxShadow: '0 8px 20px rgba(239, 68, 68, 0.4)' }}>🔥 Bestseller</span>
+                      <span style={{ background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(10px)', padding: '5px 14px', borderRadius: '30px', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.1)' }}>✨ Limited</span>
+                    </div>
+
+                    <div className="hero-image-wrapper">
+                      <div className="hero-image-glow"></div>
+                      <img
+                        className="hero-product-img"
+                        src={(selectedProduct.images && selectedProduct.images[0]) || 'https://via.placeholder.com/600'}
+                        alt={selectedProduct.name}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Right Side: Core Details */}
+                  <div className="hero-text-col">
+
+                    <h1 className="hero-title">
+                      {selectedProduct.name}
+                    </h1>
+
+                    <div className="hero-rating-row">
+                      <div className="hero-rating-pill">
+                        <span style={{ color: '#fbbf24', fontSize: '1.2rem', letterSpacing: '1px' }}>
+                          {fullStars}<span style={{ color: '#475569' }}>{emptyStars}</span>
+                        </span>
+                        <span style={{ color: '#fff', fontSize: '1rem', fontWeight: '700', marginLeft: '4px' }}>{avgStars}</span>
+                        <span style={{ color: '#64748b', fontSize: '0.9rem' }}>({totalReviews})</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#4ade80', fontSize: '0.9rem', fontWeight: '600' }}>
+                        <div style={{ width: '10px', height: '10px', background: '#4ade80', borderRadius: '50%', boxShadow: '0 0 12px #4ade80' }}></div> Ready to Ship
+                      </div>
+                    </div>
+
+                    <p className="hero-desc">
+                      {selectedProduct.description}
+                    </p>
+
+                    {/* Pricing */}
+                    <div className="hero-price-row">
+                      <span className="hero-price-main">
+                        <span className="hero-price-currency">PKR</span>
+                        {selectedProduct.discountPrice || selectedProduct.regularPrice}
+                      </span>
+                      {selectedProduct.discountPrice && (
+                        <div style={{ paddingBottom: '0.3rem' }}>
+                          <span style={{ fontSize: '1rem', textDecoration: 'line-through', color: '#64748b', display: 'block', marginBottom: '4px' }}>PKR {selectedProduct.regularPrice}</span>
+                          <span style={{ color: '#ef4444', fontSize: '0.75rem', fontWeight: '700', background: 'rgba(239, 68, 68, 0.1)', padding: '3px 8px', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)' }}>Save PKR {(selectedProduct.regularPrice - selectedProduct.discountPrice).toFixed(2)}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Stock Progress Bar */}
+                    <div style={{ marginBottom: '1.8rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#94a3b8', marginBottom: '8px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                        <span>🔥 High Demand</span>
+                        <span style={{ color: '#ef4444' }}>Grab It Fast</span>
+                      </div>
+                      <div style={{ width: '100%', background: 'rgba(0,0,0,0.3)', height: '6px', borderRadius: '10px', overflow: 'hidden' }}>
+                        <div style={{ width: '85%', background: 'linear-gradient(90deg, #ef4444, #f97316)', height: '100%', borderRadius: '10px' }}></div>
+                      </div>
+                    </div>
+
+                    {/* Quick Features Grid */}
+                    <div className="hero-features-grid">
+                      <div className="glass-panel hero-feature-item">
+                        <span>🔋</span><span>Long Lasting Battery</span>
+                      </div>
+                      <div className="glass-panel hero-feature-item">
+                        <span>💦</span><span>IP68 Water Resistant</span>
+                      </div>
+                      <div className="glass-panel hero-feature-item">
+                        <span>⚡</span><span>Ultra-Fast Charging</span>
+                      </div>
+                      <div className="glass-panel hero-feature-item">
+                        <span>🛡️</span><span>2 Years Care+</span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <button
+                        className="hero-buy-btn"
+                        onClick={() => {
+                          handleAddToCart(selectedProduct);
+                          if (!selectedCartIds.includes(selectedProduct._id)) {
+                            setSelectedCartIds([...selectedCartIds, selectedProduct._id]);
+                          }
+                          setCurrentPage('checkout');
+                        }}
+                      >
+                        🚀 Proceed to Buy Now
+                      </button>
+
+                      <div style={{ textAlign: 'center', marginTop: '0.3rem' }}>
+                        <span style={{ color: '#64748b', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '600' }}>Guaranteed Safe & Secure Checkout</span>
+                        <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', marginTop: '10px', fontSize: '1.3rem', filter: 'grayscale(100%) opacity(0.5)' }}>
+                          💳 🏦 💵 🛡️
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* --- SPECIFICATIONS --- */}
+                <div className="animate-item delay-2 spec-section">
+                  <div className="spec-heading">
+                    <h2>Technical Specifications</h2>
+                    <p>Explore the cutting-edge technology and premium materials that make this product truly exceptional.</p>
+                  </div>
+
+                  <div className="spec-grid">
+
+                    <div className="glass-panel spec-table">
+                      <h3 style={{ color: '#38bdf8' }}><span>⚙️</span> Core Features</h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        {[
+                          { label: 'Brand', value: 'Electro Mark Elite' },
+                          { label: 'Connectivity', value: 'Bluetooth 5.3 / Type-C' },
+                          { label: 'Compatibility', value: 'iOS, Android, Windows, Mac' },
+                          { label: 'Voice Assistant', value: 'Siri & Google Assistant' }
+                        ].map((spec, idx) => (
+                          <div key={idx} className="spec-row" style={{ borderBottom: idx !== 3 ? '1px solid rgba(255,255,255,0.05)' : 'none', paddingBottom: idx !== 3 ? '0.75rem' : '0' }}>
+                            <span>{spec.label}</span>
+                            <strong>{spec.value}</strong>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="glass-panel spec-table">
+                      <h3 style={{ color: '#4ade80' }}><span>📐</span> Build & Dimensions</h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        {[
+                          { label: 'Material', value: 'Aerospace-grade Aluminum' },
+                          { label: 'Weight', value: 'Ultralight (215 grams)' },
+                          { label: 'Dimensions', value: '150 x 85 x 45 mm' },
+                          { label: 'Colors', value: 'Midnight Black, Frost White' }
+                        ].map((spec, idx) => (
+                          <div key={idx} className="spec-row" style={{ borderBottom: idx !== 3 ? '1px solid rgba(255,255,255,0.05)' : 'none', paddingBottom: idx !== 3 ? '0.75rem' : '0' }}>
+                            <span>{spec.label}</span>
+                            <strong>{spec.value}</strong>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* --- REVIEWS --- */}
+                <div className="animate-item delay-3 reviews-section">
+
+                  <div className="reviews-row">
+
+                    {/* Left */}
+                    <div className="reviews-left">
+                      <h2>Customer Reviews</h2>
+
+                      <div className="reviews-score-box">
+                        <div className="reviews-score-num">{avgStars}</div>
+                        <div>
+                          <div style={{ color: '#fbbf24', fontSize: '1.6rem', letterSpacing: '3px', filter: 'drop-shadow(0 2px 5px rgba(251, 191, 36, 0.3))' }}>{fullStars}<span style={{ color: '#475569' }}>{emptyStars}</span></div>
+                          <div style={{ color: '#94a3b8', marginTop: '8px', fontSize: '1rem' }}>Based on {totalReviews} reviews</div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        {[5, 4, 3, 2, 1].map(star => {
+                          const percentage = star === 5 ? '75%' : star === 4 ? '15%' : star === 3 ? '5%' : star === 2 ? '3%' : '2%';
+                          return (
+                            <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                              <span style={{ color: '#cbd5e1', width: '50px', fontSize: '0.9rem', fontWeight: '600' }}>{star} Star</span>
+                              <div style={{ flex: 1, background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '10px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)' }}>
+                                <div style={{ width: percentage, background: star > 3 ? '#fbbf24' : star === 3 ? '#fb923c' : '#f87171', height: '100%', borderRadius: '10px' }}></div>
+                              </div>
+                              <span style={{ color: '#64748b', width: '35px', textAlign: 'right', fontSize: '0.85rem', fontWeight: '600' }}>{percentage}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <p style={{ color: '#4ade80', fontWeight: '600', marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem', background: 'rgba(74, 222, 128, 0.05)', padding: '14px', borderRadius: '16px', border: '1px solid rgba(74, 222, 128, 0.1)' }}>
+                        <span style={{ background: '#4ade80', color: '#000', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.85rem', flexShrink: 0 }}>✓</span>
+                        94% of buyers highly recommend this product.
+                      </p>
+                    </div>
+
+                    {/* Right: Form */}
+                    <div className="reviews-right">
+                      <div className="glass-panel reviews-form-box">
+                        <h3>Share your experience</h3>
+                        <form onSubmit={async (e) => {
+                          e.preventDefault();
+                          if (!reviewForm.name || !reviewForm.comment) return;
+
+                          const newReviewObj = {
+                            name: reviewForm.name,
+                            rating: Number(reviewForm.rating),
+                            comment: reviewForm.comment,
+                            date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                          };
+
+                          try {
+                            const res = await fetch(`http://127.0.0.1:5000/api/products/${selectedProduct._id}/reviews`, {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify(newReviewObj)
+                            });
+
+                            if (res.ok) {
+                              const updatedProducts = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
+                              setProducts(updatedProducts);
+
+                              const updatedSelected = updatedProducts.find(p => p._id === selectedProduct._id);
+                              if (updatedSelected) setSelectedProduct(updatedSelected);
+
+                              setReviewForm({ name: '', comment: '', rating: 5 });
+                            } else {
+                              alert("Failed to submit review.");
+                            }
+                          } catch (error) {
+                            console.error(error);
+                            alert("Server error, check backend!");
+                          }
+                        }} className="reviews-form">
+
+                          <input
+                            type="text"
+                            placeholder="Your Name"
+                            value={reviewForm.name}
+                            onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                            className="premium-input"
+                            required
+                          />
+
+                          <select
+                            value={reviewForm.rating}
+                            onChange={(e) => setReviewForm({ ...reviewForm, rating: e.target.value })}
+                            className="premium-input"
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <option value="5" style={{ color: '#000' }}>⭐⭐⭐⭐⭐ (5/5)</option>
+                            <option value="4" style={{ color: '#000' }}>⭐⭐⭐⭐ (4/5)</option>
+                            <option value="3" style={{ color: '#000' }}>⭐⭐⭐ (3/5)</option>
+                            <option value="2" style={{ color: '#000' }}>⭐⭐ (2/5)</option>
+                            <option value="1" style={{ color: '#000' }}>⭐ (1/5)</option>
+                          </select>
+
+                          <textarea
+                            placeholder="Write your review here..."
+                            rows="4"
+                            value={reviewForm.comment}
+                            onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                            className="premium-input"
+                            style={{ resize: 'none' }}
+                            required
+                          ></textarea>
+
+                          <button type="submit" className="reviews-submit-btn">
+                            Submit Review
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  {/* Comments List */}
+                  <div style={{ marginTop: '3rem' }}>
+                    <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '1.5rem', fontWeight: '700' }}>Recent Comments ({totalReviews})</h3>
+                    <div className="comments-grid">
+                      {productReviews.length === 0 ? (
+                        <p style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '1rem' }}>Be the first to share your thoughts!</p>
+                      ) : (
+                        productReviews.map((review, index) => (
+                          <div key={review.id} className="animate-item glass-panel comment-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                            <div className="comment-header">
+                              <div className="comment-avatar">
+                                {review.name.charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                <strong style={{ color: '#fff', fontSize: '1.1rem', display: 'block', marginBottom: '2px' }}>{review.name}</strong>
+                                <span style={{ color: '#64748b', fontSize: '0.8rem', fontWeight: '500' }}>Verified • {review.date}</span>
+                              </div>
+                            </div>
+                            <div style={{ color: '#fbbf24', marginBottom: '0.8rem', fontSize: '1.1rem', letterSpacing: '3px' }}>
+                              {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                            </div>
+                            <p style={{ margin: 0, color: '#cbd5e1', lineHeight: '1.65', fontSize: '0.95rem' }}>"{review.comment}"</p>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* RELATED PRODUCTS */}
+              {relatedProducts.length > 0 && (
+                <div className="animate-item delay-4 related-products-section">
+
+                  <div className="related-heading">
+                    <span className="related-badge">Similar Items</span>
+                    <h2 className="related-title">You Might Also Like</h2>
+                    <p className="related-subtitle">Explore other premium items in the {selectedProduct.category} category.</p>
+                  </div>
+
+                  <div className="related-grid">
+                    {relatedProducts.slice(0, 3).map(relProduct => (
+                      <div key={relProduct._id} className="related-card">
+
+                        <div
+                          className="related-image-box"
+                          onClick={() => {
+                            setSelectedProduct(relProduct);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          <img
+                            src={(relProduct.images && relProduct.images[0]) || 'https://via.placeholder.com/300'}
+                            alt={relProduct.name}
+                          />
+                        </div>
+
+                        <div className="related-details">
+                          <h3
+                            className="related-product-name"
+                            onClick={() => {
+                              setSelectedProduct(relProduct);
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {relProduct.name}
+                          </h3>
+
+                          <div className="related-price">
+                            PKR {relProduct.discountPrice || relProduct.regularPrice}
+                          </div>
+
+                          <div className="related-actions">
+                            <button
+                              className="related-btn-cart"
+                              onClick={() => handleAddToCart(relProduct)}
+                            >
+                              🛒 Add
+                            </button>
+                            <button
+                              className="related-btn-explore"
+                              onClick={() => {
+                                setSelectedProduct(relProduct);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }}
+                            >
+                              Explore →
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    ))}
+                  </div>
+
                 </div>
               )}
+
             </div>
-
-            {/* Stock Progress Bar */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#94a3b8', marginBottom: '10px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                <span>🔥 High Demand</span>
-                <span style={{ color: '#ef4444' }}>Grab It Fast</span>
-              </div>
-              <div style={{ width: '100%', background: 'rgba(0,0,0,0.3)', height: '6px', borderRadius: '10px', overflow: 'hidden' }}>
-                <div style={{ width: '85%', background: 'linear-gradient(90deg, #ef4444, #f97316)', height: '100%', borderRadius: '10px' }}></div>
-              </div>
-            </div>
-
-            {/* Quick Features Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2.5rem' }}>
-              <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px' }}>
-                <span style={{ fontSize: '1.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🔋</span> <span style={{ color: '#e2e8f0', fontSize: '0.95rem', fontWeight: '600' }}>Long Lasting Battery</span>
-              </div>
-              <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px' }}>
-                <span style={{ fontSize: '1.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>💦</span> <span style={{ color: '#e2e8f0', fontSize: '0.95rem', fontWeight: '600' }}>IP68 Water Resistant</span>
-              </div>
-              <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px' }}>
-                <span style={{ fontSize: '1.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚡</span> <span style={{ color: '#e2e8f0', fontSize: '0.95rem', fontWeight: '600' }}>Ultra-Fast Charging</span>
-              </div>
-              <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 18px' }}>
-                <span style={{ fontSize: '1.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🛡️</span> <span style={{ color: '#e2e8f0', fontSize: '0.95rem', fontWeight: '600' }}>2 Years Care+</span>
-              </div>
-            </div>
-
-            {/* Action Buttons & Trust Badges */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-              <button 
-                onClick={() => {
-                  handleAddToCart(selectedProduct);
-                  if (!selectedCartIds.includes(selectedProduct._id)) {
-                    setSelectedCartIds([...selectedCartIds, selectedProduct._id]);
-                  }
-                  setCurrentPage('checkout');
-                }}
-                style={{ width: '100%', padding: '1.4rem', background: 'linear-gradient(110deg, #2563eb, #38bdf8, #2563eb)', backgroundSize: '200% auto', color: '#fff', border: 'none', borderRadius: '16px', fontSize: '1.2rem', fontWeight: '800', cursor: 'pointer', animation: 'shimmerEffect 3s linear infinite', boxShadow: '0 15px 30px rgba(56, 189, 248, 0.3)', transition: 'transform 0.2s, box-shadow 0.2s' }} 
-                onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 20px 40px rgba(56, 189, 248, 0.5)'; }} 
-                onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 15px 30px rgba(56, 189, 248, 0.3)'; }}
-              >
-                🚀 Proceed to Buy Now
-              </button>
-              
-              <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
-                <span style={{ color: '#64748b', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '600' }}>Guaranteed Safe & Secure Checkout</span>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '18px', marginTop: '12px', fontSize: '1.5rem', filter: 'grayscale(100%) opacity(0.5)' }}>
-                  💳 🏦 💵 🛡️
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* --- DETAILED TECHNICAL SPECIFICATIONS --- */}
-        <div className="animate-item delay-2" style={{ marginTop: '6rem', paddingTop: '4rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.8rem', color: '#fff', margin: '0 0 1rem 0', fontWeight: '800', letterSpacing: '-0.5px' }}>Technical Specifications</h2>
-            <p style={{ color: '#94a3b8', fontSize: '1.15rem', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>Explore the cutting-edge technology and premium materials that make this product truly exceptional.</p>
-          </div>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem' }}>
-            
-            {/* Spec Table 1 */}
-            <div className="glass-panel" style={{ padding: '2.5rem' }}>
-              <h3 style={{ color: '#38bdf8', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.4rem' }}><span style={{ fontSize: '1.8rem' }}>⚙️</span> Core Features</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                {[
-                  { label: 'Brand', value: 'Electro Mark Elite' },
-                  { label: 'Connectivity', value: 'Bluetooth 5.3 / Type-C' },
-                  { label: 'Compatibility', value: 'iOS, Android, Windows, Mac' },
-                  { label: 'Voice Assistant', value: 'Siri & Google Assistant' }
-                ].map((spec, idx) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: idx !== 3 ? '1px solid rgba(255,255,255,0.05)' : 'none', paddingBottom: idx !== 3 ? '1rem' : '0' }}>
-                    <span style={{ color: '#94a3b8', fontSize: '1.05rem' }}>{spec.label}</span>
-                    <strong style={{ color: '#f8fafc', fontSize: '1.05rem', fontWeight: '600' }}>{spec.value}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Spec Table 2 */}
-            <div className="glass-panel" style={{ padding: '2.5rem' }}>
-              <h3 style={{ color: '#4ade80', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.4rem' }}><span style={{ fontSize: '1.8rem' }}>📐</span> Build & Dimensions</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                {[
-                  { label: 'Material', value: 'Aerospace-grade Aluminum' },
-                  { label: 'Weight', value: 'Ultralight (215 grams)' },
-                  { label: 'Dimensions', value: '150 x 85 x 45 mm' },
-                  { label: 'Colors Available', value: 'Midnight Black, Frost White' }
-                ].map((spec, idx) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: idx !== 3 ? '1px solid rgba(255,255,255,0.05)' : 'none', paddingBottom: idx !== 3 ? '1rem' : '0' }}>
-                    <span style={{ color: '#94a3b8', fontSize: '1.05rem' }}>{spec.label}</span>
-                    <strong style={{ color: '#f8fafc', fontSize: '1.05rem', fontWeight: '600' }}>{spec.value}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* --- CUSTOMER REVIEWS & RATING BREAKDOWN --- */}
-        <div className="animate-item delay-3" style={{ marginTop: '6rem', paddingTop: '4rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5rem' }}>
-            
-            {/* Left: Overall Rating & Progress Bars */}
-            <div style={{ flex: '1 1 350px' }}>
-              <h2 style={{ fontSize: '2.8rem', color: '#fff', margin: '0 0 2rem 0', fontWeight: '800', letterSpacing: '-0.5px' }}>Customer Reviews</h2>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '3rem', background: 'rgba(0,0,0,0.15)', padding: '2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                <div style={{ fontSize: '5rem', fontWeight: '900', color: '#fff', lineHeight: '1', textShadow: '0 10px 20px rgba(0,0,0,0.5)' }}>{avgStars}</div>
-                <div>
-                  <div style={{ color: '#fbbf24', fontSize: '1.6rem', letterSpacing: '3px', filter: 'drop-shadow(0 2px 5px rgba(251, 191, 36, 0.3))' }}>{fullStars}<span style={{color: '#475569'}}>{emptyStars}</span></div>
-                  <div style={{ color: '#94a3b8', marginTop: '8px', fontSize: '1.05rem' }}>Based on {totalReviews} global reviews</div>
-                </div>
-              </div>
-
-              {/* Fake Rating Bars */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                {[5, 4, 3, 2, 1].map(star => {
-                  const percentage = star === 5 ? '75%' : star === 4 ? '15%' : star === 3 ? '5%' : star === 2 ? '3%' : '2%';
-                  return (
-                    <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                      <span style={{ color: '#cbd5e1', width: '50px', fontSize: '0.95rem', fontWeight: '600' }}>{star} Star</span>
-                      <div style={{ flex: 1, background: 'rgba(255,255,255,0.05)', height: '10px', borderRadius: '10px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3)' }}>
-                        <div style={{ width: percentage, background: star > 3 ? '#fbbf24' : star === 3 ? '#fb923c' : '#f87171', height: '100%', borderRadius: '10px' }}></div>
-                      </div>
-                      <span style={{ color: '#64748b', width: '35px', textAlign: 'right', fontSize: '0.9rem', fontWeight: '600' }}>{percentage}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              
-              <p style={{ color: '#4ade80', fontWeight: '600', marginTop: '2.5rem', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem', background: 'rgba(74, 222, 128, 0.05)', padding: '16px', borderRadius: '16px', border: '1px solid rgba(74, 222, 128, 0.1)' }}>
-                <span style={{ background: '#4ade80', color: '#000', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.9rem' }}>✓</span> 
-                94% of buyers highly recommend this product.
-              </p>
-            </div>
-            
-            {/* Right: Add Review Form (Glassmorphism Inputs) */}
-            <div style={{ flex: '1 1 400px' }}>
-              <div className="glass-panel" style={{ padding: '3rem' }}>
-                <h3 style={{ margin: '0 0 2rem 0', color: '#fff', fontSize: '1.6rem', fontWeight: '700' }}>Share your experience</h3>
-                <form onSubmit={async (e) => {
-  e.preventDefault();
-  if (!reviewForm.name || !reviewForm.comment) return;
-  
-  const newReviewObj = {
-    name: reviewForm.name,
-    rating: Number(reviewForm.rating),
-    comment: reviewForm.comment,
-    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-  };
-
-  try {
-    // 1. Backend par review bhejo
-    const res = await fetch(`http://127.0.0.1:5000/api/products/${selectedProduct._id}/reviews`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newReviewObj)
-    });
-
-    if (res.ok) {
-      // 2. Database update hone ke baad fresh products fetch karo
-      const updatedProducts = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
-      setProducts(updatedProducts);
-      
-      // 3. Current khule hue product ko bhi update karo
-      const updatedSelected = updatedProducts.find(p => p._id === selectedProduct._id);
-      if(updatedSelected) setSelectedProduct(updatedSelected);
-
-      setReviewForm({ name: '', comment: '', rating: 5 });
-    } else {
-      alert("Failed to submit review.");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Server error, check backend!");
-  }
-}} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-  {/* Yahan se missing Inputs shuru hote hain */}
-  <input 
-    type="text" 
-    placeholder="Your Name" 
-    value={reviewForm.name} 
-    onChange={(e) => setReviewForm({...reviewForm, name: e.target.value})} 
-    className="premium-input" 
-    required 
-  />
-  
-  <select 
-    value={reviewForm.rating} 
-    onChange={(e) => setReviewForm({...reviewForm, rating: e.target.value})} 
-    className="premium-input"
-    style={{ cursor: 'pointer' }}
-  >
-    <option value="5" style={{ color: '#000' }}>⭐⭐⭐⭐⭐ (5/5)</option>
-    <option value="4" style={{ color: '#000' }}>⭐⭐⭐⭐ (4/5)</option>
-    <option value="3" style={{ color: '#000' }}>⭐⭐⭐ (3/5)</option>
-    <option value="2" style={{ color: '#000' }}>⭐⭐ (2/5)</option>
-    <option value="1" style={{ color: '#000' }}>⭐ (1/5)</option>
-  </select>
-  
-  <textarea 
-    placeholder="Write your review here..." 
-    rows="4" 
-    value={reviewForm.comment} 
-    onChange={(e) => setReviewForm({...reviewForm, comment: e.target.value})} 
-    className="premium-input" 
-    style={{ resize: 'none' }} 
-    required
-  ></textarea>
-  
-  <button 
-    type="submit" 
-    className="hover-lift" 
-    style={{ padding: '1.2rem', background: 'linear-gradient(135deg, #38bdf8, #2563eb)', color: '#fff', border: 'none', borderRadius: '16px', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 10px 20px rgba(56, 189, 248, 0.3)' }}
-  >
-    Submit Review
-  </button>
-</form>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Comments List */}
-          <div style={{ marginTop: '5rem' }}>
-            <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '2.5rem', fontWeight: '700' }}>Recent Comments ({totalReviews})</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '2rem' }}>
-              {productReviews.length === 0 ? (
-                <p style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '1.2rem' }}>Be the first to share your thoughts!</p>
-              ) : (
-                productReviews.map((review, index) => (
-                  <div key={review.id} className="animate-item glass-panel" style={{ padding: '2rem', animationDelay: `${index * 0.1}s` }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1.2rem' }}>
-                      <div style={{ width: '55px', height: '55px', borderRadius: '50%', background: 'linear-gradient(135deg, #38bdf8, #2563eb)', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: '800', fontSize: '1.4rem', color: '#fff', boxShadow: '0 5px 15px rgba(56,189,248,0.3)' }}>
-                        {review.name.charAt(0).toUpperCase()}
-                      </div>
-                      <div>
-                        <strong style={{ color: '#fff', fontSize: '1.15rem', display: 'block', marginBottom: '2px' }}>{review.name}</strong>
-                        <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: '500' }}>Verified Buyer • {review.date}</span>
-                      </div>
-                    </div>
-                    <div style={{ color: '#fbbf24', marginBottom: '1rem', fontSize: '1.2rem', letterSpacing: '3px' }}>
-                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                    </div>
-                    <p style={{ margin: 0, color: '#cbd5e1', lineHeight: '1.7', fontSize: '1.05rem' }}>"{review.comment}"</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* 🔥🔥🔥 RELATED PRODUCTS SECTION (Clean 3-Column Style) 🔥🔥🔥 */}
-      {relatedProducts.length > 0 && (
-  <div className="animate-item delay-4 related-products-section">
-    
-    {/* Heading */}
-    <div className="related-heading">
-      <span className="related-badge">
-        Similar Items
-      </span>
-      <h2 className="related-title">
-        You Might Also Like
-      </h2>
-      <p className="related-subtitle">
-        Explore other premium items in the {selectedProduct.category} category.
-      </p>
-    </div>
-
-    {/* Related Products Grid */}
-    <div className="related-grid">
-      {relatedProducts.slice(0, 3).map(relProduct => (
-        <div key={relProduct._id} className="related-card">
-          
-          {/* Image Box */}
-          <div 
-            className="related-image-box"
-            onClick={() => { 
-              setSelectedProduct(relProduct); 
-              window.scrollTo({ top: 0, behavior: 'smooth' }); 
-            }}
-          >
-            <img 
-              src={(relProduct.images && relProduct.images[0]) || 'https://via.placeholder.com/300'} 
-              alt={relProduct.name} 
-            />
-          </div>
-
-          {/* Details Box */}
-          <div className="related-details">
-            <h3 
-              className="related-product-name"
-              onClick={() => { 
-                setSelectedProduct(relProduct); 
-                window.scrollTo({ top: 0, behavior: 'smooth' }); 
-              }}
-            >
-              {relProduct.name}
-            </h3>
-
-            <div className="related-price">
-              PKR {relProduct.discountPrice || relProduct.regularPrice}
-            </div>
-
-            <div className="related-actions">
-              <button 
-                className="related-btn-cart"
-                onClick={() => handleAddToCart(relProduct)}
-              >
-                🛒 Add
-              </button>
-              <button 
-                className="related-btn-explore"
-                onClick={() => { 
-                  setSelectedProduct(relProduct); 
-                  window.scrollTo({ top: 0, behavior: 'smooth' }); 
-                }}
-              >
-                Explore →
-              </button>
-            </div>
-          </div>
-
-        </div>
-      ))}
-    </div>
-
-  </div>
-)}
-      
-    </div>
-  );
-})()}
+          );
+        })()}
         {/* === SHOPPING CART PAGE WITH SELECTABLE CHECKOUT === */}
         {currentPage === 'cart' && (() => {
           const selectedItems = cartItems.filter(item => selectedCartIds.includes(item._id));
@@ -5633,7 +7103,7 @@ const productReviews = selectedProduct.reviews || [];
           return (
             <div style={{ padding: '2rem', maxWidth: '1100px', margin: '0 auto', color: '#fff' }}>
               <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '1.5rem', color: '#f8fafc' }}>Your Shopping Cart</h2>
-              
+
               {cartItems.length === 0 ? (
                 <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '3rem', borderRadius: '20px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <p style={{ fontSize: '1.2rem', color: '#94a3b8' }}>Your cart is empty!</p>
@@ -5643,20 +7113,20 @@ const productReviews = selectedProduct.reviews || [];
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
-                  
+
                   {/* Left: Cart Items List */}
                   <div style={{ flex: '2 1 600px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     {cartItems.map(item => {
                       const isSelected = selectedCartIds.includes(item._id);
                       return (
                         <div key={item._id} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', background: 'rgba(30, 41, 59, 0.5)', backdropFilter: 'blur(10px)', padding: '1.2rem', borderRadius: '16px', border: isSelected ? '1px solid #38bdf8' : '1px solid rgba(255, 255, 255, 0.08)' }}>
-                          
+
                           {/* Checkbox for Select */}
-                          <input 
-                            type="checkbox" 
-                            checked={isSelected} 
-                            onChange={() => toggleCartSelect(item._id)} 
-                            style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#38bdf8' }} 
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleCartSelect(item._id)}
+                            style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: '#38bdf8' }}
                           />
 
                           <img src={(item.images && item.images[0]) || 'https://via.placeholder.com/100'} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '8px', background: 'rgba(0,0,0,0.2)' }} />
@@ -5685,7 +7155,7 @@ const productReviews = selectedProduct.reviews || [];
                   {/* Right: Order Summary & Checkout */}
                   <div style={{ flex: '1 1 300px', background: 'rgba(15, 23, 42, 0.7)', padding: '2rem', borderRadius: '20px', border: '1px solid rgba(56, 189, 248, 0.2)', height: 'fit-content' }}>
                     <h3 style={{ margin: '0 0 1.2rem 0', color: '#f8fafc' }}>Order Summary</h3>
-                    
+
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', marginBottom: '0.8rem' }}>
                       <span>Selected Items:</span>
                       <strong style={{ color: '#fff' }}>{selectedItems.length}</strong>
@@ -5695,13 +7165,13 @@ const productReviews = selectedProduct.reviews || [];
                       <span>Total Amount:</span>
                       <strong style={{ color: '#38bdf8', fontSize: '1.5rem' }}>PKR{totalAmount.toFixed(2)}</strong>
                     </div>
-<button 
-  disabled={selectedItems.length === 0} 
-  onClick={() => setCurrentPage('checkout')} 
-  style={{ width: '100%', padding: '1.1rem', background: selectedItems.length > 0 ? 'linear-gradient(135deg, #38bdf8, #2563eb)' : '#334155', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: selectedItems.length > 0 ? 'pointer' : 'not-allowed' }}
->
-  Buy Now ({selectedItems.length})
-</button>
+                    <button
+                      disabled={selectedItems.length === 0}
+                      onClick={() => setCurrentPage('checkout')}
+                      style={{ width: '100%', padding: '1.1rem', background: selectedItems.length > 0 ? 'linear-gradient(135deg, #38bdf8, #2563eb)' : '#334155', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: selectedItems.length > 0 ? 'pointer' : 'not-allowed' }}
+                    >
+                      Buy Now ({selectedItems.length})
+                    </button>
                   </div>
 
                 </div>
@@ -5710,349 +7180,1220 @@ const productReviews = selectedProduct.reviews || [];
           );
         })()}
         {/* === ULTRA PREMIUM TERMS & CONDITIONS PAGE === */}
-{currentPage === 'terms' && (
-  <div style={{ padding: '3rem 1.5rem', maxWidth: '1000px', margin: '0 auto', color: '#fff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-    
-    {/* Page Title & Header */}
-    <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.8rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-        Legal Documentation
-      </span>
-      <h1 style={{ fontSize: '3.5rem', fontWeight: '900', margin: '1rem 0 0.5rem 0', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Terms & Conditions
-      </h1>
-      <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>Last Updated: September 2026</p>
-    </div>
+        {currentPage === 'terms' && (
+          <div className="terms-page-container">
 
-    {/* Glassmorphism Main Content Container */}
-    <div style={{
-      background: 'rgba(15, 23, 42, 0.75)',
-      backdropFilter: 'blur(24px)',
-      border: '1px solid rgba(56, 189, 248, 0.25)',
-      borderRadius: '28px',
-      padding: '3rem',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.75)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '2.5rem'
-    }}>
-      
-      {/* 1. Introduction */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>1. Introduction & Agreement</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          Welcome to Electro Mark. By accessing or using our website and purchasing products from our catalog, you agree to be bound by these Terms and Conditions. Please read them carefully before placing any order. If you do not agree with any part of these terms, you should refrain from using our services.
-        </p>
-      </div>
+            <style>{`
+      /* ===================== TERMS PAGE BASE ===================== */
+      .terms-page-container {
+        padding: 3rem 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
 
-      {/* 2. Product Authenticity & Pricing */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>2. Product Authenticity & Pricing</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          All electronics, devices, and accessories offered on Electro Mark are guaranteed to be 100% genuine and sourced directly from official brand suppliers. Prices listed on the platform are final in PKR (Pakistani Rupee). We reserve the right to modify prices, launch temporary promotions, or correct typographical errors at any time without prior notice.
-        </p>
-      </div>
+      /* ===================== HEADER ===================== */
+      .terms-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
 
-      {/* 3. Orders & Cash on Delivery (COD) */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>3. Order Processing & Payments</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          Orders placed using Cash on Delivery (COD) are subject to verification via phone call or SMS. Customers are required to provide complete, accurate delivery addresses and contact information. Payment must be handed over in full to the authorized courier agent upon delivery.
-        </p>
-      </div>
+      .terms-header-badge {
+        background: rgba(56, 189, 248, 0.1);
+        color: #38bdf8;
+        padding: 6px 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        font-size: 0.8rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+      }
 
-      {/* 4. Shipping & Delivery Terms */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>4. Shipping & Delivery Policy</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          Standard nationwide delivery takes approximately 2 to 4 business days. While we make every effort to deliver within estimated timeframes, Electro Mark is not liable for minor delays caused by extreme weather, courier disruptions, or unforeseen logistics delays.
-        </p>
-      </div>
+      .terms-header-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin: 1rem 0 0.5rem 0;
+        background: linear-gradient(to right, #fff, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+      }
 
-      {/* 5. Returns, Replacements & Warranty */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>5. Return, Replacement & Warranty Claims</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          We provide a 7-day initial checking window for manufacturing defects. Returned products must be in their original factory-sealed condition with all included box accessories intact. Official brand warranties must be claimed directly through authorized brand service centers using the provided warranty card.
-        </p>
-      </div>
+      .terms-header-date {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        margin: 0;
+      }
 
-      {/* 6. Contact Information */}
-      <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '2rem' }}>
-        <h2 style={{ fontSize: '1.6rem', color: '#4ade80', marginBottom: '0.8rem', fontWeight: '800' }}>6. Questions & Legal Inquiries</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: '0 0 1.5rem 0' }}>
-          If you have any questions regarding these terms, please get in touch with our legal support desk:
-        </p>
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '1.2rem 1.8rem', borderRadius: '16px', display: 'inline-block', border: '1px solid rgba(255,255,255,0.05)' }}>
-          <p style={{ margin: '0 0 0.4rem 0', color: '#38bdf8', fontWeight: 'bold' }}>📧 Email: support@electromark.com</p>
-          <p style={{ margin: 0, color: '#94a3b8' }}>📍 Head Office: Electro Mark Tech Tower, Pakistan</p>
-        </div>
-      </div>
+      /* ===================== GLASS CARD ===================== */
+      .terms-glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 28px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
 
-      {/* Back to Home Button */}
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <button 
-          onClick={() => {
-            setCurrentPage('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          style={{
-            padding: '1.1rem 2.5rem',
-            background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '16px',
-            fontSize: '1.05rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            boxShadow: '0 0 25px rgba(56, 189, 248, 0.4)'
-          }}
-        >
-          ← Back to Main Store
-        </button>
-      </div>
+      /* ===================== SECTIONS ===================== */
+      .terms-section h2 {
+        font-size: 1.6rem;
+        color: #38bdf8;
+        margin-bottom: 0.8rem;
+        font-weight: 800;
+        line-height: 1.3;
+      }
 
-    </div>
-  </div>
-)}
-{/* === ULTRA PREMIUM PRIVACY POLICY PAGE === */}
-{currentPage === 'privacy' && (
-  <div style={{ padding: '3rem 1.5rem', maxWidth: '1000px', margin: '0 auto', color: '#fff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-    
-    {/* Page Title & Header */}
-    <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.8rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-        Data Protection & Safety
-      </span>
-      <h1 style={{ fontSize: '3.5rem', fontWeight: '900', margin: '1rem 0 0.5rem 0', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Privacy Policy
-      </h1>
-      <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>Last Updated: September 2026</p>
-    </div>
+      .terms-section h2.green {
+        color: #4ade80;
+      }
 
-    {/* Glassmorphic Main Container */}
-    <div style={{
-      background: 'rgba(15, 23, 42, 0.75)',
-      backdropFilter: 'blur(24px)',
-      border: '1px solid rgba(56, 189, 248, 0.25)',
-      borderRadius: '28px',
-      padding: '3rem',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.75)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '2.5rem'
-    }}>
-      
-      {/* 1. Overview */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>1. Overview & Commitment</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          At Electro Mark, we respect your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information when you browse our platform, place orders, or subscribe to our updates.
-        </p>
-      </div>
+      .terms-section p {
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin: 0 0 1rem 0;
+      }
 
-      {/* 2. Information We Collect */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>2. Information We Collect</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: '0 0 1rem 0' }}>
-          When you place an order or interact with our store, we may collect the following personal information:
-        </p>
-        <ul style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', paddingLeft: '1.5rem', margin: 0 }}>
-          <li><strong style={{ color: '#fff' }}>Contact Information:</strong> Full Name, Email Address, and Phone Number.</li>
-          <li><strong style={{ color: '#fff' }}>Delivery Details:</strong> Shipping address, House number, City, and Postal details.</li>
-          <li><strong style={{ color: '#fff' }}>Technical Data:</strong> IP address, browser type, and device details for site performance optimization.</li>
-        </ul>
-      </div>
+      .terms-section p:last-child {
+        margin-bottom: 0;
+      }
 
-      {/* 3. How We Use Your Data */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>3. How We Use Your Information</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: '0 0 1rem 0' }}>
-          Your data is strictly utilized for the following operational purposes:
-        </p>
-        <ul style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', paddingLeft: '1.5rem', margin: 0 }}>
-          <li>Processing, dispatching, and fulfilling your orders via courier partners.</li>
-          <li>Sending order confirmation calls, delivery updates, and customer support assistance.</li>
-          <li>Improving store navigation, user experience, and technical security.</li>
-        </ul>
-      </div>
+      /* ===================== CONTACT BOX ===================== */
+      .terms-contact-section {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+      }
 
-      {/* 4. Data Sharing & Security */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>4. Data Protection & Third Parties</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          We <strong style={{ color: '#4ade80' }}>never sell or rent</strong> your personal information to third-party advertisers. Your information is shared only with verified logistics partners (courier companies) solely for order delivery. All submissions are protected using 256-bit SSL encryption.
-        </p>
-      </div>
+      .terms-contact-box {
+        background: rgba(30, 41, 59, 0.6);
+        padding: 1.2rem 1.8rem;
+        border-radius: 16px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        max-width: 100%;
+        box-sizing: border-box;
+      }
 
-      {/* 5. Cookies & Tracking */}
-      <div>
-        <h2 style={{ fontSize: '1.6rem', color: '#38bdf8', marginBottom: '0.8rem', fontWeight: '800' }}>5. Cookies Policy</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          Electro Mark uses essential session cookies to keep track of items in your shopping cart and remember your session preferences. You can disable cookies in your browser settings at any time, though some features of the site may function with reduced performance.
-        </p>
-      </div>
+      .terms-contact-box p {
+        margin: 0 0 0.4rem 0;
+        color: #38bdf8;
+        font-weight: bold;
+        font-size: 1rem;
+        word-break: break-word;
+      }
 
-      {/* 6. Contact & Data Control */}
-      <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '2rem' }}>
-        <h2 style={{ fontSize: '1.6rem', color: '#4ade80', marginBottom: '0.8rem', fontWeight: '800' }}>6. Contact Our Privacy Officer</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: '0 0 1.5rem 0' }}>
-          If you wish to update, modify, or request deletion of your personal data from our systems, please reach out to us:
-        </p>
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '1.2rem 1.8rem', borderRadius: '16px', display: 'inline-block', border: '1px solid rgba(255,255,255,0.05)' }}>
-          <p style={{ margin: '0 0 0.4rem 0', color: '#38bdf8', fontWeight: 'bold' }}>📧 Privacy Support: privacy@electromark.com</p>
-          <p style={{ margin: 0, color: '#94a3b8' }}>🔒 Data Protection Officer, Electro Mark Tower</p>
-        </div>
-      </div>
+      .terms-contact-box p:last-child {
+        margin: 0;
+        color: #94a3b8;
+        font-weight: normal;
+      }
 
-      {/* Back to Main Store Button */}
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <button 
-          onClick={() => {
-            setCurrentPage('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          style={{
-            padding: '1.1rem 2.5rem',
-            background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '16px',
-            fontSize: '1.05rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            boxShadow: '0 0 25px rgba(56, 189, 248, 0.4)'
-          }}
-        >
-          ← Back to Main Store
-        </button>
-      </div>
+      /* ===================== BACK BUTTON ===================== */
+      .terms-back-wrap {
+        text-align: center;
+        margin-top: 1rem;
+      }
 
-    </div>
-  </div>
-)}
-{/* === ULTRA PREMIUM ABOUT US PAGE === */}
-{currentPage === 'about' && (
-  <div style={{ padding: '3rem 1.5rem', maxWidth: '1000px', margin: '0 auto', color: '#fff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-    
-    {/* Page Header */}
-    <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-      <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '6px 18px', borderRadius: '30px', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.8rem', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>
-        Who We Are
-      </span>
-      <h1 style={{ fontSize: '3.5rem', fontWeight: '900', margin: '1rem 0 0.5rem 0', background: 'linear-gradient(to right, #fff, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        About Electro Mark
-      </h1>
-      <p style={{ color: '#94a3b8', fontSize: '1.2rem', maxWidth: '650px', margin: '0 auto' }}>
-        Empowering tech enthusiasts with authentic devices, flagship performance, and uncompromised quality.
-      </p>
-    </div>
+      .terms-back-btn {
+        padding: 1.1rem 2.5rem;
+        background: linear-gradient(135deg, #38bdf8, #2563eb);
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
 
-    {/* Glassmorphic Container */}
-    <div style={{
-      background: 'rgba(15, 23, 42, 0.75)',
-      backdropFilter: 'blur(24px)',
-      border: '1px solid rgba(56, 189, 248, 0.25)',
-      borderRadius: '28px',
-      padding: '3rem',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.75)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '3rem'
-    }}>
-      
-      {/* 1. Our Story */}
-      <div>
-        <h2 style={{ fontSize: '1.8rem', color: '#38bdf8', marginBottom: '1rem', fontWeight: '800' }}>🚀 Our Story</h2>
-        <p style={{ color: '#cbd5e1', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>
-          Electro Mark was founded with a clear vision: to revolutionize the online electronics shopping experience by delivering 100% original, factory-sealed devices directly to your doorstep. We bridge the gap between cutting-edge technology and everyday users, providing seamless access to top-tier smartphones, powerful workstations, studio-quality audio equipment, and smart wearables.
-        </p>
-      </div>
+      .terms-back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 35px rgba(56, 189, 248, 0.6);
+      }
 
-      {/* 2. Core Mission & Vision */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-        <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '2rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.8rem' }}>🎯</div>
-          <h3 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: '800', margin: '0 0 0.5rem 0' }}>Our Mission</h3>
-          <p style={{ color: '#cbd5e1', lineHeight: '1.7', fontSize: '0.95rem', margin: 0 }}>
-            To build the most trusted tech marketplace by guaranteeing absolute product authenticity, transparent pricing, and nationwide Cash on Delivery service.
-          </p>
-        </div>
+      /* ===================== MOBILE RESPONSIVE (≤768px) ===================== */
+      @media (max-width: 768px) {
+        .terms-page-container {
+          padding: 2rem 1rem;
+        }
 
-        <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '2rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.8rem' }}>🌟</div>
-          <h3 style={{ color: '#38bdf8', fontSize: '1.3rem', fontWeight: '800', margin: '0 0 0.5rem 0' }}>Our Vision</h3>
-          <p style={{ color: '#cbd5e1', lineHeight: '1.7', fontSize: '0.95rem', margin: 0 }}>
-            To empower millions of users across Pakistan with next-generation electronics, backed by official brand warranties and round-the-clock priority customer support.
-          </p>
-        </div>
-      </div>
+        .terms-header {
+          margin-bottom: 2rem;
+        }
 
-      {/* 3. Why Choose Us (Stats Grid) */}
-      <div>
-        <h2 style={{ fontSize: '1.8rem', color: '#38bdf8', marginBottom: '1.5rem', fontWeight: '800' }}>⚡ Why Electro Mark Stands Out</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
-          
-          <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
-            <h4 style={{ color: '#4ade80', fontSize: '2rem', margin: '0 0 0.3rem 0', fontWeight: '900' }}>100%</h4>
-            <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.9rem' }}>Genuine Sealed Products</p>
+        .terms-header-badge {
+          font-size: 0.65rem;
+          padding: 5px 14px;
+          letter-spacing: 1.5px;
+        }
+
+        .terms-header-title {
+          font-size: 1.9rem;
+          margin: 0.8rem 0 0.4rem 0;
+        }
+
+        .terms-header-date {
+          font-size: 0.9rem;
+        }
+
+        .terms-glass-card {
+          padding: 1.5rem 1.2rem;
+          border-radius: 22px;
+          gap: 1.8rem;
+        }
+
+        .terms-section h2 {
+          font-size: 1.2rem;
+          margin-bottom: 0.6rem;
+        }
+
+        .terms-section p {
+          font-size: 0.92rem;
+          line-height: 1.7;
+        }
+
+        .terms-contact-section {
+          padding-top: 1.4rem;
+        }
+
+        .terms-contact-box {
+          padding: 1rem 1.2rem;
+          border-radius: 14px;
+          display: block;
+          width: 100%;
+        }
+
+        .terms-contact-box p {
+          font-size: 0.88rem;
+        }
+
+        .terms-back-btn {
+          padding: 0.9rem 1.8rem;
+          font-size: 0.92rem;
+          border-radius: 12px;
+          width: 100%;
+        }
+      }
+
+      /* ===================== SMALL MOBILE (≤480px) ===================== */
+      @media (max-width: 480px) {
+        .terms-page-container {
+          padding: 1.5rem 0.75rem;
+        }
+
+        .terms-header-title {
+          font-size: 1.6rem;
+        }
+
+        .terms-header-badge {
+          font-size: 0.6rem;
+          padding: 4px 12px;
+        }
+
+        .terms-glass-card {
+          padding: 1.2rem 0.9rem;
+          border-radius: 18px;
+          gap: 1.5rem;
+        }
+
+        .terms-section h2 {
+          font-size: 1.05rem;
+        }
+
+        .terms-section p {
+          font-size: 0.85rem;
+          line-height: 1.65;
+        }
+
+        .terms-contact-box p {
+          font-size: 0.8rem;
+        }
+
+        .terms-back-btn {
+          font-size: 0.85rem;
+          padding: 0.8rem 1.5rem;
+        }
+      }
+    `}</style>
+
+            {/* Page Title & Header */}
+            <div className="terms-header">
+              <span className="terms-header-badge">
+                Legal Documentation
+              </span>
+              <h1 className="terms-header-title">
+                Terms & Conditions
+              </h1>
+              <p className="terms-header-date">Last Updated: September 2026</p>
+            </div>
+
+            {/* Glassmorphism Main Content Container */}
+            <div className="terms-glass-card">
+
+              {/* 1. Introduction */}
+              <div className="terms-section">
+                <h2>1. Introduction & Agreement</h2>
+                <p>
+                  Welcome to Electro Mark. By accessing or using our website and purchasing products from our catalog, you agree to be bound by these Terms and Conditions. Please read them carefully before placing any order. If you do not agree with any part of these terms, you should refrain from using our services.
+                </p>
+              </div>
+
+              {/* 2. Product Authenticity & Pricing */}
+              <div className="terms-section">
+                <h2>2. Product Authenticity & Pricing</h2>
+                <p>
+                  All electronics, devices, and accessories offered on Electro Mark are guaranteed to be 100% genuine and sourced directly from official brand suppliers. Prices listed on the platform are final in PKR (Pakistani Rupee). We reserve the right to modify prices, launch temporary promotions, or correct typographical errors at any time without prior notice.
+                </p>
+              </div>
+
+              {/* 3. Orders & Cash on Delivery (COD) */}
+              <div className="terms-section">
+                <h2>3. Order Processing & Payments</h2>
+                <p>
+                  Orders placed using Cash on Delivery (COD) are subject to verification via phone call or SMS. Customers are required to provide complete, accurate delivery addresses and contact information. Payment must be handed over in full to the authorized courier agent upon delivery.
+                </p>
+              </div>
+
+              {/* 4. Shipping & Delivery Terms */}
+              <div className="terms-section">
+                <h2>4. Shipping & Delivery Policy</h2>
+                <p>
+                  Standard nationwide delivery takes approximately 2 to 4 business days. While we make every effort to deliver within estimated timeframes, Electro Mark is not liable for minor delays caused by extreme weather, courier disruptions, or unforeseen logistics delays.
+                </p>
+              </div>
+
+              {/* 5. Returns, Replacements & Warranty */}
+              <div className="terms-section">
+                <h2>5. Return, Replacement & Warranty Claims</h2>
+                <p>
+                  We provide a 7-day initial checking window for manufacturing defects. Returned products must be in their original factory-sealed condition with all included box accessories intact. Official brand warranties must be claimed directly through authorized brand service centers using the provided warranty card.
+                </p>
+              </div>
+
+              {/* 6. Contact Information */}
+              <div className="terms-section terms-contact-section">
+                <h2 className="green">6. Questions & Legal Inquiries</h2>
+                <p>
+                  If you have any questions regarding these terms, please get in touch with our legal support desk:
+                </p>
+                <div className="terms-contact-box">
+                  <p>📧 Email: support@electromark.com</p>
+                  <p>📍 Head Office: Electro Mark Tech Tower, Pakistan</p>
+                </div>
+              </div>
+
+              {/* Back to Home Button */}
+              <div className="terms-back-wrap">
+                <button
+                  className="terms-back-btn"
+                  onClick={() => {
+                    setCurrentPage('home');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  ← Back to Main Store
+                </button>
+              </div>
+
+            </div>
           </div>
+        )}
+        {/* === ULTRA PREMIUM PRIVACY POLICY PAGE === */}
+        {currentPage === 'privacy' && (
+          <div className="privacy-page-container">
 
-          <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
-            <h4 style={{ color: '#38bdf8', fontSize: '2rem', margin: '0 0 0.3rem 0', fontWeight: '900' }}>50k+</h4>
-            <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.9rem' }}>Satisfied Tech Buyers</p>
+            <style>{`
+      /* ===================== PRIVACY PAGE BASE ===================== */
+      .privacy-page-container {
+        padding: 3rem 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      /* ===================== HEADER ===================== */
+      .privacy-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+
+      .privacy-header-badge {
+        background: rgba(56, 189, 248, 0.1);
+        color: #38bdf8;
+        padding: 6px 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        font-size: 0.8rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+      }
+
+      .privacy-header-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin: 1rem 0 0.5rem 0;
+        background: linear-gradient(to right, #fff, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+      }
+
+      .privacy-header-date {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      /* ===================== GLASS CARD ===================== */
+      .privacy-glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 28px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+
+      /* ===================== SECTIONS ===================== */
+      .privacy-section h2 {
+        font-size: 1.6rem;
+        color: #38bdf8;
+        margin-bottom: 0.8rem;
+        font-weight: 800;
+        line-height: 1.3;
+      }
+
+      .privacy-section h2.green {
+        color: #4ade80;
+      }
+
+      .privacy-section p {
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin: 0 0 1rem 0;
+      }
+
+      .privacy-section p:last-child {
+        margin-bottom: 0;
+      }
+
+      .privacy-section ul {
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 1.05rem;
+        padding-left: 1.5rem;
+        margin: 0;
+      }
+
+      .privacy-section ul li {
+        margin-bottom: 0.4rem;
+      }
+
+      .privacy-section strong {
+        color: #fff;
+      }
+
+      .privacy-section strong.green {
+        color: #4ade80;
+      }
+
+      /* ===================== CONTACT BOX ===================== */
+      .privacy-contact-section {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+      }
+
+      .privacy-contact-box {
+        background: rgba(30, 41, 59, 0.6);
+        padding: 1.2rem 1.8rem;
+        border-radius: 16px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .privacy-contact-box p {
+        margin: 0 0 0.4rem 0;
+        color: #38bdf8;
+        font-weight: bold;
+        font-size: 1rem;
+        word-break: break-word;
+      }
+
+      .privacy-contact-box p:last-child {
+        margin: 0;
+        color: #94a3b8;
+        font-weight: normal;
+      }
+
+      /* ===================== BACK BUTTON ===================== */
+      .privacy-back-wrap {
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .privacy-back-btn {
+        padding: 1.1rem 2.5rem;
+        background: linear-gradient(135deg, #38bdf8, #2563eb);
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .privacy-back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 35px rgba(56, 189, 248, 0.6);
+      }
+
+      /* ===================== MOBILE RESPONSIVE (≤768px) ===================== */
+      @media (max-width: 768px) {
+        .privacy-page-container {
+          padding: 2rem 1rem;
+        }
+
+        .privacy-header {
+          margin-bottom: 2rem;
+        }
+
+        .privacy-header-badge {
+          font-size: 0.65rem;
+          padding: 5px 14px;
+          letter-spacing: 1.5px;
+        }
+
+        .privacy-header-title {
+          font-size: 2rem;
+          margin: 0.8rem 0 0.4rem 0;
+        }
+
+        .privacy-header-date {
+          font-size: 0.9rem;
+        }
+
+        .privacy-glass-card {
+          padding: 1.5rem 1.2rem;
+          border-radius: 22px;
+          gap: 1.8rem;
+        }
+
+        .privacy-section h2 {
+          font-size: 1.2rem;
+          margin-bottom: 0.6rem;
+        }
+
+        .privacy-section p,
+        .privacy-section ul {
+          font-size: 0.92rem;
+          line-height: 1.7;
+        }
+
+        .privacy-section ul {
+          padding-left: 1.2rem;
+        }
+
+        .privacy-contact-section {
+          padding-top: 1.4rem;
+        }
+
+        .privacy-contact-box {
+          padding: 1rem 1.2rem;
+          border-radius: 14px;
+          display: block;
+          width: 100%;
+        }
+
+        .privacy-contact-box p {
+          font-size: 0.88rem;
+        }
+
+        .privacy-back-btn {
+          padding: 0.9rem 1.8rem;
+          font-size: 0.92rem;
+          border-radius: 12px;
+          width: 100%;
+        }
+      }
+
+      /* ===================== SMALL MOBILE (≤480px) ===================== */
+      @media (max-width: 480px) {
+        .privacy-page-container {
+          padding: 1.5rem 0.75rem;
+        }
+
+        .privacy-header-title {
+          font-size: 1.7rem;
+        }
+
+        .privacy-header-badge {
+          font-size: 0.6rem;
+          padding: 4px 12px;
+        }
+
+        .privacy-glass-card {
+          padding: 1.2rem 0.9rem;
+          border-radius: 18px;
+          gap: 1.5rem;
+        }
+
+        .privacy-section h2 {
+          font-size: 1.05rem;
+        }
+
+        .privacy-section p,
+        .privacy-section ul {
+          font-size: 0.85rem;
+          line-height: 1.65;
+        }
+
+        .privacy-section ul {
+          padding-left: 1rem;
+        }
+
+        .privacy-contact-box p {
+          font-size: 0.8rem;
+        }
+
+        .privacy-back-btn {
+          font-size: 0.85rem;
+          padding: 0.8rem 1.5rem;
+        }
+      }
+    `}</style>
+
+            {/* Page Title & Header */}
+            <div className="privacy-header">
+              <span className="privacy-header-badge">
+                Data Protection & Safety
+              </span>
+              <h1 className="privacy-header-title">
+                Privacy Policy
+              </h1>
+              <p className="privacy-header-date">Last Updated: September 2026</p>
+            </div>
+
+            {/* Glassmorphic Main Container */}
+            <div className="privacy-glass-card">
+
+              {/* 1. Overview */}
+              <div className="privacy-section">
+                <h2>1. Overview & Commitment</h2>
+                <p>
+                  At Electro Mark, we respect your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information when you browse our platform, place orders, or subscribe to our updates.
+                </p>
+              </div>
+
+              {/* 2. Information We Collect */}
+              <div className="privacy-section">
+                <h2>2. Information We Collect</h2>
+                <p>
+                  When you place an order or interact with our store, we may collect the following personal information:
+                </p>
+                <ul>
+                  <li><strong>Contact Information:</strong> Full Name, Email Address, and Phone Number.</li>
+                  <li><strong>Delivery Details:</strong> Shipping address, House number, City, and Postal details.</li>
+                  <li><strong>Technical Data:</strong> IP address, browser type, and device details for site performance optimization.</li>
+                </ul>
+              </div>
+
+              {/* 3. How We Use Your Data */}
+              <div className="privacy-section">
+                <h2>3. How We Use Your Information</h2>
+                <p>
+                  Your data is strictly utilized for the following operational purposes:
+                </p>
+                <ul>
+                  <li>Processing, dispatching, and fulfilling your orders via courier partners.</li>
+                  <li>Sending order confirmation calls, delivery updates, and customer support assistance.</li>
+                  <li>Improving store navigation, user experience, and technical security.</li>
+                </ul>
+              </div>
+
+              {/* 4. Data Sharing & Security */}
+              <div className="privacy-section">
+                <h2>4. Data Protection & Third Parties</h2>
+                <p>
+                  We <strong className="green">never sell or rent</strong> your personal information to third-party advertisers. Your information is shared only with verified logistics partners (courier companies) solely for order delivery. All submissions are protected using 256-bit SSL encryption.
+                </p>
+              </div>
+
+              {/* 5. Cookies & Tracking */}
+              <div className="privacy-section">
+                <h2>5. Cookies Policy</h2>
+                <p>
+                  Electro Mark uses essential session cookies to keep track of items in your shopping cart and remember your session preferences. You can disable cookies in your browser settings at any time, though some features of the site may function with reduced performance.
+                </p>
+              </div>
+
+              {/* 6. Contact & Data Control */}
+              <div className="privacy-section privacy-contact-section">
+                <h2 className="green">6. Contact Our Privacy Officer</h2>
+                <p>
+                  If you wish to update, modify, or request deletion of your personal data from our systems, please reach out to us:
+                </p>
+                <div className="privacy-contact-box">
+                  <p>📧 Privacy Support: privacy@electromark.com</p>
+                  <p>🔒 Data Protection Officer, Electro Mark Tower</p>
+                </div>
+              </div>
+
+              {/* Back to Main Store Button */}
+              <div className="privacy-back-wrap">
+                <button
+                  className="privacy-back-btn"
+                  onClick={() => {
+                    setCurrentPage('home');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  ← Back to Main Store
+                </button>
+              </div>
+
+            </div>
           </div>
+        )}
+        {/* === ULTRA PREMIUM ABOUT US PAGE === */}
+        {currentPage === 'about' && (
+          <div className="about-page-container">
 
-          <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
-            <h4 style={{ color: '#818cf8', fontSize: '2rem', margin: '0 0 0.3rem 0', fontWeight: '900' }}>24/7</h4>
-            <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.9rem' }}>Dedicated Support Desk</p>
+            <style>{`
+      /* ===================== ABOUT PAGE BASE ===================== */
+      .about-page-container {
+        padding: 3rem 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      /* ===================== HEADER ===================== */
+      .about-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+
+      .about-header-badge {
+        background: rgba(56, 189, 248, 0.1);
+        color: #38bdf8;
+        padding: 6px 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        font-size: 0.8rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+      }
+
+      .about-header-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin: 1rem 0 0.5rem 0;
+        background: linear-gradient(to right, #fff, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+      }
+
+      .about-header-desc {
+        color: #94a3b8;
+        font-size: 1.2rem;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* ===================== GLASS CARD ===================== */
+      .about-glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 28px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      /* ===================== SECTION HEADINGS ===================== */
+      .about-section h2 {
+        font-size: 1.8rem;
+        color: #38bdf8;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        line-height: 1.3;
+      }
+
+      .about-section p {
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin: 0;
+      }
+
+      /* ===================== MISSION / VISION GRID ===================== */
+      .about-mv-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .about-mv-card {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        transition: all 0.3s ease;
+      }
+
+      .about-mv-card:hover {
+        background: rgba(30, 41, 59, 0.7);
+        border-color: rgba(56, 189, 248, 0.3);
+        transform: translateY(-4px);
+      }
+
+      .about-mv-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+        line-height: 1;
+      }
+
+      .about-mv-title {
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .about-mv-title.blue {
+        color: #38bdf8;
+      }
+
+      .about-mv-text {
+        color: #cbd5e1;
+        line-height: 1.7;
+        font-size: 0.95rem;
+        margin: 0;
+      }
+
+      /* ===================== STATS GRID ===================== */
+      .about-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .about-stat-card {
+        background: rgba(0,0,0,0.3);
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .about-stat-card:hover {
+        border-color: rgba(56, 189, 248, 0.5);
+        transform: translateY(-3px);
+      }
+
+      .about-stat-value {
+        font-size: 2rem;
+        margin: 0 0 0.3rem 0;
+        font-weight: 900;
+        line-height: 1.1;
+      }
+
+      .about-stat-label {
+        color: #cbd5e1;
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      /* ===================== CONTACT STRIP ===================== */
+      .about-contact-strip {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .about-contact-title {
+        color: #fff;
+        font-size: 1.3rem;
+        margin: 0 0 0.4rem 0;
+        font-weight: 800;
+      }
+
+      .about-contact-sub {
+        color: #94a3b8;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .about-contact-badge {
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 0.8rem 1.5rem;
+        border-radius: 14px;
+        color: #38bdf8;
+        font-weight: bold;
+        font-size: 0.95rem;
+        word-break: break-word;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* ===================== BACK BUTTON ===================== */
+      .about-back-wrap {
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .about-back-btn {
+        padding: 1.1rem 2.5rem;
+        background: linear-gradient(135deg, #38bdf8, #2563eb);
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .about-back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 35px rgba(56, 189, 248, 0.6);
+      }
+
+      /* ===================== MOBILE RESPONSIVE (≤768px) ===================== */
+      @media (max-width: 768px) {
+        .about-page-container {
+          padding: 2rem 1rem;
+        }
+
+        .about-header {
+          margin-bottom: 2rem;
+        }
+
+        .about-header-badge {
+          font-size: 0.65rem;
+          padding: 5px 14px;
+          letter-spacing: 1.5px;
+        }
+
+        .about-header-title {
+          font-size: 2rem;
+          margin: 0.8rem 0 0.4rem 0;
+        }
+
+        .about-header-desc {
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+
+        .about-glass-card {
+          padding: 1.5rem 1.2rem;
+          border-radius: 22px;
+          gap: 2rem;
+        }
+
+        .about-section h2 {
+          font-size: 1.3rem;
+          margin-bottom: 0.7rem;
+        }
+
+        .about-section p {
+          font-size: 0.92rem;
+          line-height: 1.7;
+        }
+
+        /* Mission / Vision */
+        .about-mv-grid {
+          grid-template-columns: 1fr;
+          gap: 1.2rem;
+        }
+
+        .about-mv-card {
+          padding: 1.4rem;
+          border-radius: 16px;
+        }
+
+        .about-mv-icon {
+          font-size: 2rem;
+          margin-bottom: 0.6rem;
+        }
+
+        .about-mv-title {
+          font-size: 1.1rem;
+        }
+
+        .about-mv-text {
+          font-size: 0.88rem;
+          line-height: 1.6;
+        }
+
+        /* Stats */
+        .about-stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.85rem;
+        }
+
+        .about-stat-card {
+          padding: 1.1rem;
+          border-radius: 14px;
+        }
+
+        .about-stat-value {
+          font-size: 1.5rem;
+        }
+
+        .about-stat-label {
+          font-size: 0.78rem;
+        }
+
+        /* Contact Strip */
+        .about-contact-strip {
+          padding-top: 1.4rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .about-contact-title {
+          font-size: 1.1rem;
+        }
+
+        .about-contact-sub {
+          font-size: 0.85rem;
+        }
+
+        .about-contact-badge {
+          font-size: 0.85rem;
+          padding: 0.7rem 1.1rem;
+          width: 100%;
+          text-align: center;
+        }
+
+        .about-back-btn {
+          padding: 0.9rem 1.8rem;
+          font-size: 0.92rem;
+          border-radius: 12px;
+          width: 100%;
+        }
+      }
+
+      /* ===================== SMALL MOBILE (≤480px) ===================== */
+      @media (max-width: 480px) {
+        .about-page-container {
+          padding: 1.5rem 0.75rem;
+        }
+
+        .about-header-title {
+          font-size: 1.7rem;
+        }
+
+        .about-header-badge {
+          font-size: 0.6rem;
+          padding: 4px 12px;
+        }
+
+        .about-header-desc {
+          font-size: 0.85rem;
+        }
+
+        .about-glass-card {
+          padding: 1.2rem 0.9rem;
+          border-radius: 18px;
+          gap: 1.6rem;
+        }
+
+        .about-section h2 {
+          font-size: 1.1rem;
+        }
+
+        .about-section p {
+          font-size: 0.85rem;
+          line-height: 1.65;
+        }
+
+        .about-mv-card {
+          padding: 1.2rem;
+        }
+
+        .about-mv-icon {
+          font-size: 1.7rem;
+        }
+
+        .about-mv-title {
+          font-size: 1rem;
+        }
+
+        .about-mv-text {
+          font-size: 0.82rem;
+        }
+
+        .about-stat-card {
+          padding: 0.9rem;
+        }
+
+        .about-stat-value {
+          font-size: 1.3rem;
+        }
+
+        .about-stat-label {
+          font-size: 0.72rem;
+        }
+
+        .about-contact-title {
+          font-size: 1rem;
+        }
+
+        .about-contact-sub {
+          font-size: 0.8rem;
+        }
+
+        .about-contact-badge {
+          font-size: 0.78rem;
+          padding: 0.6rem 0.9rem;
+        }
+
+        .about-back-btn {
+          font-size: 0.85rem;
+          padding: 0.8rem 1.5rem;
+        }
+      }
+    `}</style>
+
+            {/* Page Header */}
+            <div className="about-header">
+              <span className="about-header-badge">
+                Who We Are
+              </span>
+              <h1 className="about-header-title">
+                About Electro Mark
+              </h1>
+              <p className="about-header-desc">
+                Empowering tech enthusiasts with authentic devices, flagship performance, and uncompromised quality.
+              </p>
+            </div>
+
+            {/* Glassmorphic Container */}
+            <div className="about-glass-card">
+
+              {/* 1. Our Story */}
+              <div className="about-section">
+                <h2>🚀 Our Story</h2>
+                <p>
+                  Electro Mark was founded with a clear vision: to revolutionize the online electronics shopping experience by delivering 100% original, factory-sealed devices directly to your doorstep. We bridge the gap between cutting-edge technology and everyday users, providing seamless access to top-tier smartphones, powerful workstations, studio-quality audio equipment, and smart wearables.
+                </p>
+              </div>
+
+              {/* 2. Core Mission & Vision */}
+              <div className="about-mv-grid">
+                <div className="about-mv-card">
+                  <div className="about-mv-icon">🎯</div>
+                  <h3 className="about-mv-title">Our Mission</h3>
+                  <p className="about-mv-text">
+                    To build the most trusted tech marketplace by guaranteeing absolute product authenticity, transparent pricing, and nationwide Cash on Delivery service.
+                  </p>
+                </div>
+
+                <div className="about-mv-card">
+                  <div className="about-mv-icon">🌟</div>
+                  <h3 className="about-mv-title blue">Our Vision</h3>
+                  <p className="about-mv-text">
+                    To empower millions of users across Pakistan with next-generation electronics, backed by official brand warranties and round-the-clock priority customer support.
+                  </p>
+                </div>
+              </div>
+
+              {/* 3. Why Choose Us (Stats Grid) */}
+              <div className="about-section">
+                <h2>⚡ Why Electro Mark Stands Out</h2>
+                <div className="about-stats-grid">
+
+                  <div className="about-stat-card">
+                    <h4 className="about-stat-value" style={{ color: '#4ade80' }}>100%</h4>
+                    <p className="about-stat-label">Genuine Sealed Products</p>
+                  </div>
+
+                  <div className="about-stat-card">
+                    <h4 className="about-stat-value" style={{ color: '#38bdf8' }}>50k+</h4>
+                    <p className="about-stat-label">Satisfied Tech Buyers</p>
+                  </div>
+
+                  <div className="about-stat-card">
+                    <h4 className="about-stat-value" style={{ color: '#818cf8' }}>24/7</h4>
+                    <p className="about-stat-label">Dedicated Support Desk</p>
+                  </div>
+
+                  <div className="about-stat-card">
+                    <h4 className="about-stat-value" style={{ color: '#fb923c' }}>2-4 Days</h4>
+                    <p className="about-stat-label">Express Nationwide Shipping</p>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* 4. Get In Touch */}
+              <div className="about-contact-strip">
+                <div>
+                  <h3 className="about-contact-title">Have Any Questions?</h3>
+                  <p className="about-contact-sub">Our team is always here to assist you with technical queries or order guidance.</p>
+                </div>
+                <div className="about-contact-badge">
+                  📧 support@electromark.com
+                </div>
+              </div>
+
+              {/* Back to Home Button */}
+              <div className="about-back-wrap">
+                <button
+                  className="about-back-btn"
+                  onClick={() => {
+                    setCurrentPage('home');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  ← Back to Main Store
+                </button>
+              </div>
+
+            </div>
           </div>
-
-          <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
-            <h4 style={{ color: '#fb923c', fontSize: '2rem', margin: '0 0 0.3rem 0', fontWeight: '900' }}>2-4 Days</h4>
-            <p style={{ color: '#cbd5e1', margin: 0, fontSize: '0.9rem' }}>Express Nationwide Shipping</p>
-          </div>
-
-        </div>
-      </div>
-
-      {/* 4. Get In Touch */}
-      <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem' }}>
-        <div>
-          <h3 style={{ color: '#fff', fontSize: '1.3rem', margin: '0 0 0.4rem 0', fontWeight: '800' }}>Have Any Questions?</h3>
-          <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem' }}>Our team is always here to assist you with technical queries or order guidance.</p>
-        </div>
-        <div style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '0.8rem 1.5rem', borderRadius: '14px', color: '#38bdf8', fontWeight: 'bold' }}>
-          📧 support@electromark.com
-        </div>
-      </div>
-
-      {/* Back to Home Button */}
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <button 
-          onClick={() => {
-            setCurrentPage('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          style={{
-            padding: '1.1rem 2.5rem',
-            background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '16px',
-            fontSize: '1.05rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            boxShadow: '0 0 25px rgba(56, 189, 248, 0.4)'
-          }}
-        >
-          ← Back to Main Store
-        </button>
-      </div>
-
-    </div>
-  </div>
-)}
+        )}
         {/* === ULTRA PRO MAX LUXURY 2-COLUMN CHECKOUT PAGE === */}
         {currentPage === 'checkout' && (() => {
           const selectedItems = cartItems.filter(item => selectedCartIds.includes(item._id));
@@ -6066,7 +8407,7 @@ const productReviews = selectedProduct.reviews || [];
 
           return (
             <div className="checkout-page-container" style={{ padding: '2rem 1rem', maxWidth: '1280px', margin: '0 auto', color: '#fff', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-              
+
               {/* Custom CSS For Animations & Hyper Glows */}
               <style>{`
                 @keyframes glowPulse {
@@ -6111,10 +8452,10 @@ const productReviews = selectedProduct.reviews || [];
 
               {/* Main 2-Column Responsive Layout */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3rem', alignItems: 'flex-start' }}>
-                
+
                 {/* LEFT COLUMN: Shipping & Customer Info Form */}
                 <div style={{ flex: '1 1 580px', background: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '28px', padding: '2.5rem', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)' }}>
-                  
+
                   <h3 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '1.8rem', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ background: '#38bdf8', color: '#0f172a', width: '32px', height: '32px', borderRadius: '50%', display: 'inline-flex', justifyContent: 'center', alignItems: 'center', fontSize: '1rem', fontWeight: 'bold' }}>1</span>
                     Shipping Information
@@ -6122,44 +8463,44 @@ const productReviews = selectedProduct.reviews || [];
 
                   {/* Formspree Form Integration */}
                   {/* Formspree Background AJAX Submission */}
-                  <form 
-                  onSubmit={async (e) => {
-  e.preventDefault();
-  if (!reviewForm.name || !reviewForm.comment) return;
-  
-  const newReviewObj = {
-    name: reviewForm.name,
-    rating: Number(reviewForm.rating),
-    comment: reviewForm.comment,
-    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-  };
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      if (!reviewForm.name || !reviewForm.comment) return;
 
-  try {
-    // 1. Backend par review bhejo
-    const res = await fetch(`http://127.0.0.1:5000/api/products/${selectedProduct._id}/reviews`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newReviewObj)
-    });
+                      const newReviewObj = {
+                        name: reviewForm.name,
+                        rating: Number(reviewForm.rating),
+                        comment: reviewForm.comment,
+                        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                      };
 
-    if (res.ok) {
-      // 2. Database update hone ke baad fresh products fetch karo
-      const updatedProducts = await fetch('http://127.0.0.1:5000/api/products').then(r => r.json());
-      setProducts(updatedProducts);
-      
-      // 3. Current khule hue product ko bhi update karo taake naya review fauran screen par nazar aaye
-      const updatedSelected = updatedProducts.find(p => p._id === selectedProduct._id);
-      if(updatedSelected) setSelectedProduct(updatedSelected);
+                      try {
+                        // 1. Backend par review bhejo
+                        const res = await fetch(`http://127.0.0.1:5000/api/products/${selectedProduct._id}/reviews`, {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(newReviewObj)
+                        });
 
-      setReviewForm({ name: '', comment: '', rating: 5 });
-    } else {
-      alert("Failed to submit review.");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Server error, check backend!");
-  }
-}}
+                        if (res.ok) {
+                          // 2. Database update hone ke baad fresh products fetch karo
+                          const updatedProducts = await fetch('http://127.0.0.1:5000/api/products').then(r => r.json());
+                          setProducts(updatedProducts);
+
+                          // 3. Current khule hue product ko bhi update karo taake naya review fauran screen par nazar aaye
+                          const updatedSelected = updatedProducts.find(p => p._id === selectedProduct._id);
+                          if (updatedSelected) setSelectedProduct(updatedSelected);
+
+                          setReviewForm({ name: '', comment: '', rating: 5 });
+                        } else {
+                          alert("Failed to submit review.");
+                        }
+                      } catch (error) {
+                        console.error(error);
+                        alert("Server error, check backend!");
+                      }
+                    }}
                   >
                     <input type="hidden" name="_next" value="https://yourwebsite.com/#thank-you" />
 
@@ -6218,8 +8559,8 @@ const productReviews = selectedProduct.reviews || [];
                     </div>
 
                     {/* Big Action Submit Button */}
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       style={{ marginTop: '1.5rem', padding: '1.3rem', background: 'linear-gradient(135deg, #38bdf8, #2563eb)', color: '#fff', border: 'none', borderRadius: '18px', fontSize: '1.2rem', fontWeight: 'bold', cursor: 'pointer', transition: 'all 0.3s', animation: 'glowPulse 3s infinite' }}
                     >
                       Complete Order (PKR {totalAmount.toFixed(2)}) 🚀
@@ -6230,7 +8571,7 @@ const productReviews = selectedProduct.reviews || [];
 
                 {/* RIGHT COLUMN: Order Summary Card (Selected Items & Showcase) */}
                 <div style={{ flex: '1 1 380px', position: 'sticky', top: '2rem', background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%)', backdropFilter: 'blur(20px)', border: '1px solid rgba(56, 189, 248, 0.3)', borderRadius: '28px', padding: '2.5rem', boxShadow: '0 25px 50px -10px rgba(0, 0, 0, 0.8)' }}>
-                  
+
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.8rem', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '1rem' }}>
                     <h3 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, color: '#f8fafc' }}>Order Items</h3>
                     <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold' }}>
@@ -6245,7 +8586,7 @@ const productReviews = selectedProduct.reviews || [];
                     ) : (
                       itemsToBuy.map(item => (
                         <div key={item._id} className="order-item-row" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', background: 'rgba(15, 23, 42, 0.5)', padding: '1rem', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                          
+
                           {/* Item Thumbnail */}
                           <div style={{ width: '75px', height: '75px', borderRadius: '14px', background: 'radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0.4) 70%)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px', overflow: 'hidden', flexShrink: 0 }}>
                             <img className="order-item-thumb" src={(item.images && item.images[0]) || 'https://via.placeholder.com/80'} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
@@ -6277,7 +8618,7 @@ const productReviews = selectedProduct.reviews || [];
                       <span>Express Shipping</span>
                       <strong style={{ color: '#4ade80' }}>FREE</strong>
                     </div>
-                    
+
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderTop: '1px dashed rgba(255,255,255,0.15)', paddingTop: '1rem', marginTop: '0.5rem' }}>
                       <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#fff' }}>Total Amount</span>
                       <span style={{ fontSize: '2.2rem', fontWeight: '900', color: '#38bdf8', textShadow: '0 0 15px rgba(56, 189, 248, 0.4)' }}>
@@ -6304,7 +8645,7 @@ const productReviews = selectedProduct.reviews || [];
         {/* === ULTRA PREMIUM THANK YOU PAGE === */}
         {currentPage === 'thank-you' && (
           <div className="thank-you-container" style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto', textAlign: 'center', color: '#fff' }}>
-            
+
             {/* Smooth Animations */}
             <style>{`
               @keyframes popIn {
@@ -6319,7 +8660,7 @@ const productReviews = selectedProduct.reviews || [];
             `}</style>
 
             <div style={{ background: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(24px)', border: '1px solid rgba(74, 222, 128, 0.3)', borderRadius: '32px', padding: '4rem 2.5rem', boxShadow: '0 30px 60px -15px rgba(0, 0, 0, 0.8)', animation: 'popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}>
-              
+
               {/* Success Animated Circle Icon */}
               <div style={{ width: '90px', height: '90px', background: 'rgba(74, 222, 128, 0.15)', border: '2px solid #4ade80', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 2rem auto', animation: 'pulseRing 2s infinite' }}>
                 <span style={{ fontSize: '3rem', color: '#4ade80' }}>✓</span>
@@ -6352,7 +8693,7 @@ const productReviews = selectedProduct.reviews || [];
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', gap: '1.2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <button 
+                <button
                   onClick={() => {
                     setCartItems([]);
                     setSelectedCartIds([]);
@@ -6371,190 +8712,190 @@ const productReviews = selectedProduct.reviews || [];
 
       {/* Footer */}
       {/* Ultra Premium Split Footer (Extreme Left & Extreme Right) */}
-<footer className="footer" style={{ background: 'linear-gradient(180deg, #0f172a 0%, #020617 100%)', borderTop: '1px solid rgba(56, 189, 248, 0.2)', padding: '4rem 2rem 2rem 2rem', color: '#fff' }}>
-  <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-    
-    {/* ============ TOP SECTION: Brand + Links ============ */}
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '3rem', marginBottom: '3.5rem' }}>
-      
-      {/* 1. LEFT: Brand & Detail */}
-      <div style={{ textAlign: 'left', maxWidth: '420px' }}>
-        <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '0 0 1rem 0', color: '#fff', textAlign: 'left' }}>
-          Electro Mark<span style={{ color: '#38bdf8' }}>.</span>
-        </h2>
-        <p style={{ color: '#94a3b8', lineHeight: '1.8', fontSize: '1rem', margin: 0, textAlign: 'left' }}>
-          Your ultimate destination for top-quality electronics, modern gadgets, and seamless tech shopping experiences. We bring next-gen technology straight to your doorstep.
-        </p>
-      </div>
+      <footer className="footer" style={{ background: 'linear-gradient(180deg, #0f172a 0%, #020617 100%)', borderTop: '1px solid rgba(56, 189, 248, 0.2)', padding: '4rem 2rem 2rem 2rem', color: '#fff' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-      {/* 2. RIGHT: Navigation & Legal Links */}
-      <div style={{ display: 'flex', gap: '4rem', textWrap: 'nowrap' }}>
-        
-        {/* Nav Links Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', textAlign: 'left' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
-            Navigation
-          </h3>
-          <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>Home</a>
-          <a href="#products" onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>Products</a>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); alert('Contact: support@electromark.com'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>Contact Us</a>
-        </div>
+          {/* ============ TOP SECTION: Brand + Links ============ */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '3rem', marginBottom: '3.5rem' }}>
 
-        {/* Legal Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', textAlign: 'left' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
-            Legal
-          </h3>
-          <a href="#terms" onClick={(e) => { e.preventDefault(); setCurrentPage('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>
-            Terms & Conditions
-          </a>
-          <a href="#privacy" onClick={(e) => { e.preventDefault(); setCurrentPage('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>
-            Privacy Policy
-          </a>
-          <a href="#about" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e)=>e.target.style.color='#38bdf8'} onMouseOut={(e)=>e.target.style.color='#cbd5e1'}>
-            About Us
-          </a>
-        </div>
+            {/* 1. LEFT: Brand & Detail */}
+            <div style={{ textAlign: 'left', maxWidth: '420px' }}>
+              <h2 style={{ fontSize: '2.4rem', fontWeight: '900', margin: '0 0 1rem 0', color: '#fff', textAlign: 'left' }}>
+                Electro Mark<span style={{ color: '#38bdf8' }}>.</span>
+              </h2>
+              <p style={{ color: '#94a3b8', lineHeight: '1.8', fontSize: '1rem', margin: 0, textAlign: 'left' }}>
+                Your ultimate destination for top-quality electronics, modern gadgets, and seamless tech shopping experiences. We bring next-gen technology straight to your doorstep.
+              </p>
+            </div>
 
-      </div>
+            {/* 2. RIGHT: Navigation & Legal Links */}
+            <div style={{ display: 'flex', gap: '4rem', textWrap: 'nowrap' }}>
 
-    </div>
+              {/* Nav Links Column */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', textAlign: 'left' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
+                  Navigation
+                </h3>
+                <a href="#home" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Home</a>
+                <a href="#products" onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Products</a>
+                <a href="#contact" onClick={(e) => { e.preventDefault(); alert('Contact: support@electromark.com'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Contact Us</a>
+              </div>
 
-    {/* ============ MIDDLE SECTION: Social Icons + Admin Button ============ */}
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem', marginBottom: '2.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-      
-      {/* LEFT: Social Media Icons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-        <span style={{ color: '#94a3b8', fontSize: '0.9rem', fontWeight: '600' }}>Follow Us:</span>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <a href="#" className="btn-social-icon" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
-              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.47 1.47-3.84 3.73-3.84 1.08 0 2.22.19 2.22.19v2.44h-1.25c-1.23 0-1.61.76-1.61 1.54V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z"/>
-            </svg>
-          </a>
-          <a href="#" className="btn-social-icon" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
-          <a href="#" className="btn-social-icon" aria-label="Twitter">
-            <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+              {/* Legal Column */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', textAlign: 'left' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
+                  Legal
+                </h3>
+                <a href="#terms" onClick={(e) => { e.preventDefault(); setCurrentPage('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                  Terms & Conditions
+                </a>
+                <a href="#privacy" onClick={(e) => { e.preventDefault(); setCurrentPage('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                  Privacy Policy
+                </a>
+                <a href="#about" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                  About Us
+                </a>
+              </div>
 
-      {/* RIGHT: Admin Button */}
-      <div>
-        <button 
-          onClick={() => setCurrentPage('login')} 
-          style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.4)', padding: '0.7rem 1.8rem', borderRadius: '30px', color: '#38bdf8', fontSize: '0.95rem', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', backdropFilter: 'blur(10px)', transition: 'all 0.3s' }}
-          onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.25)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(56, 189, 248, 0.4)'; }}
-          onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.1)'; e.currentTarget.style.boxShadow = 'none'; }}
-        >
-          <svg style={{ width: '18px', height: '18px', fill: 'currentColor' }} viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-          </svg>
-          Admin Portal Access
-        </button>
-      </div>
+            </div>
 
-    </div>
-
-    {/* ============ BOTTOM SECTION: Copyright LEFT + Apex Code RIGHT ============ */}
-    <div className="footer-bottom-wrapper">
-      
-      {/* LEFT SIDE: Copyright Line */}
-      <div className="footer-copyright-line">
-        <p className="footer-copyright-text">
-          © {new Date().getFullYear()}{' '}
-          <span className="footer-brand-highlight">Electro Mark</span>
-          . All rights reserved. Designed for Excellence.
-        </p>
-      </div>
-
-      {/* RIGHT SIDE: Ultra Premium Apex Code Section */}
-      <div className="apex-right-container">
-        
-        {/* Purple Glowing Animated Avatar Logo */}
-        <div className="apex-purple-glow-avatar">
-          <div className="apex-purple-border-ring"></div>
-          <div className="apex-purple-border-ring-2"></div>
-          <div className="apex-purple-avatar-inner">
-            <img 
-              src="apex.jpeg"
-              alt="Apex Code Logo" 
-              className="apex-purple-avatar-img"
-            />
-          </div>
-          <div className="apex-avatar-glow"></div>
-        </div>
-
-        {/* Brand Details & Links */}
-        <div className="apex-clean-info">
-          <div className="apex-clean-header">
-            <span className="apex-sub-text">
-              <span className="apex-sub-line"></span>
-              DEVELOPED BY
-              <span className="apex-sub-line"></span>
-            </span>
-            <h3 className="apex-main-brand">
-              <span className="apex-brand-letter">A</span>
-              <span className="apex-brand-letter">P</span>
-              <span className="apex-brand-letter">E</span>
-              <span className="apex-brand-letter">X</span>
-              <span className="apex-brand-space"></span>
-              <span className="apex-brand-letter">C</span>
-              <span className="apex-brand-letter">O</span>
-              <span className="apex-brand-letter">D</span>
-              <span className="apex-brand-letter">E</span>
-              <span className="apex-purple-dot">.</span>
-            </h3>
           </div>
 
-          <div className="apex-clean-links">
-            {/* Website Link */}
-            <a 
-              href="https://www.bookapexcode.store" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="apex-glow-link"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-              </svg>
-              <span>www.bookapexcode.store</span>
-            </a>
+          {/* ============ MIDDLE SECTION: Social Icons + Admin Button ============ */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem', marginBottom: '2.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
 
-            <span className="apex-dot-divider">•</span>
+            {/* LEFT: Social Media Icons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+              <span style={{ color: '#94a3b8', fontSize: '0.9rem', fontWeight: '600' }}>Follow Us:</span>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <a href="#" className="btn-social-icon" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
+                    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.47 1.47-3.84 3.73-3.84 1.08 0 2.22.19 2.22.19v2.44h-1.25c-1.23 0-1.61.76-1.61 1.54V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                  </svg>
+                </a>
+                <a href="#" className="btn-social-icon" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+                <a href="#" className="btn-social-icon" aria-label="Twitter">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
 
-            {/* Email Link */}
-            <a href="mailto:book.apexcode@gmail.com" className="apex-glow-link">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              <span>book.apexcode@gmail.com</span>
-            </a>
+            {/* RIGHT: Admin Button */}
+            <div>
+              <button
+                onClick={() => setCurrentPage('login')}
+                style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.4)', padding: '0.7rem 1.8rem', borderRadius: '30px', color: '#38bdf8', fontSize: '0.95rem', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', backdropFilter: 'blur(10px)', transition: 'all 0.3s' }}
+                onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.25)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(56, 189, 248, 0.4)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.1)'; e.currentTarget.style.boxShadow = 'none'; }}
+              >
+                <svg style={{ width: '18px', height: '18px', fill: 'currentColor' }} viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+                </svg>
+                Admin Portal Access
+              </button>
+            </div>
 
-            <span className="apex-dot-divider">•</span>
-
-            {/* Phone Link */}
-            <a href="tel:03421287734" className="apex-glow-link">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-              </svg>
-              <span>0342-1287734</span>
-            </a>
           </div>
+
+          {/* ============ BOTTOM SECTION: Copyright LEFT + Apex Code RIGHT ============ */}
+          <div className="footer-bottom-wrapper">
+
+            {/* LEFT SIDE: Copyright Line */}
+            <div className="footer-copyright-line">
+              <p className="footer-copyright-text">
+                © {new Date().getFullYear()}{' '}
+                <span className="footer-brand-highlight">Electro Mark</span>
+                . All rights reserved. Designed for Excellence.
+              </p>
+            </div>
+
+            {/* RIGHT SIDE: Ultra Premium Apex Code Section */}
+            <div className="apex-right-container">
+
+              {/* Purple Glowing Animated Avatar Logo */}
+              <div className="apex-purple-glow-avatar">
+                <div className="apex-purple-border-ring"></div>
+                <div className="apex-purple-border-ring-2"></div>
+                <div className="apex-purple-avatar-inner">
+                  <img
+                    src="apex.jpeg"
+                    alt="Apex Code Logo"
+                    className="apex-purple-avatar-img"
+                  />
+                </div>
+                <div className="apex-avatar-glow"></div>
+              </div>
+
+              {/* Brand Details & Links */}
+              <div className="apex-clean-info">
+                <div className="apex-clean-header">
+                  <span className="apex-sub-text">
+                    <span className="apex-sub-line"></span>
+                    DEVELOPED BY
+                    <span className="apex-sub-line"></span>
+                  </span>
+                  <h3 className="apex-main-brand">
+                    <span className="apex-brand-letter">A</span>
+                    <span className="apex-brand-letter">P</span>
+                    <span className="apex-brand-letter">E</span>
+                    <span className="apex-brand-letter">X</span>
+                    <span className="apex-brand-space"></span>
+                    <span className="apex-brand-letter">C</span>
+                    <span className="apex-brand-letter">O</span>
+                    <span className="apex-brand-letter">D</span>
+                    <span className="apex-brand-letter">E</span>
+                    <span className="apex-purple-dot">.</span>
+                  </h3>
+                </div>
+
+                <div className="apex-clean-links">
+                  {/* Website Link */}
+                  <a
+                    href="https://www.bookapexcode.store"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="apex-glow-link"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    <span>www.bookapexcode.store</span> 
+                  </a>
+
+                  <span className="apex-dot-divider">•</span>
+
+                  {/* Email Link */}
+                  <a href="mailto:book.apexcode@gmail.com" className="apex-glow-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    <span>book.apexcode@gmail.com</span>
+                  </a>
+
+                  <span className="apex-dot-divider">•</span>
+
+                  {/* Phone Link */}
+                  <a href="tel:03421287734" className="apex-glow-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="apex-link-icon">
+                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                    </svg>
+                    <span>0342-1287734</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</footer>
+      </footer>
     </div>
   );
 };
