@@ -26,19 +26,22 @@ const App = () => {
   const [isAdmin, setIsAdmin] = React.useState(false);
   // --- CART STATES ---
   const [cartItems, setCartItems] = React.useState([]);
-    React.useEffect(() => {
-    const path = window.location.pathname;
-    const matched = Object.keys(pageRoutes).find(k => path.startsWith(pageRoutes[k]) && pageRoutes[k] !== '/');
-    setCurrentPage(matched || (path === '/' ? 'home' : 'home'));
-
-    const handlePopState = () => {
-      const p = window.location.pathname;
-      const key = Object.keys(pageRoutes).find(k => pageRoutes[k] !== '/' && p.startsWith(pageRoutes[k]));
-      setCurrentPage(key || 'home');
+     React.useEffect(() => {
+    const resolvePage = (path) => {
+      const key = Object.keys(pageRoutes).find(k => pageRoutes[k] !== '/' && path.startsWith(pageRoutes[k]));
+      if (key === 'dashboard' && !isAdmin) {
+        window.history.replaceState({}, '', '/login');
+        return 'login';
+      }
+      return key || 'home';
     };
+
+    setCurrentPage(resolvePage(window.location.pathname));
+
+    const handlePopState = () => setCurrentPage(resolvePage(window.location.pathname));
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [isAdmin]);
   const [selectedCartIds, setSelectedCartIds] = React.useState([]);
 
   // Add to Cart Handler
@@ -123,7 +126,7 @@ const App = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email === 'parashamza955@gmail.com' && password === adminPassword) {
-      setCurrentPage('dashboard');
+      navigateTo('dashboard');
       setIsAdmin(true); // <--- Yeh add karein
       setError('');
     } else {
@@ -187,7 +190,7 @@ const App = () => {
       images: product.images || []
     });
     setEditingId(product._id);
-    setCurrentPage('dashboard');
+    navigateTo('dashboard');
     setAdminTab('upload-product');
   };
 
@@ -222,7 +225,7 @@ const App = () => {
       const updated = await fetch('https://electro-mark.onrender.com/api/products').then(r => r.json());
       setProducts(updated);
       // setCurrentPage('products'); // Redirect to products page beautifully
-      setCurrentPage('dashboard');
+      navigateTo('dashboard');
       setAdminTab('dashboard');
     }
   };
@@ -538,7 +541,7 @@ const App = () => {
             </a>
             <a
               href="#products"
-              onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }}
+              onClick={(e) => { e.preventDefault(); navigateTo('products'); }}
               className={`nav-link ${currentPage === 'products' ? 'active' : ''}`}
             >
               Products
@@ -547,7 +550,7 @@ const App = () => {
             {isAdmin && (
               <a
                 href="#dashboard"
-                onClick={(e) => { e.preventDefault(); setCurrentPage('dashboard'); }}
+                onClick={(e) => { e.preventDefault(); navigateTo('dashboard'); }}
                 className={`nav-link admin-link ${currentPage === 'dashboard' ? 'active' : ''}`}
               >
                 ⚡ Admin
@@ -561,7 +564,7 @@ const App = () => {
             {/* Sleek Icon Cart Button */}
             <a
               href="#cart"
-              onClick={(e) => { e.preventDefault(); setCurrentPage('cart'); }}
+              onClick={(e) => { e.preventDefault(); navigateTo('cart'); }}
               className={`icon-btn ${currentPage === 'cart' ? 'active' : ''}`}
               title="View Cart"
             >
@@ -579,7 +582,7 @@ const App = () => {
             {/* Primary CTA (Gradient Button) for Checkout */}
             <a
               href="#checkout"
-              onClick={(e) => { e.preventDefault(); setCurrentPage('checkout'); }}
+              onClick={(e) => { e.preventDefault(); navigateTo('checkout'); }}
               className="cta-btn"
             >
               <span>Checkout</span>
@@ -699,7 +702,7 @@ const App = () => {
 
                         {/* 1. Explore Products Button */}
                         <button
-                          onClick={() => setCurrentPage('products')}
+                          onClick={() => navigateTo('products')}
                           style={{
                             padding: '1.1rem 2.2rem',
                             background: 'linear-gradient(135deg, #38bdf8, #2563eb)',
@@ -3446,7 +3449,7 @@ const App = () => {
               <div className="showcase-view-all-wrap">
                 <button
                   className="showcase-view-all-btn"
-                  onClick={() => setCurrentPage('products')}
+                  onClick={() => navigateTo('products')}
                 >
                   View Full Catalog ({products.length}) 🛍️
                 </button>
@@ -4307,7 +4310,7 @@ const App = () => {
         )}
 
         {/* Dashboard Page */}
-        {currentPage === 'dashboard' && (
+        {currentPage === 'dashboard' && isAdmin && (
           <div className="admin-wrapper">
             {/* Sidebar Navigation */}
             <aside className="admin-sidebar">
@@ -4349,7 +4352,7 @@ const App = () => {
                 </button>
               </nav>
 
-              <button className="sidebar-btn btn-logout" onClick={() => { setCurrentPage('home'); setIsAdmin(false); }}>
+              <button className="sidebar-btn btn-logout" onClick={() => { navigateTo('home'); setIsAdmin(false); }}>
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
                 Logout
               </button>
@@ -5501,7 +5504,7 @@ const App = () => {
                     {/* Image Section */}
                     <div
                       className="product-card-image"
-                      onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                      onClick={() => { setSelectedProduct(product); navigateTo('product-detail', '/' + product._id); }}
                     >
                       <img
                         className="glowing-card-img"
@@ -5514,7 +5517,7 @@ const App = () => {
                     <div className="product-card-content">
                       <h3
                         className="product-card-name"
-                        onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                        onClick={() => { setSelectedProduct(product); navigateTo('product-detail', '/' + product._id); }}
                       >
                         {product.name}
                       </h3>
@@ -5561,7 +5564,7 @@ const App = () => {
                           🛒 Add
                         </button>
                         <button
-                          onClick={() => { setSelectedProduct(product); setCurrentPage('product-detail'); }}
+                          onClick={() => { setSelectedProduct(product); navigateTo('product-detail', '/' + product._id); }}
                           className="glow-btn-primary product-card-btn-explore"
                         >
                           Explore →
@@ -6729,7 +6732,7 @@ const App = () => {
 
               {/* Top Navigation */}
               <div className="animate-item back-button-wrapper">
-                <button onClick={() => setCurrentPage('products')} className="premium-back-btn">
+                <button onClick={() => navigateTo('products')} className="premium-back-btn">
                   <span className="back-btn-icon">←</span>
                   <span className="back-btn-text">Back to Collection</span>
                 </button>
@@ -6833,7 +6836,7 @@ const App = () => {
                           if (!selectedCartIds.includes(selectedProduct._id)) {
                             setSelectedCartIds([...selectedCartIds, selectedProduct._id]);
                           }
-                          setCurrentPage('checkout');
+                          navigateTo('checkout');
                         }}
                       >
                         🚀 Proceed to Buy Now
@@ -7131,7 +7134,7 @@ const App = () => {
               {cartItems.length === 0 ? (
                 <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '3rem', borderRadius: '20px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <p style={{ fontSize: '1.2rem', color: '#94a3b8' }}>Your cart is empty!</p>
-                  <button onClick={() => setCurrentPage('products')} style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', background: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}>
+                  <button onClick={() => navigateTo('products')} style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', background: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}>
                     Explore Products
                   </button>
                 </div>
@@ -7191,7 +7194,7 @@ const App = () => {
                     </div>
                     <button
                       disabled={selectedItems.length === 0}
-                      onClick={() => setCurrentPage('checkout')}
+                      onClick={() => navigateTo('checkout')}
                       style={{ width: '100%', padding: '1.1rem', background: selectedItems.length > 0 ? 'linear-gradient(135deg, #38bdf8, #2563eb)' : '#334155', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: selectedItems.length > 0 ? 'pointer' : 'not-allowed' }}
                     >
                       Buy Now ({selectedItems.length})
@@ -8721,7 +8724,7 @@ const App = () => {
                   onClick={() => {
                     setCartItems([]);
                     setSelectedCartIds([]);
-                    setCurrentPage('products');
+                    navigateTo('products');
                   }}
                   style={{ padding: '1.2rem 2.5rem', background: 'linear-gradient(135deg, #38bdf8, #2563eb)', color: '#fff', border: 'none', borderRadius: '18px', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 0 25px rgba(56, 189, 248, 0.4)' }}
                 >
@@ -8761,7 +8764,8 @@ const App = () => {
                   Navigation
                 </h3>
                 <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Home</a>
-                <a href="#products" onClick={(e) => { e.preventDefault(); setCurrentPage('products'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Products</a>
+                <a href="#products" onClick={(e) => { e.preventDefault(); navigateTo('products'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Products</a>
+                
                 <a href="#contact" onClick={(e) => { e.preventDefault(); alert('Contact: support@electromark.com'); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>Contact Us</a>
               </div>
 
@@ -8770,13 +8774,13 @@ const App = () => {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 0.5rem 0' }}>
                   Legal
                 </h3>
-                <a href="#terms" onClick={(e) => { e.preventDefault(); setCurrentPage('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                <a href="#terms" onClick={(e) => { e.preventDefault(); navigateTo('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
                   Terms & Conditions
                 </a>
-                <a href="#privacy" onClick={(e) => { e.preventDefault(); setCurrentPage('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                <a href="#privacy" onClick={(e) => { e.preventDefault(); navigateTo('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
                   Privacy Policy
                 </a>
-                <a href="#about" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
+                <a href="#about" onClick={(e) => { e.preventDefault(); navigateTo('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ color: '#cbd5e1', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#38bdf8'} onMouseOut={(e) => e.target.style.color = '#cbd5e1'}>
                   About Us
                 </a>
               </div>
