@@ -106,27 +106,55 @@
   </svg>
   Install App
 </button>
+
   <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('pwa-install-btn');
+  let deferredPrompt;
+  const installBtn = document.getElementById('pwa-install-btn');
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'block';
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
+  // Check karne ke liye ke app pehle se standalone/app mode me khuli hai ya nahi
+  function checkIfInstalled() {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+                      || window.navigator.standalone 
+                      || document.referrer.includes('android-app://');
+    
+    if (isStandalone) {
       installBtn.style.display = 'none';
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    });
+      return true;
+    }
+    return false;
+  }
 
-    window.addEventListener('appinstalled', () => {
-      installBtn.style.display = 'none';
-    });
-  </script>
+  // Page load hone par check karein
+  window.addEventListener('DOMContentLoaded', () => {
+    checkIfInstalled();
+  });
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Agar app pehle se installed mode me open hai, to prompt ko prevent karein aur button hide rakhein
+    if (checkIfInstalled()) return;
+
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'flex'; // Ya 'block'
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    installBtn.style.display = 'none';
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('User accepted the install prompt');
+    }
+    deferredPrompt = null;
+  });
+
+  // Jab app successfully install ho jaye to button permanent hide ho jaye
+  window.addEventListener('appinstalled', () => {
+    installBtn.style.display = 'none';
+    deferredPrompt = null;
+  });
+</script>
+
 </body>
 </html>
