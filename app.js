@@ -883,8 +883,6 @@ const App = () => {
   `}</style>
 
               {/* Left & Right Glass Gradient Fade Mask */}
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '140px', height: '100%', background: 'linear-gradient(to right, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
-              <div style={{ position: 'absolute', top: 0, right: 0, width: '140px', height: '100%', background: 'linear-gradient(to left, #0f172a 20%, transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
 
               <div className="slider-track">
                 {[
